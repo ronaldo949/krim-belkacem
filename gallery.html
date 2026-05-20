@@ -70,56 +70,15 @@
                     <div class="social-icons">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
                         <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>© <span class="current-year">2026</span> ثانوية كريم بلقاسم - جميع الحقوق محفوظة</p>
+                <p>&copy; <span class="current-year">2026</span> ثانوية كريم بلقاسم - جميع الحقوق محفوظة</p>
             </div>
         </div>
     </footer>
 
     <script src="js/main.js"></script>
-    <script>
-        const galleryItems = [
-            { id: 1, category: "activities", title: "يوم النشاط العلمي", imgName: "activity1.jpg" },
-            { id: 2, category: "events", title: "حفل تخرج دفعة 2024", imgName: "event1.jpg" },
-            { id: 3, category: "sports", title: "اليوم الرياضي", imgName: "sport1.jpg" },
-            { id: 4, category: "classes", title: "قسم السنة الثالثة", imgName: "class1.jpg" },
-            { id: 5, category: "activities", title: "رحلة مدرسية", imgName: "activity2.jpg" },
-            { id: 6, category: "events", title: "يوم العلم", imgName: "event2.jpg" },
-            { id: 7, category: "sports", title: "بطولة كرة القدم", imgName: "activity3.jpg" },
-            { id: 8, category: "classes", title: "مخبر العلوم", imgName: "class2.jpg" }
-        ];
-
-        function loadGallery(category = "all") {
-            const grid = document.getElementById('galleryGrid');
-            const filtered = category === "all" ? galleryItems : galleryItems.filter(item => item.category === category);
-            
-            grid.innerHTML = filtered.map(item => `
-                <div class="gallery-item">
-                    <div class="gallery-img">
-                        <i class="fas fa-image"></i>
-                        <p style="position: absolute; font-size: 12px; margin-top: 40px;">📷 ${item.imgName}</p>
-                    </div>
-                    <div class="gallery-info">
-                        <h3>${item.title}</h3>
-                        <p>ضعي الصورة في مجلد images/ باسم ${item.imgName}</p>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        document.querySelectorAll('.category-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                loadGallery(btn.dataset.category);
-            });
-        });
-
-        loadGallery();
-    </script>
 </body>
 </html>
