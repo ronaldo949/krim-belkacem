@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة الأستاذ - ثانوية كريم بلقاسم</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></div>
+    <div class="dashboard-wrapper">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header"><i class="fas fa-chalkboard-user" style="font-size:2rem;"></i><h3>أستاذ رشيد معمري</h3><p>أستاذ مادة الرياضيات</p></div>
+            <nav class="sidebar-nav">
+                <a href="#" class="active" data-section="dashboard"><i class="fas fa-home"></i> الرئيسية</a>
+                <a href="#" data-section="classes"><i class="fas fa-users"></i> الفصول</a>
+                <a href="#" data-section="grades"><i class="fas fa-chart-line"></i> رصد الدرجات</a>
+                <a href="#" data-section="schedule"><i class="fas fa-calendar"></i> جدولي</a>
+                <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> تسجيل خروج</a>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <div id="dashboardSection"><h2>مرحباً أستاذ رشيد</h2><div class="info-card"><h3>الفصول التي تدرسها</h3><ul><li>السنة أولى ثانوي - رياضيات (شعبة 1)</li><li>السنة ثانية ثانوي - رياضيات (شعبة 2)</li><li>السنة ثالثة ثانوي - رياضيات (شعبة علوم)</li></ul></div><div class="info-card"><h3>جدول الحصص اليوم</h3><ul><li>8:00 - 9:00: السنة أولى ثانوي</li><li>10:15 - 11:15: السنة ثانية ثانوي</li><li>12:45 - 13:45: السنة ثالثة ثانوي</li></ul></div></div>
+            <div id="classesSection" style="display:none;"><h2>الفصول الدراسية</h2><div class="info-card"><div class="grade-selector"><button class="grade-btn" data-grade="10">أولى ثانوي</button><button class="grade-btn" data-grade="11">ثانية ثانوي</button><button class="grade-btn" data-grade="12">ثالثة ثانوي</button></div><div id="studentsList"><table class="schedule-table"><thead><tr><th>#</th><th>اسم التلميذ</th><th>رقم الجلوس</th><th>الحالة</th></tr></thead><tbody><tr><td>1</td><td>أحمد معمري</td><td>25</td><td>نشط</td></tr><tr><td>2</td><td>سارة خالد</td><td>26</td><td>نشط</td></tr><tr><td>3</td><td>محمد عبدالله</td><td>27</td><td>نشط</td></tr></tbody></table></div></div></div>
+            <div id="gradesSection" style="display:none;"><h2>رصد الدرجات - مادة الرياضيات</h2><div class="info-card"><label>اختر الفصل الدراسي:</label><select style="padding:8px;margin:10px 0;"><option>الفصل الأول 2024-2025</option><option>الفصل الثاني 2024-2025</option></select><table class="schedule-table"><thead><tr><th>اسم التلميذ</th><th>الدرجة (40)</th><th>حفظ</th></tr></thead><tbody><tr><td>أحمد معمري</td>:<input type="number" style="width:70px;padding:5px;" value="38"></td>:<button class="download-btn" style="background:#27ae60;">حفظ</button></td></tr>
+                <tr><td>سارة خالد</td><td><input type="number" style="width:70px;padding:5px;" value="39"></td><td><button class="download-btn" style="background:#27ae60;">حفظ</button></td></tr>
+            </tbody></table></div></div>
+        </main>
+    </div>
+    <script>
+        document.querySelectorAll('.sidebar-nav a[data-section]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const section = link.dataset.section;
+                ['dashboard', 'classes', 'grades', 'schedule'].forEach(s => {
+                    const el = document.getElementById(`${s}Section`);
+                    if(el) el.style.display = 'none';
+                });
+                document.getElementById(`${section}Section`).style.display = 'block';
+                document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
+                link.classList.add('active');
+            });
+        });
+        document.getElementById('menuToggle')?.addEventListener('click', () => { document.getElementById('sidebar')?.classList.toggle('open'); });
+        document.getElementById('logoutBtn')?.addEventListener('click', (e) => { e.preventDefault(); localStorage.removeItem('userRole'); window.location.href = 'login.html'; });
+    </script>
+</body>
+</html>
