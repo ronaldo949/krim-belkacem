@@ -44,8 +44,8 @@
             <div class="files-section">
                 <h2><i class="fas fa-calendar-alt"></i> جداول الامتحانات</h2>
                 <ul class="files-list">
-                    <li><div><i class="fas fa-file-pdf" style="color:#e74c3c; font-size:1.5rem;"></i> جدول امتحانات الفصل الأول 2024-2025</div><a href="files/exam-schedule-term1.pdf" class="download-btn" download>تحميل</a></li>
-                    <li><div><i class="fas fa-file-pdf" style="color:#e74c3c; font-size:1.5rem;"></i> جدول امتحانات الفصل الثاني 2024-2025</div><a href="files/exam-schedule-term2.pdf" class="download-btn" download>تحميل</a></li>
+                    <li><div><i class="fas fa-file-pdf" style="color:#e74c3c; font-size:1.5rem;"></i> جدول امتحانات الفصل الأول 2025-2026</div><a href="files/exam-schedule-term1.pdf" class="download-btn" download>تحميل</a></li>
+                    <li><div><i class="fas fa-file-pdf" style="color:#e74c3c; font-size:1.5rem;"></i> جدول امتحانات الفصل الثاني 2025-2026</div><a href="files/exam-schedule-term2.pdf" class="download-btn" download>تحميل</a></li>
                 </ul>
             </div>
 
@@ -87,58 +87,15 @@
                     <div class="social-icons">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
                         <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>© <span class="current-year">2026</span> ثانوية كريم بلقاسم - جميع الحقوق محفوظة</p>
+                <p>&copy; <span class="current-year">2026</span> ثانوية كريم بلقاسم - جميع الحقوق محفوظة</p>
             </div>
         </div>
     </footer>
 
     <script src="js/main.js"></script>
-    <script>
-        const schedules = {
-            10: { title: "السنة أولى ثانوي - جدول الحصص", schedule: [
-                { day: "الأحد", p1: "رياضيات", p2: "فيزياء", p3: "عربية", p4: "إنجليزية", p5: "إسلامية" },
-                { day: "الإثنين", p1: "فرنسية", p2: "رياضيات", p3: "تاريخ", p4: "فيزياء", p5: "تربية بدنية" },
-                { day: "الثلاثاء", p1: "فيزياء", p2: "عربية", p3: "رياضيات", p4: "إنجليزية", p5: "جغرافيا" },
-                { day: "الأربعاء", p1: "رياضيات", p2: "فرنسية", p3: "فيزياء", p4: "إسلامية", p5: "فلسفة" },
-                { day: "الخميس", p1: "إنجليزية", p2: "تاريخ", p3: "رياضيات", p4: "فرنسية", p5: "جغرافيا" }
-            ] },
-            11: { title: "السنة ثانية ثانوي - علوم تجريبية", schedule: [
-                { day: "الأحد", p1: "رياضيات", p2: "فيزياء", p3: "علوم", p4: "عربية", p5: "إنجليزية" },
-                { day: "الإثنين", p1: "فرنسية", p2: "رياضيات", p3: "فيزياء", p4: "علوم", p5: "فلسفة" },
-                { day: "الثلاثاء", p1: "فيزياء", p2: "علوم", p3: "رياضيات", p4: "إنجليزية", p5: "تربية بدنية" },
-                { day: "الأربعاء", p1: "رياضيات", p2: "فرنسية", p3: "علوم", p4: "فيزياء", p5: "عربية" },
-                { day: "الخميس", p1: "إنجليزية", p2: "فلسفة", p3: "رياضيات", p4: "فيزياء", p5: "علوم" }
-            ] },
-            12: { title: "السنة ثالثة ثانوي - علوم تجريبية", schedule: [
-                { day: "الأحد", p1: "رياضيات", p2: "فيزياء", p3: "علوم", p4: "عربية", p5: "إنجليزية" },
-                { day: "الإثنين", p1: "فرنسية", p2: "رياضيات", p3: "فيزياء", p4: "علوم", p5: "فلسفة" },
-                { day: "الثلاثاء", p1: "فيزياء", p2: "علوم", p3: "رياضيات", p4: "إنجليزية", p5: "تربية بدنية" },
-                { day: "الأربعاء", p1: "رياضيات", p2: "فرنسية", p3: "علوم", p4: "فيزياء", p5: "عربية" },
-                { day: "الخميس", p1: "إنجليزية", p2: "فلسفة", p3: "رياضيات", p4: "فيزياء", p5: "علوم" }
-            ] }
-        };
-
-        function loadSchedule(grade) {
-            const data = schedules[grade];
-            let html = `<h3>${data.title}</h3><table class="schedule-table"><thead><tr><th>اليوم</th><th>8:00-9:00</th><th>9:00-10:00</th><th>10:15-11:15</th><th>11:15-12:15</th><th>12:45-13:45</th></tr></thead><tbody>`;
-            data.schedule.forEach(row => { html += `<tr><td>${row.day}</td><td>${row.p1}</td><td>${row.p2}</td><td>${row.p3}</td><td>${row.p4}</td><td>${row.p5}</td></tr>`; });
-            html += `</tbody></table>`;
-            document.getElementById('scheduleContent').innerHTML = html;
-        }
-
-        document.querySelectorAll('.grade-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.grade-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                loadSchedule(btn.dataset.grade);
-            });
-        });
-        loadSchedule('10');
-    </script>
 </body>
 </html>
