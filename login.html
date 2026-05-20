@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول - ثانوية كريم بلقاسم</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <div class="login-logo">
+                    <i class="fas fa-school"></i>
+                    <h2>ثانوية كريم بلقاسم</h2>
+                </div>
+                <p>منصة التلميذ الإلكترونية</p>
+            </div>
+            
+            <div class="login-tabs">
+                <button class="tab-btn active" data-tab="student">تلميذ</button>
+                <button class="tab-btn" data-tab="teacher">أستاذ</button>
+                <button class="tab-btn" data-tab="admin">إدارة</button>
+            </div>
+            
+            <div id="studentTab" class="login-form active">
+                <div class="form-group"><label>الرقم الدراسي</label><input type="text" id="studentId" placeholder="مثال: 2024001" value="2024001"></div>
+                <div class="form-group"><label>كلمة المرور</label><input type="password" id="studentPassword" placeholder="********" value="123456"></div>
+                <button class="login-submit" id="studentLoginBtn">دخول</button>
+            </div>
+            
+            <div id="teacherTab" class="login-form">
+                <div class="form-group"><label>البريد الإلكتروني</label><input type="email" id="teacherEmail" placeholder="professeur@karimbelkacem.dz" value="prof@karimbelkacem.dz"></div>
+                <div class="form-group"><label>كلمة المرور</label><input type="password" id="teacherPassword" placeholder="********" value="123456"></div>
+                <button class="login-submit" id="teacherLoginBtn">دخول</button>
+            </div>
+            
+            <div id="adminTab" class="login-form">
+                <div class="form-group"><label>البريد الإلكتروني</label><input type="email" id="adminEmail" placeholder="admin@karimbelkacem.dz" value="admin@karimbelkacem.dz"></div>
+                <div class="form-group"><label>كلمة المرور</label><input type="password" id="adminPassword" placeholder="********" value="admin123"></div>
+                <button class="login-submit" id="adminLoginBtn">دخول</button>
+            </div>
+            
+            <div class="demo-info">
+                <i class="fas fa-info-circle"></i> حساب تجريبي: الرقم 2024001 / 123456
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                document.querySelectorAll('.login-form').forEach(form => form.classList.remove('active'));
+                document.getElementById(`${btn.dataset.tab}Tab`).classList.add('active');
+            });
+        });
+        document.getElementById('studentLoginBtn')?.addEventListener('click', () => { localStorage.setItem('userRole', 'student'); window.location.href = 'student-dashboard.html'; });
+        document.getElementById('teacherLoginBtn')?.addEventListener('click', () => { localStorage.setItem('userRole', 'teacher'); window.location.href = 'teacher-dashboard.html'; });
+        document.getElementById('adminLoginBtn')?.addEventListener('click', () => { localStorage.setItem('userRole', 'admin'); window.location.href = 'admin-dashboard.html'; });
+    </script>
+</body>
+</html>
