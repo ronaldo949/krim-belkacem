@@ -110,61 +110,57 @@
             transform: translateY(-3px);
         }
 
-        .grade-selector {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            margin-bottom: 25px;
+        .bac-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit,
+                minmax(280px,1fr));
+            gap: 25px;
         }
 
-        .grade-btn {
+        .bac-card {
+            background: linear-gradient(135deg,
+                var(--primary),
+                var(--primary-dark));
+            color: white;
+            padding: 30px;
+            border-radius: 24px;
+            transition: 0.3s;
+            text-align: center;
+        }
+
+        .bac-card:hover {
+            transform: translateY(-6px);
+        }
+
+        .bac-card i {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .bac-card h3 {
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .bac-card p {
+            line-height: 1.8;
+            margin-bottom: 20px;
+            opacity: 0.95;
+        }
+
+        .bac-card a {
+            display: inline-block;
+            background: white;
+            color: var(--primary);
             padding: 12px 24px;
-            border: none;
             border-radius: 14px;
-            background: #e2e8f0;
-            color: #1e293b;
-            font-family: inherit;
+            text-decoration: none;
             font-weight: 700;
-            cursor: pointer;
             transition: 0.3s;
         }
 
-        .grade-btn.active,
-        .grade-btn:hover {
-            background: linear-gradient(135deg,
-                var(--primary),
-                var(--primary-dark));
-            color: white;
-        }
-
-        .schedule-card {
-            overflow-x: auto;
-        }
-
-        .schedule-table {
-            width: 100%;
-            border-collapse: collapse;
-            min-width: 700px;
-        }
-
-        .schedule-table th {
-            background: linear-gradient(135deg,
-                var(--primary),
-                var(--primary-dark));
-            color: white;
-            padding: 18px;
-            font-size: 1rem;
-        }
-
-        .schedule-table td {
-            padding: 16px;
-            border-bottom: 1px solid #e2e8f0;
-            text-align: center;
-            background: white;
-        }
-
-        .schedule-table tr:hover td {
-            background: #f8fafc;
+        .bac-card a:hover {
+            transform: scale(1.05);
         }
 
         .important-box {
@@ -203,14 +199,6 @@
                 width: 100%;
                 text-align: center;
             }
-
-            .grade-selector {
-                flex-direction: column;
-            }
-
-            .grade-btn {
-                width: 100%;
-            }
         }
 
     </style>
@@ -225,8 +213,6 @@
 
         <div class="nav-container">
 
-            <!-- Logo -->
-
             <a href="index.html" class="logo">
 
                 <div class="logo-icon">
@@ -240,45 +226,21 @@
 
             </a>
 
-            <!-- Mobile Toggle -->
-
             <div class="nav-toggle" id="navToggle">
                 <i class="fas fa-bars"></i>
             </div>
 
-            <!-- Menu -->
-
             <ul class="nav-menu" id="navMenu">
 
-                <li>
-                    <a href="index.html">
-                        الرئيسية
-                    </a>
-                </li>
+                <li><a href="index.html">الرئيسية</a></li>
 
-                <li>
-                    <a href="about.html">
-                        عن الثانوية
-                    </a>
-                </li>
+                <li><a href="about.html">عن الثانوية</a></li>
 
-                <li>
-                    <a href="guidance.html">
-                        الإرشاد الدراسي
-                    </a>
-                </li>
+                <li><a href="guidance.html">الإرشاد الدراسي</a></li>
 
-                <li>
-                    <a href="tips-specialties.html">
-                        النصائح والتخصصات
-                    </a>
-                </li>
+                <li><a href="tips-specialties.html">النصائح والتخصصات</a></li>
 
-                <li>
-                    <a href="gallery.html">
-                        معرض الصور
-                    </a>
-                </li>
+                <li><a href="gallery.html">معرض الصور</a></li>
 
                 <li>
                     <a href="files-schedules.html" class="active">
@@ -286,11 +248,7 @@
                     </a>
                 </li>
 
-                <li>
-                    <a href="contact.html">
-                        اتصل بنا
-                    </a>
-                </li>
+                <li><a href="contact.html">اتصل بنا</a></li>
 
                 <li>
                     <a href="login.html" class="login-btn">
@@ -323,7 +281,7 @@
             </h1>
 
             <p>
-                تحميل الجداول والملخصات والدروس والوثائق المهمة الخاصة بالتلاميذ
+                تحميل الملخصات والدروس والوثائق المهمة الخاصة بالتلاميذ والتحضير لشهادة البكالوريا
             </p>
 
             <div class="hero-buttons">
@@ -336,9 +294,9 @@
                 </button>
 
                 <button class="hero-btn secondary-btn"
-                    onclick="document.getElementById('schedule').scrollIntoView({behavior:'smooth'})">
+                    onclick="document.getElementById('bac').scrollIntoView({behavior:'smooth'})">
 
-                    الجداول الدراسية
+                    مواضيع البكالوريا
 
                 </button>
 
@@ -365,7 +323,7 @@
 
     </header>
 
-    <!-- Files Section -->
+    <!-- Main Section -->
 
     <section class="section" id="files">
 
@@ -376,8 +334,11 @@
             <div class="files-section">
 
                 <h2>
+
                     <i class="fas fa-calendar-alt"></i>
+
                     جداول الامتحانات
+
                 </h2>
 
                 <ul class="files-list">
@@ -395,7 +356,7 @@
                                 </h4>
 
                                 <p>
-                                    يحتوي على جميع مواعيد الاختبارات الرسمية
+                                    جميع مواعيد اختبارات الفصل الأول لجميع المستويات
                                 </p>
 
                             </div>
@@ -424,7 +385,7 @@
                                 </h4>
 
                                 <p>
-                                    تنظيم اختبارات الفصل الثاني لجميع المستويات
+                                    البرنامج الكامل لاختبارات الفصل الثاني
                                 </p>
 
                             </div>
@@ -473,35 +434,85 @@
 
             </div>
 
-            <!-- Weekly Schedule -->
+            <!-- BAC Resources -->
 
-            <div class="files-section" id="schedule">
+            <div class="files-section" id="bac">
 
                 <h2>
-                    <i class="fas fa-clock"></i>
-                    الجداول الدراسية الأسبوعية
+
+                    <i class="fas fa-graduation-cap"></i>
+
+                    مواضيع شهادة البكالوريا
+
                 </h2>
 
-                <div class="grade-selector">
+                <div class="bac-links">
 
-                    <button class="grade-btn active"
-                        onclick="loadSchedule('first')">
+                    <div class="bac-card">
 
-                        السنة الأولى ثانوي
+                        <i class="fas fa-book-open"></i>
 
-                    </button>
+                        <h3>
+                            مواضيع البكالوريا مع الحلول
+                        </h3>
 
-                    <button class="grade-btn"
-                        onclick="loadSchedule('second')">
+                        <p>
+                            أرشيف كامل لمواضيع البكالوريا الجزائرية
+                            مع التصحيح النموذجي لجميع الشعب والمواد
+                        </p>
 
-                        السنة الثانية ثانوي
+                        <a href="https://www.dzexams.com/ar/bac"
+                            target="_blank">
 
-                    </button>
+                            فتح الموقع
 
-                </div>
+                        </a>
 
-                <div class="schedule-card"
-                    id="scheduleContent">
+                    </div>
+
+                    <div class="bac-card">
+
+                        <i class="fas fa-file-lines"></i>
+
+                        <h3>
+                            نماذج البكالوريا الرسمية
+                        </h3>
+
+                        <p>
+                            مواضيع السنوات السابقة الرسمية
+                            لمساعدة التلاميذ على التحضير الجيد
+                        </p>
+
+                        <a href="https://bac-algerie.net/sujets.html"
+                            target="_blank">
+
+                            تصفح النماذج
+
+                        </a>
+
+                    </div>
+
+                    <div class="bac-card">
+
+                        <i class="fas fa-globe"></i>
+
+                        <h3>
+                            موقع الديوان الوطني ONEC
+                        </h3>
+
+                        <p>
+                            الموقع الرسمي الخاص بالبكالوريا
+                            وسحب الاستدعاءات والنتائج
+                        </p>
+
+                        <a href="https://bac.onec.dz"
+                            target="_blank">
+
+                            زيارة الموقع
+
+                        </a>
+
+                    </div>
 
                 </div>
 
@@ -512,8 +523,11 @@
             <div class="files-section">
 
                 <h2>
+
                     <i class="fas fa-book-open"></i>
+
                     ملفات وملخصات تعليمية
+
                 </h2>
 
                 <ul class="files-list">
@@ -560,7 +574,7 @@
                                 </h4>
 
                                 <p>
-                                    تمارين تطبيقية للمراجعة والتحضير للاختبارات
+                                    تمارين تطبيقية للتحضير للاختبارات
                                 </p>
 
                             </div>
@@ -589,7 +603,7 @@
                                 </h4>
 
                                 <p>
-                                    قواعد ونصوص وتمارين دعم للمستويات الثانوية
+                                    قواعد وتمارين ونصوص للمراجعة النهائية
                                 </p>
 
                             </div>
@@ -614,8 +628,11 @@
             <div class="important-box">
 
                 <h3>
+
                     <i class="fas fa-circle-info"></i>
+
                     ملاحظات مهمة
+
                 </h3>
 
                 <ul>
@@ -625,15 +642,15 @@
                     </li>
 
                     <li>
-                        يرجى التأكد من تحميل آخر نسخة من الجداول قبل الامتحانات.
+                        مواضيع البكالوريا السابقة تساعد بشكل كبير على فهم طريقة الأسئلة الرسمية. :contentReference[oaicite:0]{index=0}
                     </li>
 
                     <li>
-                        في حالة وجود خطأ أو ملف ناقص يرجى التواصل مع الإدارة.
+                        الموقع الرسمي للديوان الوطني يسمح بسحب الاستدعاءات ومتابعة أخبار الامتحانات الرسمية. :contentReference[oaicite:1]{index=1}
                     </li>
 
                     <li>
-                        يمكن للتلاميذ الحصول على ملفات إضافية من الأساتذة عبر المنصة.
+                        ينصح بحل مواضيع السنوات السابقة مع احترام التوقيت الحقيقي للامتحان.
                     </li>
 
                 </ul>
@@ -670,22 +687,7 @@
                 <div class="stat-item">
 
                     <span class="stat-number"
-                        data-count="36">
-
-                        0
-
-                    </span>
-
-                    <span class="stat-label">
-                        جدول دراسي
-                    </span>
-
-                </div>
-
-                <div class="stat-item">
-
-                    <span class="stat-number"
-                        data-count="15">
+                        data-count="18">
 
                         0
 
@@ -693,6 +695,21 @@
 
                     <span class="stat-label">
                         مادة تعليمية
+                    </span>
+
+                </div>
+
+                <div class="stat-item">
+
+                    <span class="stat-number"
+                        data-count="250">
+
+                        0
+
+                    </span>
+
+                    <span class="stat-label">
+                        موضوع بكالوريا
                     </span>
 
                 </div>
@@ -789,8 +806,6 @@
                 </div>
 
             </div>
-
-            <!-- Footer Bottom -->
 
             <div class="footer-bottom">
 
