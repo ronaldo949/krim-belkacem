@@ -274,6 +274,8 @@ body{
 
     overflow:hidden;
 
+    padding-bottom:120px;
+
     background:
     linear-gradient(
         rgba(15,23,42,0.72),
@@ -292,6 +294,10 @@ body{
     padding:20px;
 
     animation:fadeUp 1s ease;
+
+    position:relative;
+
+    z-index:2;
 }
 
 .hero-badge{
@@ -396,11 +402,26 @@ body{
 
     position:absolute;
 
-    bottom:-10px;
+    bottom:-2px;
+
+    left:0;
 
     width:100%;
 
     line-height:0;
+
+    z-index:1;
+
+    overflow:hidden;
+}
+
+.hero-wave svg{
+
+    display:block;
+
+    width:100%;
+
+    height:auto;
 }
 
 /* =========================================
@@ -410,6 +431,10 @@ body{
 .section{
 
     padding:90px 0;
+
+    position:relative;
+
+    z-index:2;
 }
 
 .container{
@@ -550,6 +575,10 @@ body{
     box-shadow:var(--shadow);
 
     transition:var(--transition);
+
+    position:relative;
+
+    z-index:2;
 }
 
 .announcement-card:hover{
@@ -683,6 +712,10 @@ body{
     color:white;
 
     padding:70px 0 25px;
+
+    position:relative;
+
+    z-index:2;
 }
 
 .footer-content{
@@ -844,7 +877,7 @@ body{
 }
 
 /* =========================================
-   Modern Back To Top Button
+   Back To Top Button
 ========================================= */
 
 .back-to-top{
@@ -897,8 +930,6 @@ body{
     visibility:hidden;
 
     z-index:9999;
-
-    backdrop-filter:blur(10px);
 }
 
 .back-to-top.show{
@@ -913,23 +944,10 @@ body{
     transform:
     translateY(-6px)
     scale(1.08);
-
-    box-shadow:
-    0 14px 35px rgba(56,189,248,0.45);
-}
-
-.back-to-top:active{
-
-    transform:scale(0.95);
-}
-
-.back-to-top i{
-
-    pointer-events:none;
 }
 
 /* =========================================
-   Animations
+   Animation
 ========================================= */
 
 @keyframes fadeUp{
@@ -956,7 +974,6 @@ body{
 @media(max-width:768px){
 
     .nav-toggle{
-
         display:block;
     }
 
@@ -986,42 +1003,34 @@ body{
     }
 
     .nav-menu.active{
-
         right:0;
     }
 
     .hero-content h1{
-
         font-size:2.5rem;
     }
 
     .hero-content p{
-
         font-size:1rem;
     }
 
     .hero-buttons{
-
         flex-direction:column;
     }
 
     .hero-btn{
-
         width:100%;
     }
 
     .section{
-
         padding:70px 0;
     }
 
     .section-title{
-
         font-size:1.8rem;
     }
 
     .footer-content{
-
         text-align:center;
     }
 
@@ -1034,7 +1043,6 @@ body{
     }
 
     .social-icons{
-
         justify-content:center;
     }
 
@@ -1057,27 +1065,22 @@ body{
 @media(max-width:480px){
 
     .hero-content h1{
-
         font-size:2rem;
     }
 
     .section-title{
-
         font-size:1.5rem;
     }
 
     .card{
-
         padding:25px 18px;
     }
 
     .announcement-img{
-
         height:170px;
     }
 
     .stat-number{
-
         font-size:2.2rem;
     }
 }
