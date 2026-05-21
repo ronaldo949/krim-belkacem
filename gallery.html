@@ -174,15 +174,17 @@
 
             background: white;
 
-            padding: 30px;
+            padding: 35px 25px;
 
             border-radius: 1.5rem;
 
             text-align: center;
 
-            box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
 
-            transition: 0.3s;
+            transition: all 0.3s ease;
+
+            color: #1e293b;
         }
 
         .activity-box:hover {
@@ -201,7 +203,77 @@
 
         .activity-box h3 {
 
+            color: #0f172a;
+
             margin-bottom: 15px;
+
+            font-size: 1.3rem;
+        }
+
+        .activity-box p {
+
+            color: #64748b;
+
+            line-height: 1.9;
+        }
+
+        /* =========================================
+           Extra Info Section
+        ========================================= */
+
+        .info-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit,minmax(250px,1fr));
+
+            gap: 25px;
+
+            margin-top: 40px;
+        }
+
+        .info-card {
+
+            background: white;
+
+            border-radius: 1.5rem;
+
+            padding: 30px;
+
+            text-align: center;
+
+            box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+
+            transition: 0.3s;
+        }
+
+        .info-card:hover {
+
+            transform: translateY(-8px);
+        }
+
+        .info-card i {
+
+            font-size: 2.8rem;
+
+            color: var(--primary);
+
+            margin-bottom: 20px;
+        }
+
+        .info-card h3 {
+
+            margin-bottom: 15px;
+
+            color: var(--dark);
+        }
+
+        .info-card p {
+
+            color: #64748b;
+
+            line-height: 1.8;
         }
 
         /* =========================================
@@ -218,6 +290,11 @@
             .gallery-image {
 
                 height: 180px;
+            }
+
+            .hero h1 {
+
+                font-size: 2.2rem;
             }
         }
 
@@ -236,6 +313,7 @@
         <div class="nav-container">
 
             <!-- Logo -->
+
             <a href="index.html" class="logo">
 
                 <div class="logo-icon">
@@ -257,6 +335,7 @@
             </a>
 
             <!-- Mobile Toggle -->
+
             <div class="nav-toggle" id="navToggle">
 
                 <i class="fas fa-bars"></i>
@@ -264,6 +343,7 @@
             </div>
 
             <!-- Menu -->
+
             <ul class="nav-menu" id="navMenu">
 
                 <li>
@@ -341,9 +421,9 @@
             </h1>
 
             <p>
-                شاهد أبرز النشاطات والفعاليات
-                والإنجازات التي يعيشها تلاميذ
-                ثانوية كريم بلقاسم طوال السنة الدراسية.
+                اكتشف أجمل اللحظات والأنشطة
+                التعليمية والثقافية والرياضية
+                داخل ثانوية كريم بلقاسم.
             </p>
 
             <div class="hero-buttons">
@@ -358,7 +438,7 @@
                 <button class="hero-btn secondary-btn"
                     onclick="document.getElementById('activities').scrollIntoView({behavior:'smooth'})">
 
-                    النشاطات
+                    نشاطات الثانوية
 
                 </button>
 
@@ -367,6 +447,7 @@
         </div>
 
         <!-- Wave -->
+
         <div class="hero-wave">
 
             <svg viewBox="0 0 1440 320">
@@ -398,6 +479,7 @@
             </h2>
 
             <!-- Categories -->
+
             <div class="gallery-categories">
 
                 <button class="category-btn active"
@@ -437,147 +519,10 @@
 
             </div>
 
-            <!-- Gallery -->
+            <!-- Gallery Grid -->
+
             <div class="gallery-grid"
                 id="galleryGrid">
-
-                <!-- Item -->
-
-                <div class="gallery-item">
-
-                    <div class="gallery-image">
-                        <i class="fas fa-flask"></i>
-                    </div>
-
-                    <div class="gallery-info">
-
-                        <h3>
-                            النشاط العلمي
-                        </h3>
-
-                        <p>
-                            مشاركة التلاميذ في معرض
-                            العلوم والتجارب العلمية داخل الثانوية.
-                        </p>
-
-                    </div>
-
-                </div>
-
-                <!-- Item -->
-
-                <div class="gallery-item">
-
-                    <div class="gallery-image">
-                        <i class="fas fa-trophy"></i>
-                    </div>
-
-                    <div class="gallery-info">
-
-                        <h3>
-                            البطولة الرياضية
-                        </h3>
-
-                        <p>
-                            لقطات من الدوري الرياضي
-                            بين أقسام الثانوية.
-                        </p>
-
-                    </div>
-
-                </div>
-
-                <!-- Item -->
-
-                <div class="gallery-item">
-
-                    <div class="gallery-image">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-
-                    <div class="gallery-info">
-
-                        <h3>
-                            حفل التكريم
-                        </h3>
-
-                        <p>
-                            تكريم التلاميذ المتفوقين
-                            وأصحاب المراتب الأولى.
-                        </p>
-
-                    </div>
-
-                </div>
-
-                <!-- Item -->
-
-                <div class="gallery-item">
-
-                    <div class="gallery-image">
-                        <i class="fas fa-laptop"></i>
-                    </div>
-
-                    <div class="gallery-info">
-
-                        <h3>
-                            مخبر الإعلام الآلي
-                        </h3>
-
-                        <p>
-                            دروس تطبيقية داخل قاعة
-                            الإعلام الآلي الحديثة.
-                        </p>
-
-                    </div>
-
-                </div>
-
-                <!-- Item -->
-
-                <div class="gallery-item">
-
-                    <div class="gallery-image">
-                        <i class="fas fa-book-open"></i>
-                    </div>
-
-                    <div class="gallery-info">
-
-                        <h3>
-                            المكتبة المدرسية
-                        </h3>
-
-                        <p>
-                            فضاء المطالعة والمراجعة
-                            الخاص بالتلاميذ.
-                        </p>
-
-                    </div>
-
-                </div>
-
-                <!-- Item -->
-
-                <div class="gallery-item">
-
-                    <div class="gallery-image">
-                        <i class="fas fa-users"></i>
-                    </div>
-
-                    <div class="gallery-info">
-
-                        <h3>
-                            النشاطات الثقافية
-                        </h3>
-
-                        <p>
-                            أمسيات ثقافية ومسابقات
-                            فكرية متنوعة.
-                        </p>
-
-                    </div>
-
-                </div>
 
             </div>
 
@@ -586,7 +531,7 @@
     </section>
 
     <!-- =========================================
-         Activities
+         Activities Section
     ========================================== -->
 
     <section class="section stats"
@@ -603,7 +548,7 @@
 
             <div class="activities-grid">
 
-                <div class="activity-box">
+                <div class="card activity-box">
 
                     <i class="fas fa-futbol"></i>
 
@@ -618,7 +563,7 @@
 
                 </div>
 
-                <div class="activity-box">
+                <div class="card activity-box">
 
                     <i class="fas fa-microscope"></i>
 
@@ -633,7 +578,7 @@
 
                 </div>
 
-                <div class="activity-box">
+                <div class="card activity-box">
 
                     <i class="fas fa-theater-masks"></i>
 
@@ -643,12 +588,12 @@
 
                     <p>
                         عروض مسرحية ومسابقات
-                        شعرية وثقافية.
+                        ثقافية وفكرية متنوعة.
                     </p>
 
                 </div>
 
-                <div class="activity-box">
+                <div class="card activity-box">
 
                     <i class="fas fa-tree"></i>
 
@@ -659,6 +604,71 @@
                     <p>
                         حملات تشجير وتنظيف
                         للحفاظ على البيئة.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- =========================================
+         Extra Info Section
+    ========================================== -->
+
+    <section class="section">
+
+        <div class="container">
+
+            <h2 class="section-title">
+                لماذا نهتم بالنشاطات؟
+            </h2>
+
+            <div class="info-grid">
+
+                <div class="info-card">
+
+                    <i class="fas fa-users"></i>
+
+                    <h3>
+                        تنمية الشخصية
+                    </h3>
+
+                    <p>
+                        تساعد النشاطات على تطوير
+                        الثقة بالنفس والعمل الجماعي.
+                    </p>
+
+                </div>
+
+                <div class="info-card">
+
+                    <i class="fas fa-lightbulb"></i>
+
+                    <h3>
+                        اكتشاف المواهب
+                    </h3>
+
+                    <p>
+                        تمنح التلميذ فرصة لإظهار
+                        مهاراته وقدراته المختلفة.
+                    </p>
+
+                </div>
+
+                <div class="info-card">
+
+                    <i class="fas fa-heart"></i>
+
+                    <h3>
+                        جو دراسي ممتع
+                    </h3>
+
+                    <p>
+                        النشاطات تخلق بيئة تعليمية
+                        مريحة ومحفزة للتعلم.
                     </p>
 
                 </div>
@@ -744,6 +754,7 @@
             </div>
 
             <!-- Footer Bottom -->
+
             <div class="footer-bottom">
 
                 <p>
@@ -765,6 +776,7 @@
     </footer>
 
     <!-- JS -->
+
     <script src="js/main.js"></script>
 
 </body>
