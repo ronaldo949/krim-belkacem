@@ -256,13 +256,21 @@ function initStatsAnimation() {
 
                     const el = entry.target;
 
-                    const target =
-                        +el.dataset.count;
+                    /* =========================================
+                       إذا كان العنصر يحتوي على data-count
+                       يتم تشغيل العداد
+                    ========================================== */
 
-                    animateCounter(
-                        el,
-                        target
-                    );
+                    if (el.dataset.count) {
+
+                        const target =
+                            +el.dataset.count;
+
+                        animateCounter(
+                            el,
+                            target
+                        );
+                    }
 
                     observer.unobserve(el);
                 }
