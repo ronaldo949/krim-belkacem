@@ -1,109 +1,591 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
+
+    <!-- Meta -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الإرشاد الدراسي - ثانوية كريم بلقاسم</title>
+
+    <!-- Title -->
+    <title>الإرشاد الدراسي | ثانوية كريم بلقاسم</title>
+
+    <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
 </head>
+
 <body>
+
+    <!-- =========================================
+         Navbar
+    ========================================== -->
+
     <nav class="navbar">
+
         <div class="nav-container">
+
+            <!-- Logo -->
             <a href="index.html" class="logo">
-                <div class="logo-icon"><i class="fas fa-school"></i></div>
+
+                <div class="logo-icon">
+                    <i class="fas fa-school"></i>
+                </div>
+
                 <div class="logo-text">
                     <h2>ثانوية كريم بلقاسم</h2>
                     <p>تيزي وزو - ذراع بن خدة - ميرابو</p>
                 </div>
+
             </a>
-            <div class="nav-toggle" id="navToggle"><i class="fas fa-bars"></i></div>
+
+            <!-- Mobile Toggle -->
+            <div class="nav-toggle" id="navToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+
+            <!-- Menu -->
             <ul class="nav-menu" id="navMenu">
-                <li><a href="index.html">الرئيسية</a></li>
-                <li><a href="about.html">عن الثانوية</a></li>
-                <li><a href="guidance.html" class="active">الإرشاد الدراسي</a></li>
-                <li><a href="tips-specialties.html">نصائح وتخصصات</a></li>
-                <li><a href="gallery.html">معرض الصور</a></li>
-                <li><a href="files-schedules.html">الملفات والجداول</a></li>
-                <li><a href="contact.html">اتصل بنا</a></li>
-                <li><a href="login.html" class="login-btn">تسجيل الدخول</a></li>
+
+                <li>
+                    <a href="index.html">
+                        الرئيسية
+                    </a>
+                </li>
+
+                <li>
+                    <a href="about.html">
+                        عن الثانوية
+                    </a>
+                </li>
+
+                <li>
+                    <a href="guidance.html" class="active">
+                        الإرشاد الدراسي
+                    </a>
+                </li>
+
+                <li>
+                    <a href="tips-specialties.html">
+                        النصائح والتخصصات
+                    </a>
+                </li>
+
+                <li>
+                    <a href="gallery.html">
+                        معرض الصور
+                    </a>
+                </li>
+
+                <li>
+                    <a href="files-schedules.html">
+                        الملفات والجداول
+                    </a>
+                </li>
+
+                <li>
+                    <a href="contact.html">
+                        اتصل بنا
+                    </a>
+                </li>
+
+                <li>
+                    <a href="login.html" class="login-btn">
+                        تسجيل الدخول
+                    </a>
+                </li>
+
             </ul>
+
         </div>
+
     </nav>
 
-    <section class="page-header">
-        <div class="container">
-            <h1>مركز الإرشاد والتوجيه</h1>
-            <p>نساعدك على اختيار مستقبلك الدراسي والمهني</p>
+    <!-- =========================================
+         Hero
+    ========================================== -->
+
+    <header class="hero">
+
+        <div class="hero-content">
+
+            <span class="hero-badge">
+                <i class="fas fa-compass"></i>
+                مركز الإرشاد والتوجيه
+            </span>
+
+            <h1>
+                اختر شعبة تناسب قدراتك
+            </h1>
+
+            <p>
+                التوجيه الدراسي خطوة مهمة نحو مستقبلك الجامعي والمهني، لذلك اختر وفق ميولاتك وقدراتك الحقيقية
+            </p>
+
+            <div class="hero-buttons">
+
+                <button class="hero-btn"
+                    onclick="document.getElementById('steps').scrollIntoView({behavior:'smooth'})">
+
+                    كيف أختار شعبة؟
+
+                </button>
+
+                <button class="hero-btn secondary-btn"
+                    onclick="document.getElementById('branches').scrollIntoView({behavior:'smooth'})">
+
+                    استكشف الشعب
+
+                </button>
+
+            </div>
+
         </div>
+
+        <!-- Wave -->
+        <div class="hero-wave">
+            <svg viewBox="0 0 1440 320">
+                <path fill="#f8fafc"
+                    fill-opacity="1"
+                    d="M0,256L80,245.3C160,235,320,213,480,197.3C640,181,800,171,960,186.7C1120,203,1280,245,1360,266.7L1440,288L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z">
+                </path>
+            </svg>
+        </div>
+
+    </header>
+
+    <!-- =========================================
+         Steps Section
+    ========================================== -->
+
+    <section class="section" id="steps">
+
+        <div class="container">
+
+            <h2 class="section-title">
+                خطوات اختيار الشعبة
+            </h2>
+
+            <div class="cards-grid">
+
+                <div class="card">
+
+                    <i class="fas fa-brain"></i>
+
+                    <h3>
+                        اعرف قدراتك
+                    </h3>
+
+                    <p>
+                        اختر الشعبة التي تناسب مستواك في المواد الأساسية
+                    </p>
+
+                </div>
+
+                <div class="card">
+
+                    <i class="fas fa-heart"></i>
+
+                    <h3>
+                        اتبع ميولاتك
+                    </h3>
+
+                    <p>
+                        لا تختر شعبة فقط لأن أصدقاءك اختاروها
+                    </p>
+
+                </div>
+
+                <div class="card">
+
+                    <i class="fas fa-search"></i>
+
+                    <h3>
+                        اكتشف التخصصات
+                    </h3>
+
+                    <p>
+                        تعرف على المجالات الجامعية المرتبطة بكل شعبة
+                    </p>
+
+                </div>
+
+                <div class="card">
+
+                    <i class="fas fa-user-tie"></i>
+
+                    <h3>
+                        استشر المرشد
+                    </h3>
+
+                    <p>
+                        تحدث مع مستشار التوجيه والأساتذة قبل اتخاذ القرار
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
     </section>
+
+    <!-- =========================================
+         Branches Section
+    ========================================== -->
+
+    <section class="section" id="branches">
+
+        <div class="container">
+
+            <h2 class="section-title">
+                الشعب الدراسية المتوفرة
+            </h2>
+
+            <div class="cards-grid">
+
+                <div class="card">
+
+                    <i class="fas fa-flask"></i>
+
+                    <h3>
+                        علوم تجريبية
+                    </h3>
+
+                    <p>
+                        مناسبة للطب والصيدلة والعلوم البيولوجية
+                    </p>
+
+                </div>
+
+                <div class="card">
+
+                    <i class="fas fa-square-root-variable"></i>
+
+                    <h3>
+                        رياضيات
+                    </h3>
+
+                    <p>
+                        مناسبة للإعلام الآلي والذكاء الاصطناعي والرياضيات العليا
+                    </p>
+
+                </div>
+
+                <div class="card">
+
+                    <i class="fas fa-microchip"></i>
+
+                    <h3>
+                        تقني رياضي
+                    </h3>
+
+                    <p>
+                        مناسبة للهندسة المدنية والكهربائية والميكانيكية
+                    </p>
+
+                </div>
+
+                <div class="card">
+
+                    <i class="fas fa-chart-line"></i>
+
+                    <h3>
+                        تسيير واقتصاد
+                    </h3>
+
+                    <p>
+                        مناسبة للتجارة والمحاسبة والاقتصاد والتسيير
+                    </p>
+
+                </div>
+
+                <div class="card">
+
+                    <i class="fas fa-book-open"></i>
+
+                    <h3>
+                        آداب وفلسفة
+                    </h3>
+
+                    <p>
+                        مناسبة للقانون والإعلام وعلم النفس والتاريخ
+                    </p>
+
+                </div>
+
+                <div class="card">
+
+                    <i class="fas fa-language"></i>
+
+                    <h3>
+                        لغات أجنبية
+                    </h3>
+
+                    <p>
+                        مناسبة للترجمة والتعليم والعلاقات الدولية
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- =========================================
+         Guidance Info
+    ========================================== -->
+
+    <section class="section stats">
+
+        <div class="container">
+
+            <h2 class="section-title" style="color:white;">
+                معلومات التوجيه
+            </h2>
+
+            <div class="stats-grid">
+
+                <div class="stat-item">
+
+                    <span class="stat-number">
+                        08:00
+                    </span>
+
+                    <span class="stat-label">
+                        بداية الاستقبال
+                    </span>
+
+                </div>
+
+                <div class="stat-item">
+
+                    <span class="stat-number">
+                        14:00
+                    </span>
+
+                    <span class="stat-label">
+                        نهاية الاستقبال
+                    </span>
+
+                </div>
+
+                <div class="stat-item">
+
+                    <span class="stat-number"
+                        data-count="6">
+
+                        0
+
+                    </span>
+
+                    <span class="stat-label">
+                        شعب دراسية
+                    </span>
+
+                </div>
+
+                <div class="stat-item">
+
+                    <span class="stat-number"
+                        data-count="1250">
+
+                        0
+
+                    </span>
+
+                    <span class="stat-label">
+                        تلميذ مستفيد من التوجيه
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- =========================================
+         Extra Guidance Info
+    ========================================== -->
 
     <section class="section">
+
         <div class="container">
-            <div class="guidance-section">
-                <div class="guidance-icon"><i class="fas fa-route"></i></div>
-                <h2>كيف تختار مسارك الدراسي؟</h2>
-                <div class="steps-list">
-                    <div class="step"><div class="step-number">1</div><h4>تقييم الذات</h4><p>تعرف على مهاراتك واهتماماتك</p></div>
-                    <div class="step"><div class="step-number">2</div><h4>استكشاف الخيارات</h4><p>تعرف على التخصصات المتاحة</p></div>
-                    <div class="step"><div class="step-number">3</div><h4>استشارة المرشد</h4><p>التقاء بمرشدك الأكاديمي</p></div>
-                    <div class="step"><div class="step-number">4</div><h4>اتخاذ القرار</h4><p>اختر المسار المناسب لك</p></div>
+
+            <h2 class="section-title">
+                معلومات إضافية
+            </h2>
+
+            <div class="cards-grid">
+
+                <div class="card">
+
+                    <i class="fas fa-user-graduate"></i>
+
+                    <h3>
+                        عدد الناجحين
+                    </h3>
+
+                    <p>
+                        أكثر من 420 ناجح في شهادة البكالوريا خلال الموسم الماضي
+                    </p>
+
                 </div>
+
+                <div class="card">
+
+                    <i class="fas fa-chalkboard-teacher"></i>
+
+                    <h3>
+                        مستشاري التوجيه
+                    </h3>
+
+                    <p>
+                        3 مستشارين متخصصين لمرافقة التلاميذ طوال السنة
+                    </p>
+
+                </div>
+
+                <div class="card">
+
+                    <i class="fas fa-building-columns"></i>
+
+                    <h3>
+                        تخصصات جامعية
+                    </h3>
+
+                    <p>
+                        أكثر من 35 تخصص جامعي متاح بعد البكالوريا
+                    </p>
+
+                </div>
+
+                <div class="card">
+
+                    <i class="fas fa-calendar-check"></i>
+
+                    <h3>
+                        أيام التوجيه
+                    </h3>
+
+                    <p>
+                        تنظيم لقاءات توجيهية كل أسبوع لفائدة التلاميذ
+                    </p>
+
+                </div>
+
             </div>
 
-            <div class="guidance-section">
-                <div class="guidance-icon"><i class="fas fa-university"></i></div>
-                <h2>شعب البكالوريا المتاحة</h2>
-                <div class="cards-grid">
-                    <div class="card"><i class="fas fa-flask"></i><h3>علوم تجريبية</h3><p>طب، صيدلة، هندسة، بيطرة</p></div>
-                    <div class="card"><i class="fas fa-calculator"></i><h3>رياضيات</h3><p>هندسة مدنية، عمارة، إحصاء</p></div>
-                    <div class="card"><i class="fas fa-microchip"></i><h3>تقني رياضي</h3><p>كهرباء، ميكانيك، إلكترونيك</p></div>
-                    <div class="card"><i class="fas fa-book"></i><h3>آداب وفلسفة</h3><p>قانون، إعلام، لغات، تاريخ</p></div>
-                    <div class="card"><i class="fas fa-chart-line"></i><h3>تسيير واقتصاد</h3><p>محاسبة، تسيير أعمال، بنوك</p></div>
-                    <div class="card"><i class="fas fa-language"></i><h3>لغات أجنبية</h3><p>ترجمة، تعليم لغات، علاقات دولية</p></div>
-                </div>
-            </div>
-
-            <div class="guidance-section">
-                <div class="guidance-icon"><i class="fas fa-calendar-alt"></i></div>
-                <h2>مواعيد الإرشاد الأكاديمي</h2>
-                <ul style="list-style: none; padding: 0;">
-                    <li><i class="fas fa-clock"></i> <strong>الأحد - الخميس:</strong> 8:00 ص - 2:00 م</li>
-                    <li><i class="fas fa-user"></i> <strong>المرشد الأكاديمي:</strong> الأستاذ رشيد معمري</li>
-                    <li><i class="fas fa-phone"></i> <strong>رقم الهاتف:</strong> 0550 12 34 56</li>
-                    <li><i class="fas fa-envelope"></i> <strong>البريد:</strong> orientation@karimbelkacem.dz</li>
-                </ul>
-            </div>
         </div>
+
     </section>
 
+    <!-- =========================================
+         Footer
+    ========================================== -->
+
     <footer class="footer">
+
         <div class="container">
+
             <div class="footer-content">
+
                 <div class="footer-section">
-                    <h3>ثانوية كريم بلقاسم</h3>
-                    <p>تيزي وزو - ذراع بن خدة - ميرابو</p>
+
+                    <h3>
+                        ثانوية كريم بلقاسم
+                    </h3>
+
+                    <p>
+                        تيزي وزو - ذراع بن خدة - ميرابو
+                    </p>
+
+                    <p>
+                        <i class="fas fa-phone"></i>
+                        +213 26 12 34 56
+                    </p>
+
+                    <p>
+                        <i class="fas fa-envelope"></i>
+                        lycee.karimbelkacem@edu.dz
+                    </p>
+
                 </div>
+
                 <div class="footer-section">
-                    <h4>اتصل بنا</h4>
-                    <p><i class="fas fa-phone"></i> +213 26 12 34 56</p>
-                    <p><i class="fas fa-envelope"></i> lycee.karimbelkacem@edu.dz</p>
+
+                    <h4>
+                        معلومات التواصل
+                    </h4>
+
+                    <p>
+                        <i class="fas fa-clock"></i>
+                        الأحد - الخميس : 08:00 صباحاً إلى 16:00 مساءً
+                    </p>
+
+                    <p>
+                        <i class="fas fa-phone-volume"></i>
+                        الهاتف الأرضي : +213 26 12 34 57
+                    </p>
+
                 </div>
+
                 <div class="footer-section">
-                    <h4>تابعونا</h4>
+
+                    <h4>
+                        تابعونا
+                    </h4>
+
                     <div class="social-icons">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
+
+                        <a href="#" class="facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+
+                        <a href="#" class="instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+
                     </div>
+
                 </div>
+
             </div>
+
+            <!-- Footer Bottom -->
             <div class="footer-bottom">
-                <p>&copy; <span class="current-year">2026</span> ثانوية كريم بلقاسم - جميع الحقوق محفوظة</p>
+
+                <p>
+
+                    &copy;
+                    <span class="current-year">
+                        2026
+                    </span>
+
+                    ثانوية كريم بلقاسم - جميع الحقوق محفوظة
+
+                </p>
+
             </div>
+
         </div>
+
     </footer>
 
+    <!-- JS -->
     <script src="js/main.js"></script>
+
 </body>
+
 </html>
