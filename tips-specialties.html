@@ -1,126 +1,862 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
+
+    <!-- Meta -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نصائح وتخصصات - ثانوية كريم بلقاسم</title>
+
+    <!-- Title -->
+    <title>النصائح والتخصصات | ثانوية كريم بلقاسم</title>
+
+    <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
     <style>
-        .tips-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
+
+        /* =========================================
+           Page Header
+        ========================================== */
+
+        .page-header{
+
+            position:relative;
+
+            min-height:55vh;
+
+            display:flex;
+
+            justify-content:center;
+
+            align-items:center;
+
+            text-align:center;
+
+            overflow:hidden;
+
+            background:
+            linear-gradient(
+                rgba(15,23,42,0.78),
+                rgba(15,23,42,0.78)
+            ),
+            url('images/hero-bg.jpg')
+            center/cover no-repeat;
         }
-        .tip-card {
-            background: white;
-            border-radius: 1rem;
-            padding: 25px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-            border-right: 4px solid var(--secondary);
-            transition: all 0.3s;
+
+        .page-header-content{
+
+            position:relative;
+
+            z-index:2;
+
+            color:white;
+
+            width:90%;
+
+            max-width:850px;
         }
-        .tip-card:hover {
-            transform: translateY(-5px);
+
+        .page-header h1{
+
+            font-size:3.2rem;
+
+            margin-bottom:20px;
+
+            font-weight:800;
         }
-        .specialty-card {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            text-align: center;
+
+        .page-header p{
+
+            font-size:1.15rem;
+
+            color:#e2e8f0;
+
+            line-height:1.9;
         }
-        @media (max-width: 768px) {
-            .tips-grid {
-                grid-template-columns: 1fr;
+
+        /* =========================================
+           Tips Grid
+        ========================================== */
+
+        .tips-grid{
+
+            display:grid;
+
+            grid-template-columns:
+            repeat(auto-fit,minmax(280px,1fr));
+
+            gap:28px;
+        }
+
+        .tip-card{
+
+            background:white;
+
+            border-radius:20px;
+
+            padding:30px 25px;
+
+            box-shadow:var(--shadow);
+
+            transition:var(--transition);
+
+            position:relative;
+
+            overflow:hidden;
+
+            border:1px solid transparent;
+        }
+
+        .tip-card::before{
+
+            content:'';
+
+            position:absolute;
+
+            top:0;
+
+            right:0;
+
+            width:100%;
+
+            height:5px;
+
+            background:
+            linear-gradient(
+                135deg,
+                var(--primary),
+                var(--accent)
+            );
+        }
+
+        .tip-card:hover{
+
+            transform:translateY(-10px);
+
+            box-shadow:var(--shadow-lg);
+
+            border-color:var(--primary);
+        }
+
+        .tip-icon{
+
+            width:75px;
+
+            height:75px;
+
+            border-radius:20px;
+
+            display:flex;
+
+            justify-content:center;
+
+            align-items:center;
+
+            margin-bottom:25px;
+
+            background:
+            linear-gradient(
+                135deg,
+                var(--primary),
+                var(--accent)
+            );
+
+            color:white;
+
+            font-size:2rem;
+
+            box-shadow:var(--shadow);
+        }
+
+        .tip-card h3{
+
+            margin-bottom:15px;
+
+            font-size:1.3rem;
+
+            color:var(--secondary);
+        }
+
+        .tip-card p{
+
+            color:var(--gray);
+
+            line-height:1.9;
+        }
+
+        /* =========================================
+           Specialties Section
+        ========================================== */
+
+        .specialties-section{
+
+            background:#eef5ff;
+        }
+
+        .specialty-card{
+
+            background:
+            linear-gradient(
+                135deg,
+                var(--primary),
+                var(--primary-dark)
+            );
+
+            color:white;
+
+            text-align:center;
+
+            border:none;
+        }
+
+        .specialty-card h3{
+
+            color:white;
+        }
+
+        .specialty-card p{
+
+            color:#dbeafe;
+        }
+
+        .specialty-card i{
+
+            color:white;
+        }
+
+        /* =========================================
+           Study Plan
+        ========================================== */
+
+        .study-plan{
+
+            display:grid;
+
+            grid-template-columns:
+            repeat(auto-fit,minmax(220px,1fr));
+
+            gap:25px;
+        }
+
+        .plan-card{
+
+            background:white;
+
+            padding:25px;
+
+            border-radius:18px;
+
+            text-align:center;
+
+            box-shadow:var(--shadow);
+
+            transition:var(--transition);
+        }
+
+        .plan-card:hover{
+
+            transform:translateY(-8px);
+
+            box-shadow:var(--shadow-lg);
+        }
+
+        .plan-card span{
+
+            display:flex;
+
+            justify-content:center;
+
+            align-items:center;
+
+            width:65px;
+
+            height:65px;
+
+            margin:auto auto 18px;
+
+            border-radius:18px;
+
+            background:
+            linear-gradient(
+                135deg,
+                var(--primary),
+                var(--accent)
+            );
+
+            color:white;
+
+            font-size:1.5rem;
+
+            font-weight:800;
+        }
+
+        .plan-card h3{
+
+            margin-bottom:12px;
+        }
+
+        .plan-card p{
+
+            color:var(--gray);
+        }
+
+        /* =========================================
+           Motivation Section
+        ========================================== */
+
+        .motivation-box{
+
+            background:
+            linear-gradient(
+                135deg,
+                var(--primary),
+                var(--primary-dark)
+            );
+
+            color:white;
+
+            padding:45px 35px;
+
+            border-radius:25px;
+
+            text-align:center;
+
+            box-shadow:var(--shadow-lg);
+        }
+
+        .motivation-box i{
+
+            font-size:3rem;
+
+            margin-bottom:20px;
+        }
+
+        .motivation-box h2{
+
+            margin-bottom:18px;
+
+            font-size:2rem;
+        }
+
+        .motivation-box p{
+
+            color:#dbeafe;
+
+            line-height:2;
+
+            font-size:1.05rem;
+        }
+
+        /* =========================================
+           Responsive
+        ========================================== */
+
+        @media(max-width:768px){
+
+            .page-header{
+
+                min-height:48vh;
+
+                padding:120px 0 80px;
+            }
+
+            .page-header h1{
+
+                font-size:2.2rem;
+            }
+
+            .page-header p{
+
+                font-size:1rem;
             }
         }
+
+        @media(max-width:480px){
+
+            .page-header h1{
+
+                font-size:1.8rem;
+            }
+
+            .tip-card,
+            .plan-card{
+
+                padding:22px 18px;
+            }
+
+            .motivation-box{
+
+                padding:35px 22px;
+            }
+        }
+
     </style>
+
 </head>
+
 <body>
+
+    <!-- =========================================
+         Navbar
+    ========================================== -->
+
     <nav class="navbar">
+
         <div class="nav-container">
+
             <a href="index.html" class="logo">
-                <div class="logo-icon"><i class="fas fa-school"></i></div>
+
+                <div class="logo-icon">
+                    <i class="fas fa-school"></i>
+                </div>
+
                 <div class="logo-text">
                     <h2>ثانوية كريم بلقاسم</h2>
                     <p>تيزي وزو - ذراع بن خدة - ميرابو</p>
                 </div>
+
             </a>
-            <div class="nav-toggle" id="navToggle"><i class="fas fa-bars"></i></div>
+
+            <div class="nav-toggle" id="navToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+
             <ul class="nav-menu" id="navMenu">
+
                 <li><a href="index.html">الرئيسية</a></li>
+
                 <li><a href="about.html">عن الثانوية</a></li>
+
                 <li><a href="guidance.html">الإرشاد الدراسي</a></li>
-                <li><a href="tips-specialties.html" class="active">نصائح وتخصصات</a></li>
+
+                <li>
+                    <a href="tips-specialties.html" class="active">
+                        النصائح والتخصصات
+                    </a>
+                </li>
+
                 <li><a href="gallery.html">معرض الصور</a></li>
+
                 <li><a href="files-schedules.html">الملفات والجداول</a></li>
+
                 <li><a href="contact.html">اتصل بنا</a></li>
-                <li><a href="login.html" class="login-btn">تسجيل الدخول</a></li>
+
+                <li>
+                    <a href="login.html" class="login-btn">
+                        تسجيل الدخول
+                    </a>
+                </li>
+
             </ul>
+
         </div>
+
     </nav>
 
-    <section class="page-header">
-        <div class="container">
-            <h1>نصائح دراسية ذهبية</h1>
-            <p>استراتيجيات فعالة للنجاح والتفوق في البكالوريا</p>
+    <!-- =========================================
+         Header
+    ========================================== -->
+
+    <header class="page-header">
+
+        <div class="page-header-content">
+
+            <h1>
+                نصائح دراسية وتخصصات مستقبلية
+            </h1>
+
+            <p>
+                اكتشف أفضل طرق النجاح في الدراسة وتعرف على التخصصات الجامعية المطلوبة
+                لمساعدتك في بناء مستقبل أكاديمي ومهني ناجح
+            </p>
+
         </div>
-    </section>
+
+    </header>
+
+    <!-- =========================================
+         Study Tips
+    ========================================== -->
 
     <section class="section">
+
         <div class="container">
-            <h2 class="section-title"><i class="fas fa-lightbulb"></i> نصائح للمذاكرة الفعالة</h2>
+
+            <h2 class="section-title">
+                نصائح للمذاكرة الفعالة
+            </h2>
+
             <div class="tips-grid">
-                <div class="tip-card"><i class="fas fa-clock" style="font-size: 2rem; color: #e67e22;"></i><h3>نظم وقتك</h3><p>استخدم تقنية البومودورو: 25 دقيقة مذاكرة + 5 دقائق راحة</p></div>
-                <div class="tip-card"><i class="fas fa-brain" style="font-size: 2rem; color: #e67e22;"></i><h3>الخرائط الذهنية</h3><p>استخدم الخرائط الذهنية لتنظيم المعلومات وربط الأفكار</p></div>
-                <div class="tip-card"><i class="fas fa-bed" style="font-size: 2rem; color: #e67e22;"></i><h3>النوم الكافي</h3><p>احصل على 7-8 ساعات نوم لتحسين التركيز والذاكرة</p></div>
-                <div class="tip-card"><i class="fas fa-notes-medical" style="font-size: 2rem; color: #e67e22;"></i><h3>المراجعة المنتظمة</h3><p>راجع دروسك يومياً بدلاً من التكديس قبل الامتحانات</p></div>
-                <div class="tip-card"><i class="fas fa-apple-alt" style="font-size: 2rem; color: #e67e22;"></i><h3>تغذية صحية</h3><p>تناول أطعمة مفيدة للدماغ كالمكسرات والفواكه</p></div>
-                <div class="tip-card"><i class="fas fa-dumbbell" style="font-size: 2rem; color: #e67e22;"></i><h3>ممارسة الرياضة</h3><p>الرياضة تحسن التركيز وتقلل التوتر</p></div>
+
+                <div class="tip-card">
+
+                    <div class="tip-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+
+                    <h3>
+                        نظم وقتك
+                    </h3>
+
+                    <p>
+                        استخدم برنامجاً يومياً واضحاً للمراجعة مع تخصيص وقت للراحة
+                        لتجنب الإرهاق وزيادة التركيز.
+                    </p>
+
+                </div>
+
+                <div class="tip-card">
+
+                    <div class="tip-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+
+                    <h3>
+                        استخدم الخرائط الذهنية
+                    </h3>
+
+                    <p>
+                        تساعد الخرائط الذهنية على ربط المعلومات وفهم الدروس بسرعة
+                        وتثبيت الأفكار في الذاكرة.
+                    </p>
+
+                </div>
+
+                <div class="tip-card">
+
+                    <div class="tip-icon">
+                        <i class="fas fa-bed"></i>
+                    </div>
+
+                    <h3>
+                        نم جيداً
+                    </h3>
+
+                    <p>
+                        النوم الجيد يساعد على تحسين التركيز وتقوية الذاكرة وتقليل
+                        التوتر أثناء الدراسة.
+                    </p>
+
+                </div>
+
+                <div class="tip-card">
+
+                    <div class="tip-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+
+                    <h3>
+                        راجع يومياً
+                    </h3>
+
+                    <p>
+                        لا تؤجل المراجعة حتى موعد الاختبارات، فالمراجعة اليومية تجعل
+                        الفهم أسهل وأكثر استقراراً.
+                    </p>
+
+                </div>
+
+                <div class="tip-card">
+
+                    <div class="tip-icon">
+                        <i class="fas fa-apple-alt"></i>
+                    </div>
+
+                    <h3>
+                        غذاء صحي
+                    </h3>
+
+                    <p>
+                        تناول أطعمة صحية واشرب كمية كافية من الماء لتحافظ على نشاطك
+                        الذهني طوال اليوم.
+                    </p>
+
+                </div>
+
+                <div class="tip-card">
+
+                    <div class="tip-icon">
+                        <i class="fas fa-dumbbell"></i>
+                    </div>
+
+                    <h3>
+                        مارس الرياضة
+                    </h3>
+
+                    <p>
+                        الرياضة اليومية تخفف الضغط النفسي وتحسن المزاج والتركيز أثناء
+                        الدراسة.
+                    </p>
+
+                </div>
+
             </div>
+
         </div>
+
     </section>
 
-    <section class="section" style="background: #f0f4f8;">
+    <!-- =========================================
+         Specialties
+    ========================================== -->
+
+    <section class="section specialties-section">
+
         <div class="container">
-            <h2 class="section-title"><i class="fas fa-graduation-cap"></i> التخصصات الجامعية المطلوبة</h2>
+
+            <h2 class="section-title">
+                تخصصات جامعية مطلوبة
+            </h2>
+
             <div class="cards-grid">
-                <div class="card specialty-card"><i class="fas fa-microchip"></i><h3>الذكاء الاصطناعي</h3><p>أحد أكثر التخصصات طلباً في المستقبل</p></div>
-                <div class="card specialty-card"><i class="fas fa-heartbeat"></i><h3>الطب والتكنولوجيا الحيوية</h3><p>تخصصات حيوية مع تقدم العمر</p></div>
-                <div class="card specialty-card"><i class="fas fa-charging-station"></i><h3>الطاقة المتجددة</h3><p>مستقبل الطاقة النظيفة بالجزائر</p></div>
-                <div class="card specialty-card"><i class="fas fa-chart-pie"></i><h3>تحليل البيانات</h3><p>مطلوب في كل القطاعات الاقتصادية</p></div>
-                <div class="card specialty-card"><i class="fas fa-robot"></i><h3>الروبوتيك</h3><p>ثورة الصناعة 4.0</p></div>
-                <div class="card specialty-card"><i class="fas fa-cloud"></i><h3>الأمن السيبراني</h3><p>حماية المعلومات والبيانات</p></div>
+
+                <div class="card specialty-card">
+                    <i class="fas fa-microchip"></i>
+                    <h3>الذكاء الاصطناعي</h3>
+                    <p>من أسرع المجالات تطوراً في العالم</p>
+                </div>
+
+                <div class="card specialty-card">
+                    <i class="fas fa-heartbeat"></i>
+                    <h3>الطب والتكنولوجيا الحيوية</h3>
+                    <p>تخصصات مطلوبة دائماً في القطاع الصحي</p>
+                </div>
+
+                <div class="card specialty-card">
+                    <i class="fas fa-charging-station"></i>
+                    <h3>الطاقات المتجددة</h3>
+                    <p>مستقبل الطاقة النظيفة والتنمية المستدامة</p>
+                </div>
+
+                <div class="card specialty-card">
+                    <i class="fas fa-chart-pie"></i>
+                    <h3>تحليل البيانات</h3>
+                    <p>مهم في المؤسسات الاقتصادية والتكنولوجية</p>
+                </div>
+
+                <div class="card specialty-card">
+                    <i class="fas fa-robot"></i>
+                    <h3>الروبوتيك</h3>
+                    <p>ثورة الصناعة الحديثة والتكنولوجيا الذكية</p>
+                </div>
+
+                <div class="card specialty-card">
+                    <i class="fas fa-shield-halved"></i>
+                    <h3>الأمن السيبراني</h3>
+                    <p>حماية الأنظمة والبيانات الرقمية</p>
+                </div>
+
             </div>
+
         </div>
+
     </section>
+
+    <!-- =========================================
+         Study Plan
+    ========================================== -->
+
+    <section class="section">
+
+        <div class="container">
+
+            <h2 class="section-title">
+                خطة يومية للنجاح
+            </h2>
+
+            <div class="study-plan">
+
+                <div class="plan-card">
+
+                    <span>1</span>
+
+                    <h3>
+                        مراجعة الدروس
+                    </h3>
+
+                    <p>
+                        راجع دروس اليوم فور العودة إلى المنزل.
+                    </p>
+
+                </div>
+
+                <div class="plan-card">
+
+                    <span>2</span>
+
+                    <h3>
+                        حل التمارين
+                    </h3>
+
+                    <p>
+                        خصص وقتاً يومياً للتطبيق وحل المواضيع.
+                    </p>
+
+                </div>
+
+                <div class="plan-card">
+
+                    <span>3</span>
+
+                    <h3>
+                        أخذ فترات راحة
+                    </h3>
+
+                    <p>
+                        الراحة القصيرة تساعد على تجديد النشاط الذهني.
+                    </p>
+
+                </div>
+
+                <div class="plan-card">
+
+                    <span>4</span>
+
+                    <h3>
+                        النوم المبكر
+                    </h3>
+
+                    <p>
+                        النوم المبكر يزيد من التركيز والإنتاجية.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- =========================================
+         Motivation
+    ========================================== -->
+
+    <section class="section">
+
+        <div class="container">
+
+            <div class="motivation-box">
+
+                <i class="fas fa-star"></i>
+
+                <h2>
+                    النجاح يبدأ بخطوة
+                </h2>
+
+                <p>
+                    لا تنتظر الوقت المثالي، ابدأ اليوم بتنظيم أهدافك والعمل عليها
+                    باستمرار، فكل مجهود صغير تقوم به الآن سيصنع فرقاً كبيراً في مستقبلك.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- =========================================
+         Footer
+    ========================================== -->
 
     <footer class="footer">
+
         <div class="container">
+
             <div class="footer-content">
+
                 <div class="footer-section">
-                    <h3>ثانوية كريم بلقاسم</h3>
-                    <p>تيزي وزو - ذراع بن خدة - ميرابو</p>
+
+                    <h3>
+                        ثانوية كريم بلقاسم
+                    </h3>
+
+                    <p>
+                        تيزي وزو - ذراع بن خدة - ميرابو
+                    </p>
+
+                    <p>
+                        <i class="fas fa-phone"></i>
+                        +213 26 12 34 56
+                    </p>
+
+                    <p>
+                        <i class="fas fa-envelope"></i>
+                        lycee.karimbelkacem@edu.dz
+                    </p>
+
                 </div>
+
                 <div class="footer-section">
-                    <h4>اتصل بنا</h4>
-                    <p><i class="fas fa-phone"></i> +213 26 12 34 56</p>
-                    <p><i class="fas fa-envelope"></i> lycee.karimbelkacem@edu.dz</p>
+
+                    <h4>
+                        معلومات التواصل
+                    </h4>
+
+                    <p>
+                        <i class="fas fa-clock"></i>
+                        الأحد - الخميس : 08:00 إلى 16:00
+                    </p>
+
+                    <p>
+                        <i class="fas fa-phone-volume"></i>
+                        الهاتف الأرضي : +213 26 12 34 57
+                    </p>
+
                 </div>
+
                 <div class="footer-section">
-                    <h4>تابعونا</h4>
+
+                    <h4>
+                        تابعونا
+                    </h4>
+
                     <div class="social-icons">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
+
+                        <a href="#" class="facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+
+                        <a href="#" class="instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+
                     </div>
+
                 </div>
+
             </div>
+
             <div class="footer-bottom">
-                <p>&copy; <span class="current-year">2026</span> ثانوية كريم بلقاسم - جميع الحقوق محفوظة</p>
+
+                <p>
+
+                    &copy;
+                    <span class="current-year">
+                        2026
+                    </span>
+
+                    ثانوية كريم بلقاسم - جميع الحقوق محفوظة
+
+                </p>
+
             </div>
+
         </div>
+
     </footer>
 
+    <!-- JS -->
     <script src="js/main.js"></script>
+
 </body>
+
 </html>
