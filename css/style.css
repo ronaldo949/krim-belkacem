@@ -564,3 +564,49 @@ body{
         font-size:2.2rem;
     }
 }
+/* =========================================
+   Scroll Animation
+========================================= */
+
+.reveal{
+    opacity:0;
+    transform:translateY(40px);
+    transition:0.8s ease;
+}
+
+.reveal.active{
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* =========================================
+   Back To Top Button
+========================================= */
+
+.top-btn{
+    position:fixed;
+    bottom:25px;
+    left:25px;
+    width:50px;
+    height:50px;
+    border:none;
+    border-radius:50%;
+    background:linear-gradient(135deg,var(--primary),var(--accent));
+    color:white;
+    font-size:1.1rem;
+    cursor:pointer;
+    box-shadow:var(--shadow-lg);
+    opacity:0;
+    visibility:hidden;
+    transition:0.3s ease;
+    z-index:999;
+}
+
+.top-btn.show{
+    opacity:1;
+    visibility:visible;
+}
+
+.top-btn:hover{
+    transform:translateY(-5px);
+}
