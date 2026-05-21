@@ -1,6 +1,5 @@
 /* =========================================
    Modern School Website Main JS
-   مطور ومحسن بشكل احترافي
 ========================================= */
 
 "use strict";
@@ -15,7 +14,9 @@ const $$ = (selector) => document.querySelectorAll(selector);
 const currentYear = new Date().getFullYear();
 
 function currentSchoolYear() {
+
     const month = new Date().getMonth();
+
     return month >= 8
         ? `${currentYear}/${currentYear + 1}`
         : `${currentYear - 1}/${currentYear}`;
@@ -34,7 +35,6 @@ function updateYears() {
     $$(".school-year").forEach(el => {
         el.textContent = currentSchoolYear();
     });
-
 }
 
 /* =========================================
@@ -49,15 +49,41 @@ function initMobileMenu() {
     if (!toggle || !menu) return;
 
     toggle.addEventListener("click", () => {
+
         menu.classList.toggle("active");
+
+        const icon = toggle.querySelector("i");
+
+        if (menu.classList.contains("active")) {
+
+            icon.classList.replace(
+                "fa-bars",
+                "fa-xmark"
+            );
+
+        } else {
+
+            icon.classList.replace(
+                "fa-xmark",
+                "fa-bars"
+            );
+        }
     });
 
     $$("#navMenu a").forEach(link => {
+
         link.addEventListener("click", () => {
+
             menu.classList.remove("active");
+
+            const icon = toggle.querySelector("i");
+
+            icon.classList.replace(
+                "fa-xmark",
+                "fa-bars"
+            );
         });
     });
-
 }
 
 /* =========================================
@@ -70,7 +96,9 @@ function initSmoothScroll() {
 
         anchor.addEventListener("click", function (e) {
 
-            const target = document.querySelector(this.getAttribute("href"));
+            const target = document.querySelector(
+                this.getAttribute("href")
+            );
 
             if (!target) return;
 
@@ -80,11 +108,35 @@ function initSmoothScroll() {
                 behavior: "smooth",
                 block: "start"
             });
-
         });
-
     });
+}
 
+/* =========================================
+   Navbar Scroll Effect
+========================================= */
+
+function initNavbarEffect() {
+
+    const navbar = $(".navbar");
+
+    if (!navbar) return;
+
+    window.addEventListener("scroll", () => {
+
+        if (window.scrollY > 50) {
+
+            navbar.classList.add(
+                "navbar-scrolled"
+            );
+
+        } else {
+
+            navbar.classList.remove(
+                "navbar-scrolled"
+            );
+        }
+    });
 }
 
 /* =========================================
@@ -116,7 +168,6 @@ const announcements = [
         date: "05 فبراير 2026",
         desc: "لقاء خاص لمتابعة نتائج التلاميذ."
     }
-
 ];
 
 /* =========================================
@@ -131,14 +182,16 @@ function loadAnnouncements() {
 
     container.innerHTML = announcements.map(item => `
 
-        <div class="announcement-card fade-in">
+        <div class="announcement-card hidden">
 
             <div class="announcement-img">
+
                 <i class="fas fa-bullhorn"></i>
 
                 <span class="announcement-date">
                     ${item.date}
                 </span>
+
             </div>
 
             <div class="announcement-content">
@@ -156,7 +209,6 @@ function loadAnnouncements() {
         </div>
 
     `).join("");
-
 }
 
 /* =========================================
@@ -175,112 +227,127 @@ function animateCounter(el, target) {
 
         if (current < target) {
 
-            el.textContent = Math.floor(current);
+            el.textContent =
+                Math.floor(current);
+
             requestAnimationFrame(update);
 
         } else {
 
             el.textContent = target;
-
         }
-
     }
 
     update();
-
 }
 
 function initStatsAnimation() {
 
     const stats = $$(".stat-number");
 
-    const observer = new IntersectionObserver(entries => {
+    if (!stats.length) return;
 
-        entries.forEach(entry => {
+    const observer =
+        new IntersectionObserver(entries => {
 
-            if (entry.isIntersecting) {
+            entries.forEach(entry => {
 
-                const el = entry.target;
-                const target = +el.dataset.count;
+                if (entry.isIntersecting) {
 
-                animateCounter(el, target);
+                    const el = entry.target;
 
-                observer.unobserve(el);
+                    const target =
+                        +el.dataset.count;
 
-            }
+                    animateCounter(
+                        el,
+                        target
+                    );
 
+                    observer.unobserve(el);
+                }
+            });
+
+        }, {
+            threshold:0.5
         });
 
-    }, {
-        threshold: 0.5
-    });
-
-    stats.forEach(stat => observer.observe(stat));
-
+    stats.forEach(stat =>
+        observer.observe(stat)
+    );
 }
 
 /* =========================================
-   Scroll Animation
+   Scroll Animations
 ========================================= */
 
 function initScrollAnimations() {
 
-    const elements = $$(".card, .announcement-card, .stat-item");
+    const elements = $$(
+        ".card, .announcement-card, .stat-item"
+    );
 
-    const observer = new IntersectionObserver(entries => {
+    if (!elements.length) return;
 
-        entries.forEach(entry => {
+    const observer =
+        new IntersectionObserver(entries => {
 
-            if (entry.isIntersecting) {
+            entries.forEach(entry => {
 
-                entry.target.classList.add("show");
+                if (entry.isIntersecting) {
 
-            }
+                    entry.target.classList.add(
+                        "show"
+                    );
+                }
+            });
 
+        }, {
+            threshold:0.1
         });
 
-    }, {
-        threshold: 0.1
-    });
-
     elements.forEach(el => {
+
         el.classList.add("hidden");
+
         observer.observe(el);
     });
-
 }
 
 /* =========================================
-   Gallery
+   Gallery Data
 ========================================= */
 
 const galleryData = [
 
     {
-        title: "النشاط العلمي",
-        category: "activities",
-        image: "activity1.jpg"
+        title:"النشاط العلمي",
+        category:"activities",
+        image:"activity1.jpg"
     },
 
     {
-        title: "حفل التخرج",
-        category: "events",
-        image: "event1.jpg"
+        title:"حفل التخرج",
+        category:"events",
+        image:"event1.jpg"
     },
 
     {
-        title: "المخبر العلمي",
-        category: "classes",
-        image: "class1.jpg"
+        title:"المخبر العلمي",
+        category:"classes",
+        image:"class1.jpg"
     },
 
     {
-        title: "الدوري الرياضي",
-        category: "sports",
-        image: "sport1.jpg"
+        title:"الدوري الرياضي",
+        category:"sports",
+        image:"sport1.jpg"
     }
-
 ];
+
+/* =========================================
+   Load Gallery
+========================================= */
 
 function loadGallery(category = "all") {
 
@@ -288,9 +355,13 @@ function loadGallery(category = "all") {
 
     if (!grid) return;
 
-    const filtered = category === "all"
+    const filtered =
+        category === "all"
         ? galleryData
-        : galleryData.filter(item => item.category === category);
+        : galleryData.filter(
+            item =>
+            item.category === category
+        );
 
     grid.innerHTML = filtered.map(item => `
 
@@ -313,8 +384,11 @@ function loadGallery(category = "all") {
         </div>
 
     `).join("");
-
 }
+
+/* =========================================
+   Gallery Filters
+========================================= */
 
 function initGalleryFilters() {
 
@@ -326,18 +400,19 @@ function initGalleryFilters() {
 
         btn.addEventListener("click", () => {
 
-            buttons.forEach(b => b.classList.remove("active"));
+            buttons.forEach(b =>
+                b.classList.remove("active")
+            );
 
             btn.classList.add("active");
 
-            loadGallery(btn.dataset.category);
-
+            loadGallery(
+                btn.dataset.category
+            );
         });
-
     });
 
     loadGallery();
-
 }
 
 /* =========================================
@@ -354,39 +429,46 @@ function initContactForm() {
 
         e.preventDefault();
 
-        const inputs = form.querySelectorAll("input, textarea");
+        const inputs =
+            form.querySelectorAll(
+                "input, textarea"
+            );
 
         let valid = true;
 
         inputs.forEach(input => {
 
-            if (input.value.trim() === "") {
+            if (
+                input.value.trim() === ""
+            ) {
 
-                input.style.borderColor = "red";
+                input.style.borderColor =
+                    "#ef4444";
+
                 valid = false;
 
             } else {
 
-                input.style.borderColor = "#ddd";
-
+                input.style.borderColor =
+                    "#e2e8f0";
             }
-
         });
 
         if (!valid) {
 
-            alert("يرجى ملء جميع الحقول");
+            alert(
+                "يرجى ملء جميع الحقول"
+            );
 
             return;
-
         }
 
-        alert("تم إرسال رسالتك بنجاح ✅");
+        alert(
+            "تم إرسال رسالتك بنجاح ✅"
+        );
 
         form.reset();
-
     });
-
 }
 
 /* =========================================
@@ -401,67 +483,31 @@ function initLogin() {
 
         btn.addEventListener("click", () => {
 
-            tabs.forEach(t => t.classList.remove("active"));
+            tabs.forEach(t =>
+                t.classList.remove("active")
+            );
 
             btn.classList.add("active");
 
             $$(".login-form").forEach(form => {
-                form.classList.remove("active");
+
+                form.classList.remove(
+                    "active"
+                );
             });
 
-            const target = $("#" + btn.dataset.tab + "Tab");
+            const target = $(
+                "#" + btn.dataset.tab + "Tab"
+            );
 
             if (target) {
-                target.classList.add("active");
+
+                target.classList.add(
+                    "active"
+                );
             }
-
         });
-
     });
-
-    const studentBtn = $("#studentLoginBtn");
-    const teacherBtn = $("#teacherLoginBtn");
-    const adminBtn = $("#adminLoginBtn");
-
-    if (studentBtn) {
-
-        studentBtn.addEventListener("click", () => {
-
-            localStorage.setItem("role", "student");
-            localStorage.setItem("name", "أحمد");
-
-            window.location.href = "student-dashboard.html";
-
-        });
-
-    }
-
-    if (teacherBtn) {
-
-        teacherBtn.addEventListener("click", () => {
-
-            localStorage.setItem("role", "teacher");
-            localStorage.setItem("name", "الأستاذ");
-
-            window.location.href = "teacher-dashboard.html";
-
-        });
-
-    }
-
-    if (adminBtn) {
-
-        adminBtn.addEventListener("click", () => {
-
-            localStorage.setItem("role", "admin");
-            localStorage.setItem("name", "الإدارة");
-
-            window.location.href = "admin-dashboard.html";
-
-        });
-
-    }
-
 }
 
 /* =========================================
@@ -480,26 +526,33 @@ function initDashboard() {
 
             e.preventDefault();
 
-            const section = link.dataset.section;
+            const section =
+                link.dataset.section;
 
-            $$(".dashboard-section").forEach(sec => {
-                sec.style.display = "none";
+            $$(".dashboard-section")
+            .forEach(sec => {
+
+                sec.style.display =
+                    "none";
             });
 
-            const target = $("#" + section + "Section");
+            const target = $(
+                "#" + section + "Section"
+            );
 
             if (target) {
-                target.style.display = "block";
+
+                target.style.display =
+                    "block";
             }
 
-            links.forEach(l => l.classList.remove("active"));
+            links.forEach(l =>
+                l.classList.remove("active")
+            );
 
             link.classList.add("active");
-
         });
-
     });
-
 }
 
 /* =========================================
@@ -508,21 +561,21 @@ function initDashboard() {
 
 const schedules = {
 
-    first: [
-        ["الأحد", "رياضيات", "فيزياء", "عربية"],
-        ["الإثنين", "علوم", "إنجليزية", "تاريخ"]
+    first:[
+        ["الأحد","رياضيات","فيزياء","عربية"],
+        ["الإثنين","علوم","إنجليزية","تاريخ"]
     ],
 
-    second: [
-        ["الأحد", "رياضيات", "علوم", "فيزياء"],
-        ["الإثنين", "إنجليزية", "فلسفة", "عربية"]
+    second:[
+        ["الأحد","رياضيات","علوم","فيزياء"],
+        ["الإثنين","إنجليزية","فلسفة","عربية"]
     ]
-
 };
 
 function loadSchedule(level = "first") {
 
-    const container = $("#scheduleContent");
+    const container =
+        $("#scheduleContent");
 
     if (!container) return;
 
@@ -533,16 +586,19 @@ function loadSchedule(level = "first") {
         <table class="schedule-table">
 
             <thead>
+
                 <tr>
+
                     <th>اليوم</th>
                     <th>الحصة 1</th>
                     <th>الحصة 2</th>
                     <th>الحصة 3</th>
+
                 </tr>
+
             </thead>
 
             <tbody>
-
     `;
 
     data.forEach(row => {
@@ -557,58 +613,106 @@ function loadSchedule(level = "first") {
                 <td>${row[3]}</td>
 
             </tr>
-
         `;
-
     });
 
-    html += `</tbody></table>`;
+    html += `
+            </tbody>
+        </table>
+    `;
 
     container.innerHTML = html;
-
 }
 
 /* =========================================
-   Page Loader
+   Back To Top Button
+========================================= */
+
+function initBackToTop() {
+
+    const button =
+        document.createElement("button");
+
+    button.className = "back-to-top";
+
+    button.innerHTML = `
+        <i class="fas fa-chevron-up"></i>
+    `;
+
+    document.body.appendChild(button);
+
+    window.addEventListener("scroll", () => {
+
+        if (window.scrollY > 400) {
+
+            button.classList.add("show");
+
+        } else {
+
+            button.classList.remove(
+                "show"
+            );
+        }
+    });
+
+    button.addEventListener("click", () => {
+
+        window.scrollTo({
+            top:0,
+            behavior:"smooth"
+        });
+    });
+}
+
+/* =========================================
+   Page Loaded
 ========================================= */
 
 window.addEventListener("load", () => {
 
-    document.body.classList.add("loaded");
-
+    document.body.classList.add(
+        "loaded"
+    );
 });
 
 /* =========================================
    Initialization
 ========================================= */
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
 
-    updateYears();
+        updateYears();
 
-    initMobileMenu();
+        initMobileMenu();
 
-    initSmoothScroll();
+        initSmoothScroll();
 
-    loadAnnouncements();
+        initNavbarEffect();
 
-    initStatsAnimation();
+        loadAnnouncements();
 
-    initScrollAnimations();
+        initStatsAnimation();
 
-    initGalleryFilters();
+        initScrollAnimations();
 
-    initContactForm();
+        initGalleryFilters();
 
-    initLogin();
+        initContactForm();
 
-    initDashboard();
+        initLogin();
 
-});
+        initDashboard();
+
+        initBackToTop();
+    }
+);
 
 /* =========================================
    Global Functions
 ========================================= */
 
 window.loadGallery = loadGallery;
+
 window.loadSchedule = loadSchedule;
