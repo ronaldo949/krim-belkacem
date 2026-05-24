@@ -3,11 +3,13 @@
 
 <head>
 
+    <!-- Meta -->
     <meta charset="UTF-8">
 
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0">
 
+    <!-- Title -->
     <title>
         تسجيل الدخول | ثانوية كريم بلقاسم
     </title>
@@ -29,326 +31,287 @@
 
     <style>
 
-        body{
+        body {
 
-            min-height:100vh;
+            min-height: 100vh;
 
-            display:flex;
+            display: flex;
 
-            justify-content:center;
+            align-items: center;
 
-            align-items:center;
-
-            background:
-
-            linear-gradient(
-
-                rgba(15,23,42,0.75),
-
-                rgba(15,23,42,0.75)
-
-            ),
-
-            url("images/hero-bg.jpg")
-
-            center/cover no-repeat;
-
-            padding:20px;
-
-        }
-
-        .login-container{
-
-            width:100%;
-
-            max-width:460px;
-
-        }
-
-        .login-card{
-
-            background:rgba(255,255,255,0.96);
-
-            backdrop-filter:blur(12px);
-
-            border-radius:28px;
-
-            padding:45px 35px;
-
-            box-shadow:
-
-            0 15px 40px rgba(0,0,0,0.18);
-
-            animation:fadeUp 0.8s ease;
-
-        }
-
-        .login-logo{
-
-            text-align:center;
-
-            margin-bottom:30px;
-
-        }
-
-        .login-logo .icon{
-
-            width:85px;
-
-            height:85px;
-
-            margin:auto;
-
-            border-radius:24px;
+            justify-content: center;
 
             background:
+                linear-gradient(
+                    rgba(15,23,42,0.75),
+                    rgba(15,23,42,0.75)
+                ),
+                url("https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1600&auto=format&fit=crop");
 
-            linear-gradient(
+            background-size: cover;
 
-                135deg,
+            background-position: center;
 
-                var(--primary),
-
-                var(--accent)
-
-            );
-
-            display:flex;
-
-            justify-content:center;
-
-            align-items:center;
-
-            color:white;
-
-            font-size:2rem;
-
-            box-shadow:var(--shadow-lg);
-
-            margin-bottom:18px;
-
+            padding: 20px;
         }
 
-        .login-logo h1{
+        .login-container {
 
-            font-size:1.8rem;
+            width: 100%;
 
-            color:var(--secondary);
-
-            margin-bottom:8px;
-
+            max-width: 460px;
         }
 
-        .login-logo p{
+        .login-card {
 
-            color:var(--gray);
+            background: rgba(255,255,255,0.96);
 
-            font-size:0.95rem;
+            backdrop-filter: blur(12px);
 
+            border-radius: 32px;
+
+            padding: 45px 35px;
+
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+
+            text-align: center;
+
+            animation: fadeUp 0.7s ease;
         }
 
-        .login-form{
+        @keyframes fadeUp {
 
-            margin-top:25px;
+            from {
 
-        }
+                opacity: 0;
 
-        .input-group{
-
-            margin-bottom:22px;
-
-        }
-
-        .input-group label{
-
-            display:block;
-
-            margin-bottom:10px;
-
-            font-weight:700;
-
-            color:var(--secondary);
-
-        }
-
-        .input-box{
-
-            position:relative;
-
-        }
-
-        .input-box i{
-
-            position:absolute;
-
-            top:50%;
-
-            right:18px;
-
-            transform:translateY(-50%);
-
-            color:var(--primary);
-
-            font-size:1rem;
-
-        }
-
-        .input-box input{
-
-            width:100%;
-
-            height:58px;
-
-            border-radius:18px;
-
-            border:2px solid var(--border);
-
-            padding:0 55px 0 18px;
-
-            font-family:'Cairo',sans-serif;
-
-            font-size:1rem;
-
-            outline:none;
-
-            transition:0.3s ease;
-
-            background:white;
-
-        }
-
-        .input-box input:focus{
-
-            border-color:var(--primary);
-
-            box-shadow:
-
-            0 0 0 4px rgba(37,99,235,0.12);
-
-        }
-
-        .google-btn{
-
-            width:100%;
-
-            height:58px;
-
-            border:none;
-
-            border-radius:18px;
-
-            background:
-
-            linear-gradient(
-
-                135deg,
-
-                var(--primary),
-
-                var(--accent)
-
-            );
-
-            color:white;
-
-            font-size:1rem;
-
-            font-weight:700;
-
-            cursor:pointer;
-
-            transition:0.3s ease;
-
-            display:flex;
-
-            justify-content:center;
-
-            align-items:center;
-
-            gap:12px;
-
-            box-shadow:var(--shadow);
-
-        }
-
-        .google-btn:hover{
-
-            transform:translateY(-4px);
-
-            box-shadow:
-
-            0 12px 25px rgba(37,99,235,0.28);
-
-        }
-
-        .login-status{
-
-            margin-top:20px;
-
-            text-align:center;
-
-            font-weight:700;
-
-            color:var(--primary);
-
-        }
-
-        .login-note{
-
-            margin-top:28px;
-
-            text-align:center;
-
-            color:var(--gray);
-
-            font-size:0.92rem;
-
-            line-height:1.8;
-
-        }
-
-        .back-home{
-
-            margin-top:28px;
-
-            text-align:center;
-
-        }
-
-        .back-home a{
-
-            text-decoration:none;
-
-            color:var(--primary);
-
-            font-weight:700;
-
-            transition:0.3s ease;
-
-        }
-
-        .back-home a:hover{
-
-            color:var(--primary-dark);
-
-        }
-
-        @media(max-width:480px){
-
-            .login-card{
-
-                padding:35px 24px;
-
-                border-radius:24px;
-
+                transform: translateY(30px);
             }
 
-            .login-logo h1{
+            to {
 
-                font-size:1.5rem;
+                opacity: 1;
 
+                transform: translateY(0);
+            }
+        }
+
+        .login-logo {
+
+            width: 95px;
+
+            height: 95px;
+
+            border-radius: 24px;
+
+            margin: auto auto 25px;
+
+            background: linear-gradient(
+                135deg,
+                var(--primary),
+                var(--primary-dark)
+            );
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            color: white;
+
+            font-size: 2.5rem;
+
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+        }
+
+        .login-card h1 {
+
+            color: var(--primary);
+
+            margin-bottom: 12px;
+
+            font-size: 2rem;
+        }
+
+        .login-card p {
+
+            color: #64748b;
+
+            line-height: 1.8;
+
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+
+            text-align: right;
+
+            margin-bottom: 22px;
+        }
+
+        .input-group label {
+
+            display: block;
+
+            margin-bottom: 10px;
+
+            color: #1e293b;
+
+            font-weight: 700;
+        }
+
+        .input-box {
+
+            position: relative;
+        }
+
+        .input-box i {
+
+            position: absolute;
+
+            top: 50%;
+
+            right: 18px;
+
+            transform: translateY(-50%);
+
+            color: var(--secondary);
+        }
+
+        .input-box input {
+
+            width: 100%;
+
+            padding: 16px 50px 16px 16px;
+
+            border-radius: 16px;
+
+            border: 1px solid #dbe2ea;
+
+            font-family: "Cairo", sans-serif;
+
+            font-size: 1rem;
+
+            transition: 0.3s;
+
+            background: #f8fafc;
+        }
+
+        .input-box input:focus {
+
+            outline: none;
+
+            border-color: var(--secondary);
+
+            box-shadow: 0 0 0 4px rgba(230,126,34,0.1);
+
+            background: white;
+        }
+
+        .login-btn {
+
+            width: 100%;
+
+            border: none;
+
+            background: linear-gradient(
+                135deg,
+                var(--primary),
+                var(--primary-dark)
+            );
+
+            color: white;
+
+            padding: 16px;
+
+            border-radius: 16px;
+
+            font-family: "Cairo", sans-serif;
+
+            font-size: 1rem;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 12px;
+        }
+
+        .login-btn:hover {
+
+            transform: translateY(-4px);
+        }
+
+        .login-note {
+
+            margin-top: 25px;
+
+            padding: 18px;
+
+            border-radius: 18px;
+
+            background: #f8fafc;
+
+            color: #475569;
+
+            line-height: 1.9;
+
+            font-size: 0.95rem;
+        }
+
+        .login-note i {
+
+            color: var(--secondary);
+        }
+
+        .back-home {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            margin-top: 25px;
+
+            text-decoration: none;
+
+            color: white;
+
+            background: rgba(255,255,255,0.12);
+
+            padding: 12px 18px;
+
+            border-radius: 14px;
+
+            transition: 0.3s;
+        }
+
+        .back-home:hover {
+
+            background: rgba(255,255,255,0.2);
+        }
+
+        @media (max-width:768px) {
+
+            .login-card {
+
+                padding: 35px 25px;
             }
 
+            .login-card h1 {
+
+                font-size: 1.7rem;
+            }
         }
 
     </style>
@@ -359,31 +322,32 @@
 
     <div class="login-container">
 
+        <!-- Card -->
+
         <div class="login-card">
 
             <!-- Logo -->
 
             <div class="login-logo">
 
-                <div class="icon">
-                    <i class="fas fa-school"></i>
-                </div>
-
-                <h1>
-                    تسجيل الدخول
-                </h1>
-
-                <p>
-                    ثانوية كريم بلقاسم - تيزي وزو
-                </p>
+                <i class="fas fa-user-graduate"></i>
 
             </div>
 
-            <!-- Login Form -->
+            <!-- Title -->
 
-            <div class="login-form">
+            <h1>
+                تسجيل الدخول
+            </h1>
 
-                <!-- Student Code -->
+            <p>
+                قم بتسجيل الدخول باستخدام حساب Google
+                ورمز التلميذ الخاص بك للوصول إلى فضاء التلميذ.
+            </p>
+
+            <!-- Form -->
+
+            <form id="loginForm">
 
                 <div class="input-group">
 
@@ -398,17 +362,17 @@
                         <input
                             type="text"
                             id="studentCode"
-                            placeholder="أدخل رمز التلميذ">
+                            placeholder="مثال : KB2024001"
+                            required>
 
                     </div>
 
                 </div>
 
-                <!-- Google Button -->
-
                 <button
-                    class="google-btn"
-                    id="googleLoginBtn">
+                    type="submit"
+                    class="login-btn"
+                    id="loginBtn">
 
                     <i class="fab fa-google"></i>
 
@@ -416,39 +380,34 @@
 
                 </button>
 
-                <!-- Status -->
+            </form>
 
-                <div
-                    class="login-status"
-                    id="loginStatus">
+            <!-- Note -->
 
-                </div>
+            <div class="login-note">
 
-                <!-- Note -->
+                <i class="fas fa-shield-halved"></i>
 
-                <div class="login-note">
-
-                    يتم تسجيل الدخول باستخدام
-                    حساب Google الحقيقي لضمان
-                    حماية وأمان حسابات التلاميذ.
-
-                </div>
-
-                <!-- Back Home -->
-
-                <div class="back-home">
-
-                    <a href="index.html">
-
-                        <i class="fas fa-arrow-right"></i>
-
-                        العودة للرئيسية
-
-                    </a>
-
-                </div>
+                يتم تأمين الحساب عبر Google
+                وربط البريد الإلكتروني برمز التلميذ
+                لحماية الحسابات من الانتحال.
 
             </div>
+
+        </div>
+
+        <!-- Back -->
+
+        <div style="text-align:center;">
+
+            <a href="index.html"
+                class="back-home">
+
+                <i class="fas fa-arrow-right"></i>
+
+                العودة للرئيسية
+
+            </a>
 
         </div>
 
@@ -456,11 +415,8 @@
 
     <!-- Login JS -->
 
-    <script
-        type="module"
-        src="js/login.js">
-
-    </script>
+    <script type="module"
+        src="js/login.js"></script>
 
 </body>
 
