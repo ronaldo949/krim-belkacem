@@ -877,9 +877,7 @@
                         <p>
 
                             يتم حماية حسابات التلاميذ
-                            عبر Firebase Authentication
-                            وربط الحساب بالبريد الإلكتروني
-                            الخاص بالتلميذ لضمان الأمان الكامل.
+                            عبر نظام Google للحماية.
 
                         </p>
 
@@ -931,79 +929,42 @@
 
     <!-- Footer -->
 
-    <footer class="footer">
+<footer class="footer">
 
-        <div class="container">
+    <div class="container">
 
-            <div class="footer-content">
+        <div class="footer-content">
 
-                <div class="footer-section">
+            <!-- School Info -->
 
-                    <h3>
-                        ثانوية كريم بلقاسم
-                    </h3>
+            <div class="footer-section">
 
-                    <p>
-                        تيزي وزو - ذراع بن خدة - ميرابو
-                    </p>
+                <h3>
+                    ثانوية كريم بلقاسم
+                </h3>
 
-                </div>
+                <p>
+                    تيزي وزو - ذراع بن خدة - ميرابو
+                </p>
 
-                <div class="footer-section">
+                <!-- Developer Box -->
 
-                    <h4>
-                        معلومات التواصل
-                    </h4>
+                <div class="developer-box">
 
-                    <p>
-                        <i class="fas fa-clock"></i>
+                    <i class="fas fa-code"></i>
 
-                        الأحد - الخميس :
-                        08:00 صباحاً إلى 16:00 مساءً
-                    </p>
+                    <div>
 
-                    <p>
-                        <i class="fas fa-phone-volume"></i>
+                        <strong>
+                            تطوير وتصميم الموقع
+                        </strong>
 
-                        الهاتف الأرضي :
-                        +213 26 12 34 57
-                    </p>
-
-                    <p>
-                        <i class="fas fa-envelope"></i>
-
-                        lycee.karimbelkacem@edu.dz
-                    </p>
-
-                    <p>
-                        <i class="fas fa-location-dot"></i>
-
-                        ميرابو - ذراع بن خدة - تيزي وزو
-                    </p>
-
-                </div>
-
-                <div class="footer-section">
-
-                    <h4>
-                        تابعونا
-                    </h4>
-
-                    <div class="social-icons">
-
-                        <a href="#"
-                           class="facebook">
-
-                            <i class="fab fa-facebook-f"></i>
-
-                        </a>
-
-                        <a href="#"
-                           class="instagram">
-
-                            <i class="fab fa-instagram"></i>
-
-                        </a>
+                        <p>
+                            تم تطوير هذا الموقع بكل فخر
+                            من طرف طالب من ثانوية كريم بلقاسم
+                            بهدف إنشاء منصة تعليمية عصرية
+                            تسهّل الوصول للمعلومات والخدمات المدرسية.
+                        </p>
 
                     </div>
 
@@ -1011,27 +972,156 @@
 
             </div>
 
-            <div class="footer-bottom">
+            <!-- Contact Info -->
+
+            <div class="footer-section">
+
+                <h4>
+                    معلومات التواصل
+                </h4>
 
                 <p>
+                    <i class="fas fa-clock"></i>
 
-                    &copy;
-
-                    <span class="current-year">
-
-                        2026
-
-                    </span>
-
-                    ثانوية كريم بلقاسم - جميع الحقوق محفوظة
-
+                    الأحد - الخميس :
+                    08:00 صباحاً إلى 16:00 مساءً
                 </p>
+
+                <p>
+                    <i class="fas fa-phone-volume"></i>
+
+                    الهاتف الأرضي :
+                    +213 26 12 34 57
+                </p>
+
+                <p>
+                    <i class="fas fa-envelope"></i>
+
+                    lycee.karimbelkacem@edu.dz
+                </p>
+
+                <p>
+                    <i class="fas fa-location-dot"></i>
+
+                    ميرابو - ذراع بن خدة - تيزي وزو
+                </p>
+
+            </div>
+
+            <!-- Social Media -->
+
+            <div class="footer-section">
+
+                <h4>
+                    تابعونا
+                </h4>
+
+                <div class="social-icons">
+
+                    <a href="#"
+                       class="facebook">
+
+                        <i class="fab fa-facebook-f"></i>
+
+                    </a>
+
+                    <a href="#"
+                       class="instagram">
+
+                        <i class="fab fa-instagram"></i>
+
+                    </a>
+
+                </div>
 
             </div>
 
         </div>
 
-    </footer>
+        <!-- Footer Bottom -->
+
+        <div class="footer-bottom">
+
+            <p>
+
+                &copy;
+
+                <span class="current-year">
+                    2026
+                </span>
+
+                ثانوية كريم بلقاسم - جميع الحقوق محفوظة
+
+            </p>
+
+        </div>
+
+    </div>
+
+</footer>
+
+<style>
+
+.developer-box {
+
+    margin-top: 20px;
+
+    background: rgba(255,255,255,0.08);
+
+    border: 1px solid rgba(255,255,255,0.12);
+
+    border-radius: 18px;
+
+    padding: 18px;
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 15px;
+
+    transition: 0.3s;
+}
+
+.developer-box:hover {
+
+    transform: translateY(-4px);
+
+    background: rgba(255,255,255,0.12);
+}
+
+.developer-box i {
+
+    font-size: 1.8rem;
+
+    color: #f59e0b;
+
+    margin-top: 5px;
+}
+
+.developer-box strong {
+
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-size: 1rem;
+
+    color: #ffffff;
+}
+
+.developer-box p {
+
+    color: rgba(255,255,255,0.85);
+
+    line-height: 1.8;
+
+    font-size: 0.95rem;
+
+    margin: 0;
+}
+
+</style>
 
     <!-- JS -->
 
