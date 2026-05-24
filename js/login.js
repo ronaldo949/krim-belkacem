@@ -1,298 +1,114 @@
-/* =========================================
-   Login System
-   ثانوية كريم بلقاسم
-========================================= */
-
-"use strict";
-
-/* =========================================
-   Firebase Imports
-========================================= */
+// ===============================
+// Import Firebase Functions
+// ===============================
 
 import {
 
-    auth,
+    loginStudent
 
-    provider,
+} from "./firebase.js";
 
-    db,
 
-    signInWithPopup,
+// ===============================
+// Elements
+// ===============================
 
-    signOut,
-
-    onAuthStateChanged,
-
-    doc,
-
-    getDoc
-
-} from "./firebase-config.js";
-
-/* =========================================
-   Elements
-========================================= */
-
-const loginBtn =
-    document.getElementById(
-        "googleLoginBtn"
-    );
-
-const logoutBtn =
-    document.getElementById(
-        "logoutBtn"
-    );
+const loginForm =
+    document.getElementById("loginForm");
 
 const studentCodeInput =
-    document.getElementById(
-        "studentCode"
-    );
+    document.getElementById("studentCode");
 
-const loginStatus =
-    document.getElementById(
-        "loginStatus"
-    );
+const loginBtn =
+    document.getElementById("loginBtn");
 
-/* =========================================
-   Google Login
-========================================= */
 
-if (loginBtn) {
+// ===============================
+// Login Submit
+// ===============================
 
-    loginBtn.addEventListener(
-        "click",
-        async () => {
+loginForm?.addEventListener(
+    "submit",
+    async (e) => {
 
-            const studentCode =
-                studentCodeInput.value.trim();
+        e.preventDefault();
 
-            /* =========================================
-               Validate Code
-            ========================================= */
+        const studentCode =
+            studentCodeInput.value
+                .trim()
+                .toUpperCase();
 
-            if (studentCode === "") {
+        if (!studentCode) {
 
-                alert(
-                    "يرجى إدخال رمز التلميذ"
-                );
-
-                return;
-
-            }
-
-            try {
-
-                /* =========================================
-                   Google Sign In
-                ========================================= */
-
-                const result =
-                    await signInWithPopup(
-                        auth,
-                        provider
-                    );
-
-                const user =
-                    result.user;
-
-                /* =========================================
-                   Check Student In Database
-                ========================================= */
-
-                const studentRef =
-                    doc(
-                        db,
-                        "students",
-                        studentCode
-                    );
-
-                const studentSnap =
-                    await getDoc(
-                        studentRef
-                    );
-
-                /* =========================================
-                   Invalid Student
-                ========================================= */
-
-                if (
-                    !studentSnap.exists()
-                ) {
-
-                    alert(
-                        "رمز التلميذ غير موجود"
-                    );
-
-                    await signOut(auth);
-
-                    return;
-
-                }
-
-                /* =========================================
-                   Student Data
-                ========================================= */
-
-                const studentData =
-                    studentSnap.data();
-
-                /* =========================================
-                   Save Session
-                ========================================= */
-
-                localStorage.setItem(
-                    "studentLoggedIn",
-                    "true"
-                );
-
-                localStorage.setItem(
-                    "studentName",
-                    studentData.name || ""
-                );
-
-                localStorage.setItem(
-                    "studentLastname",
-                    studentData.lastname || ""
-                );
-
-                localStorage.setItem(
-                    "studentCode",
-                    studentCode
-                );
-
-                localStorage.setItem(
-                    "studentEmail",
-                    user.email
-                );
-
-                localStorage.setItem(
-                    "studentPhoto",
-                    user.photoURL || ""
-                );
-
-                /* =========================================
-                   Success Message
-                ========================================= */
-
-                if (loginStatus) {
-
-                    loginStatus.innerHTML = `
-
-                        مرحباً ${studentData.name}
-
-                    `;
-
-                }
-
-                /* =========================================
-                   Redirect
-                ========================================= */
-
-                setTimeout(() => {
-
-                    window.location.href =
-                        "student-dashboard.html";
-
-                }, 1500);
-
-            } catch (error) {
-
-                console.error(
-                    "Login Error:",
-                    error
-                );
-
-                alert(
-                    "حدث خطأ أثناء تسجيل الدخول"
-                );
-
-            }
-
-        }
-    );
-
-}
-
-/* =========================================
-   Logout
-========================================= */
-
-if (logoutBtn) {
-
-    logoutBtn.addEventListener(
-        "click",
-        async () => {
-
-            try {
-
-                await signOut(auth);
-
-                localStorage.clear();
-
-                window.location.href =
-                    "login.html";
-
-            } catch (error) {
-
-                console.error(
-                    "Logout Error:",
-                    error
-                );
-
-            }
-
-        }
-    );
-
-}
-
-/* =========================================
-   Auto Login Check
-========================================= */
-
-onAuthStateChanged(
-    auth,
-    user => {
-
-        if (user) {
-
-            console.log(
-                "User Logged In:",
-                user.email
+            alert(
+                "يرجى إدخال رمز التلميذ"
             );
 
-        } else {
-
-            console.log(
-                "No User Logged In"
-            );
-
+            return;
         }
 
+        // Disable Button
+
+        loginBtn.disabled = true;
+
+        loginBtn.innerHTML = `
+            <i class="fas fa-spinner fa-spin"></i>
+            جاري تسجيل الدخول...
+        `;
+
+        try {
+
+            await loginStudent(
+                studentCode
+            );
+        }
+
+        catch (error) {
+
+            console.error(error);
+
+            alert(
+                "حدث خطأ أثناء تسجيل الدخول"
+            );
+        }
+
+        finally {
+
+            loginBtn.disabled = false;
+
+            loginBtn.innerHTML = `
+                <i class="fab fa-google"></i>
+                تسجيل الدخول عبر Google
+            `;
+        }
     }
 );
 
-/* =========================================
-   Protect Dashboard
-========================================= */
 
-const protectedPage =
-    window.location.pathname.includes(
-        "student-dashboard.html"
-    );
+// ===============================
+// Auto Uppercase
+// ===============================
 
-if (protectedPage) {
+studentCodeInput?.addEventListener(
+    "input",
+    () => {
 
-    const loggedIn =
-        localStorage.getItem(
-            "studentLoggedIn"
-        );
-
-    if (!loggedIn) {
-
-        window.location.href =
-            "login.html";
-
+        studentCodeInput.value =
+            studentCodeInput.value.toUpperCase();
     }
+);
 
-}
+
+// ===============================
+// Enter Animation
+// ===============================
+
+window.addEventListener(
+    "load",
+    () => {
+
+        document.body.classList.add(
+            "loaded"
+        );
+    }
+);
