@@ -13,24 +13,29 @@
     </title>
 
     <!-- CSS -->
+
     <link rel="stylesheet"
           href="css/style.css">
 
     <!-- Google Font -->
+
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap"
           rel="stylesheet">
 
     <!-- Font Awesome -->
+
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-    <!-- Extra Style -->
-
     <style>
 
-        .login-page {
+        /* =========================================
+           Hero Login
+        ========================================= */
 
-            min-height: 100vh;
+        .login-hero {
+
+            min-height: 65vh;
 
             display: flex;
 
@@ -38,35 +43,136 @@
 
             align-items: center;
 
-            padding: 140px 20px 80px;
+            text-align: center;
+
+            position: relative;
+
+            overflow: hidden;
+
+            padding: 120px 20px 150px;
 
             background:
             linear-gradient(
-                rgba(15,23,42,0.75),
-                rgba(15,23,42,0.75)
+                rgba(15,23,42,0.72),
+                rgba(15,23,42,0.72)
             ),
             url('images/hero-bg.jpg')
             center/cover no-repeat;
         }
 
-        .login-container {
+        .login-hero-content {
+
+            max-width: 750px;
+
+            color: white;
+
+            position: relative;
+
+            z-index: 2;
+
+            animation: fadeUp 1s ease;
+        }
+
+        .login-badge {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            padding: 10px 22px;
+
+            border-radius: 50px;
+
+            background:
+            rgba(255,255,255,0.12);
+
+            backdrop-filter: blur(10px);
+
+            margin-bottom: 25px;
+
+            font-size: 0.95rem;
+        }
+
+        .login-hero-content h1 {
+
+            font-size: 3.5rem;
+
+            margin-bottom: 20px;
+
+            font-weight: 800;
+        }
+
+        .login-hero-content p {
+
+            color: #e2e8f0;
+
+            font-size: 1.15rem;
+
+            line-height: 2;
+        }
+
+        /* =========================================
+           Wave
+        ========================================= */
+
+        .hero-wave {
+
+            position: absolute;
+
+            bottom: -2px;
+
+            left: 0;
 
             width: 100%;
 
-            max-width: 560px;
+            line-height: 0;
+
+            z-index: 1;
+        }
+
+        .hero-wave svg {
+
+            display: block;
+
+            width: 100%;
+        }
+
+        /* =========================================
+           Login Section
+        ========================================= */
+
+        .login-section {
+
+            margin-top: -120px;
+
+            position: relative;
+
+            z-index: 10;
+
+            padding-bottom: 90px;
+        }
+
+        .login-container {
+
+            width: 90%;
+
+            max-width: 550px;
+
+            margin: auto;
         }
 
         .login-card {
 
-            background: rgba(255,255,255,0.96);
+            background: white;
 
-            backdrop-filter: blur(12px);
-
-            border-radius: 30px;
+            border-radius: 32px;
 
             padding: 45px;
 
-            box-shadow: 0 15px 40px rgba(0,0,0,0.18);
+            box-shadow:
+            0 20px 50px rgba(0,0,0,0.12);
 
             position: relative;
 
@@ -102,21 +208,15 @@
             margin-bottom: 35px;
         }
 
-        .login-logo {
+        .login-icon {
 
-            width: 85px;
+            width: 95px;
 
-            height: 85px;
+            height: 95px;
 
-            margin: auto auto 20px;
+            margin: auto auto 22px;
 
-            border-radius: 24px;
-
-            display: flex;
-
-            justify-content: center;
-
-            align-items: center;
+            border-radius: 28px;
 
             background:
             linear-gradient(
@@ -125,16 +225,22 @@
                 var(--accent)
             );
 
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
             color: white;
 
-            font-size: 2rem;
+            font-size: 2.2rem;
 
             box-shadow: var(--shadow-lg);
         }
 
-        .login-header h1 {
+        .login-header h2 {
 
-            font-size: 2.2rem;
+            font-size: 2rem;
 
             margin-bottom: 12px;
 
@@ -147,6 +253,10 @@
 
             line-height: 1.9;
         }
+
+        /* =========================================
+           Form
+        ========================================= */
 
         .login-form {
 
@@ -177,7 +287,7 @@
 
             width: 100%;
 
-            padding: 16px 18px;
+            padding: 17px 18px;
 
             border-radius: 18px;
 
@@ -204,216 +314,166 @@
             0 0 0 4px rgba(37,99,235,0.08);
         }
 
-        .login-submit {
+        /* =========================================
+           Google Button
+        ========================================= */
+
+        .google-btn {
+
+            width: 100%;
 
             border: none;
 
-            padding: 17px;
-
-            border-radius: 18px;
-
             cursor: pointer;
 
-            font-family: 'Cairo',sans-serif;
+            padding: 17px;
+
+            border-radius: 20px;
 
             font-size: 1rem;
 
             font-weight: 700;
 
-            color: white;
+            font-family: 'Cairo',sans-serif;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            gap: 14px;
+
+            color: #0f172a;
+
+            background: white;
+
+            border: 1px solid #e2e8f0;
 
             transition: 0.3s;
-
-            background:
-            linear-gradient(
-                135deg,
-                var(--primary),
-                var(--accent)
-            );
 
             box-shadow: var(--shadow);
         }
 
-        .login-submit:hover {
+        .google-btn:hover {
 
             transform: translateY(-4px);
 
             box-shadow: var(--shadow-lg);
+
+            background: #f8fafc;
         }
 
-        .login-note {
+        .google-logo {
+
+            width: 24px;
+
+            height: 24px;
+        }
+
+        /* =========================================
+           Security Box
+        ========================================= */
+
+        .security-box {
 
             margin-top: 28px;
 
-            background: #eff6ff;
+            background:
+            linear-gradient(
+                135deg,
+                #eff6ff,
+                #dbeafe
+            );
 
             border: 1px solid #bfdbfe;
 
-            border-radius: 20px;
+            border-radius: 22px;
 
-            padding: 20px;
+            padding: 22px;
+
+            display: flex;
+
+            align-items: flex-start;
+
+            gap: 15px;
+        }
+
+        .security-box i {
+
+            color: #2563eb;
+
+            font-size: 1.5rem;
+
+            margin-top: 4px;
+        }
+
+        .security-box h3 {
+
+            color: #1e3a8a;
+
+            margin-bottom: 8px;
+
+            font-size: 1rem;
+        }
+
+        .security-box p {
+
+            color: #1e40af;
 
             line-height: 1.9;
 
-            color: #1e3a8a;
+            font-size: 0.95rem;
         }
 
-        /* Hidden Teacher Access */
-
-        .secret-access {
-
-            margin-top: 30px;
-
-            text-align: center;
-        }
-
-        .secret-btn {
-
-            width: 20px;
-
-            height: 20px;
-
-            border: none;
-
-            border-radius: 50%;
-
-            background: #cbd5e1;
-
-            cursor: pointer;
-
-            transition: 0.3s;
-        }
-
-        .secret-btn:hover {
-
-            background: var(--primary);
-
-            transform: scale(1.2);
-        }
-
-        .teacher-panel {
-
-            display: none;
-
-            margin-top: 22px;
-
-            padding: 25px;
-
-            border-radius: 22px;
-
-            background: #f8fafc;
-
-            border: 1px solid var(--border);
-
-            animation: fadePanel 0.4s ease;
-        }
-
-        .teacher-panel.active {
-
-            display: block;
-        }
-
-        .teacher-panel h3 {
-
-            margin-bottom: 18px;
-
-            color: var(--secondary);
-        }
-
-        .teacher-panel input {
-
-            width: 100%;
-
-            padding: 15px;
-
-            border-radius: 16px;
-
-            border: 1px solid var(--border);
-
-            margin-bottom: 15px;
-
-            font-family: 'Cairo',sans-serif;
-        }
-
-        .teacher-panel button {
-
-            width: 100%;
-
-            border: none;
-
-            padding: 15px;
-
-            border-radius: 16px;
-
-            cursor: pointer;
-
-            color: white;
-
-            font-size: 1rem;
-
-            font-family: 'Cairo',sans-serif;
-
-            background: var(--secondary);
-
-            transition: 0.3s;
-        }
-
-        .teacher-panel button:hover {
-
-            background: #020617;
-        }
-
-        @keyframes fadePanel {
-
-            from {
-
-                opacity: 0;
-
-                transform: translateY(10px);
-            }
-
-            to {
-
-                opacity: 1;
-
-                transform: translateY(0);
-            }
-        }
+        /* =========================================
+           Responsive
+        ========================================= */
 
         @media(max-width:768px){
+
+            .login-hero-content h1 {
+
+                font-size: 2.5rem;
+            }
 
             .login-card {
 
                 padding: 35px 24px;
             }
-
-            .login-header h1 {
-
-                font-size: 1.9rem;
-            }
         }
 
         @media(max-width:480px){
 
-            .login-logo {
+            .login-hero {
 
-                width: 72px;
-
-                height: 72px;
-
-                font-size: 1.7rem;
+                min-height: 60vh;
             }
 
-            .login-header h1 {
+            .login-hero-content h1 {
+
+                font-size: 2rem;
+            }
+
+            .login-header h2 {
 
                 font-size: 1.6rem;
             }
 
+            .login-icon {
+
+                width: 78px;
+
+                height: 78px;
+
+                font-size: 1.8rem;
+            }
+
             .login-card {
 
-                border-radius: 24px;
+                padding: 28px 20px;
 
-                padding: 30px 20px;
+                border-radius: 26px;
             }
         }
 
@@ -438,21 +498,32 @@
                 </div>
 
                 <div class="logo-text">
-                    <h2>ثانوية كريم بلقاسم</h2>
-                    <p>تيزي وزو - ذراع بن خدة - ميرابو</p>
+
+                    <h2>
+                        ثانوية كريم بلقاسم
+                    </h2>
+
+                    <p>
+                        تيزي وزو - ذراع بن خدة - ميرابو
+                    </p>
+
                 </div>
 
             </a>
 
             <!-- Mobile Toggle -->
 
-            <div class="nav-toggle" id="navToggle">
+            <div class="nav-toggle"
+                 id="navToggle">
+
                 <i class="fas fa-bars"></i>
+
             </div>
 
             <!-- Menu -->
 
-            <ul class="nav-menu" id="navMenu">
+            <ul class="nav-menu"
+                id="navMenu">
 
                 <li>
                     <a href="index.html">
@@ -499,7 +570,9 @@
                 <li>
                     <a href="login.html"
                        class="login-btn active">
+
                         تسجيل الدخول
+
                     </a>
                 </li>
 
@@ -509,9 +582,58 @@
 
     </nav>
 
-    <!-- Login Section -->
+    <!-- Hero -->
 
-    <section class="login-page">
+    <section class="login-hero">
+
+        <div class="login-hero-content">
+
+            <span class="login-badge">
+
+                <i class="fas fa-shield-halved"></i>
+
+                منصة تسجيل آمنة للتلاميذ
+
+            </span>
+
+            <h1>
+
+                تسجيل الدخول المدرسي
+
+            </h1>
+
+            <p>
+
+                قم بتسجيل الدخول باستخدام رمز التلميذ
+                وحساب Google للوصول إلى الملفات الدراسية
+                والجداول والإعلانات المدرسية بسهولة وأمان.
+
+            </p>
+
+        </div>
+
+        <!-- Wave -->
+
+        <div class="hero-wave">
+
+            <svg viewBox="0 0 1440 320">
+
+                <path
+                    fill="#f8fafc"
+                    fill-opacity="1"
+                    d="M0,256L80,245.3C160,235,320,213,480,197.3C640,181,800,171,960,186.7C1120,203,1280,245,1360,266.7L1440,288L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z">
+
+                </path>
+
+            </svg>
+
+        </div>
+
+    </section>
+
+    <!-- Login -->
+
+    <section class="login-section">
 
         <div class="login-container">
 
@@ -521,102 +643,105 @@
 
                 <div class="login-header">
 
-                    <div class="login-logo">
+                    <div class="login-icon">
+
                         <i class="fas fa-user-graduate"></i>
+
                     </div>
 
-                    <h1>
-                        تسجيل الدخول
-                    </h1>
+                    <h2>
+
+                        حساب التلميذ
+
+                    </h2>
 
                     <p>
-                        قم بتسجيل الدخول للوصول إلى حسابك
-                        المدرسي والاطلاع على الملفات والجداول.
+
+                        أدخل رمز التلميذ الخاص بك
+                        ثم قم بتسجيل الدخول عبر Google.
+
                     </p>
 
                 </div>
 
                 <!-- Form -->
 
-                <form class="login-form">
+                <form id="loginForm"
+                      class="login-form">
 
                     <div class="form-group">
 
-                        <label>
-                            البريد الإلكتروني
+                        <label for="studentCode">
+
+                            رمز التلميذ
+
                         </label>
 
-                        <input type="email"
-                               placeholder="example@email.com"
+                        <input type="text"
+                               id="studentCode"
+                               placeholder="أدخل رمز التلميذ"
                                required>
 
                     </div>
 
-                    <div class="form-group">
-
-                        <label>
-                            كلمة المرور
-                        </label>
-
-                        <input type="password"
-                               placeholder="********"
-                               required>
-
-                    </div>
+                    <!-- Google Login -->
 
                     <button type="submit"
-                            class="login-submit">
+                            class="google-btn"
+                            id="loginBtn">
 
-                        <i class="fas fa-right-to-bracket"></i>
+                        <!-- Google SVG -->
 
-                        تسجيل الدخول
+                        <svg class="google-logo"
+                             xmlns="http://www.w3.org/2000/svg"
+                             viewBox="0 0 48 48">
+
+                            <path fill="#FFC107"
+                                  d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3 0 5.7 1.1 7.8 3l5.7-5.7C34.1 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.3-.4-3.5z"/>
+
+                            <path fill="#FF3D00"
+                                  d="M6.3 14.7l6.6 4.8C14.7 15.1 18.9 12 24 12c3 0 5.7 1.1 7.8 3l5.7-5.7C34.1 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/>
+
+                            <path fill="#4CAF50"
+                                  d="M24 44c5.2 0 10-2 13.5-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.3 0-9.7-3.3-11.3-8l-6.5 5C9.5 39.5 16.2 44 24 44z"/>
+
+                            <path fill="#1976D2"
+                                  d="M43.6 20.5H42V20H24v8h11.3c-1.1 3-3.4 5.3-6.5 6.8l6.2 5.2C39.5 36.1 44 30.6 44 24c0-1.3-.1-2.3-.4-3.5z"/>
+
+                        </svg>
+
+                        <span>
+
+                            تسجيل الدخول عبر Google
+
+                        </span>
 
                     </button>
 
                 </form>
 
-                <!-- Note -->
+                <!-- Security -->
 
-                <div class="login-note">
+                <div class="security-box">
 
-                    <i class="fas fa-circle-info"></i>
+                    <i class="fas fa-lock"></i>
 
-                    يمكنك تسجيل الدخول باستعمال الحساب
-                    المدرسي الخاص بك للوصول إلى مختلف
-                    الخدمات التعليمية والمنشورات المدرسية.
-
-                </div>
-
-                <!-- Hidden Teacher Access -->
-
-                <div class="secret-access">
-
-                    <button class="secret-btn"
-                            onclick="toggleTeacherPanel()"
-                            title="دخول الأستاذ">
-                    </button>
-
-                    <div class="teacher-panel"
-                         id="teacherPanel">
+                    <div>
 
                         <h3>
 
-                            <i class="fas fa-user-tie"></i>
-
-                            تسجيل دخول الأستاذ
+                            تسجيل دخول آمن ومحمي
 
                         </h3>
 
-                        <input type="password"
-                               placeholder="أدخل الرمز السري">
+                        <p>
 
-                        <button>
+                            يتم حماية حسابات التلاميذ
+                            عبر نظام Firebase Authentication
+                            مع ربط كل حساب بالبريد الإلكتروني
+                            الرسمي الخاص بالتلميذ لضمان الأمان الكامل.
 
-                            <i class="fas fa-lock"></i>
-
-                            دخول الأستاذ
-
-                        </button>
+                        </p>
 
                     </div>
 
@@ -641,80 +766,73 @@
                 <div class="footer-section">
 
                     <h3>
+
                         ثانوية كريم بلقاسم
+
                     </h3>
 
                     <p>
+
                         تيزي وزو - ذراع بن خدة - ميرابو
+
                     </p>
-
-                    <!-- Developer Box -->
-
-                    <div class="developer-box">
-
-                        <i class="fas fa-code"></i>
-
-                        <div>
-
-                            <strong>
-                                تطوير وتصميم الموقع
-                            </strong>
-
-                            <p>
-                                تم تطوير هذا الموقع بكل فخر
-                                من طرف طالب من ثانوية كريم بلقاسم
-                                بهدف إنشاء منصة تعليمية عصرية
-                                تسهّل الوصول للمعلومات والخدمات المدرسية.
-                            </p>
-
-                        </div>
-
-                    </div>
 
                 </div>
 
-                <!-- Contact Info -->
+                <!-- Contact -->
 
                 <div class="footer-section">
 
                     <h4>
+
                         معلومات التواصل
+
                     </h4>
 
                     <p>
+
                         <i class="fas fa-clock"></i>
 
                         الأحد - الخميس :
                         08:00 صباحاً إلى 16:00 مساءً
+
                     </p>
 
                     <p>
+
                         <i class="fas fa-phone-volume"></i>
 
                         الهاتف الأرضي :
                         +213 26 12 34 57
+
                     </p>
 
                     <p>
+
                         <i class="fas fa-envelope"></i>
 
                         lycee.karimbelkacem@edu.dz
+
                     </p>
 
                     <p>
+
                         <i class="fas fa-location-dot"></i>
 
                         ميرابو - ذراع بن خدة - تيزي وزو
+
                     </p>
 
                 </div>
 
-                <!-- Social Media -->
+                <!-- Social -->
 
                 <div class="footer-section">
 
                     <h4>
+
                         تابعونا
+
                     </h4>
 
                     <div class="social-icons">
@@ -748,7 +866,9 @@
                     &copy;
 
                     <span class="current-year">
+
                         2026
+
                     </span>
 
                     ثانوية كريم بلقاسم - جميع الحقوق محفوظة
@@ -761,23 +881,12 @@
 
     </footer>
 
-    <!-- Main JS -->
+    <!-- JS -->
+
+    <script type="module"
+            src="js/login.js"></script>
 
     <script src="js/main.js"></script>
-
-    <!-- Teacher Access -->
-
-    <script>
-
-        function toggleTeacherPanel(){
-
-            document
-            .getElementById("teacherPanel")
-            .classList
-            .toggle("active");
-        }
-
-    </script>
 
 </body>
 
