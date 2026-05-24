@@ -112,3 +112,59 @@ window.addEventListener(
         );
     }
 );
+// ===============================
+// Secret Teacher Access
+// ===============================
+
+const secretBtn =
+    document.getElementById(
+        "secretBtn"
+    );
+
+const teacherPanel =
+    document.getElementById(
+        "teacherPanel"
+    );
+
+const teacherLoginBtn =
+    document.getElementById(
+        "teacherLoginBtn"
+    );
+
+const teacherPassword =
+    document.getElementById(
+        "teacherPassword"
+    );
+
+secretBtn?.addEventListener(
+    "click",
+    () => {
+
+        teacherPanel.classList.toggle(
+            "active"
+        );
+    }
+);
+
+teacherLoginBtn?.addEventListener(
+    "click",
+    () => {
+
+        const password =
+            teacherPassword.value.trim();
+
+        if (
+            password === "ADMIN2026"
+        ) {
+
+            window.location.href =
+                "teacher-dashboard.html";
+
+        } else {
+
+            alert(
+                "الرمز السري غير صحيح"
+            );
+        }
+    }
+);
