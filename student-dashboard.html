@@ -871,7 +871,7 @@
 
     <!-- Settings Dropdown -->
 
-    <div class="settings-dropdown"
+<div class="settings-dropdown"
      id="settingsDropdown">
 
     <div class="settings-item"
@@ -890,6 +890,16 @@
         <i class="fas fa-envelope"></i>
 
         تغيير البريد الإلكتروني
+
+    </div>
+
+    <div class="settings-item"
+         id="adsToggleBtn"
+         onclick="toggleAds()">
+
+        <i class="fas fa-rectangle-ad"></i>
+
+        تشغيل / إيقاف الإعلانات
 
     </div>
 
@@ -1573,7 +1583,8 @@ from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import {
     getAuth,
     onAuthStateChanged,
-    signOut
+    signOut,
+    updateEmail
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
@@ -1664,6 +1675,29 @@ onAuthStateChanged(
                 const data =
                 studentSnap.data();
 
+                const adsEnabled =
+                    
+                    data.adsEnabled !== false;
+                
+                const adsBtn =
+                    document.getElementById(
+                        "adsToggleBtn"
+                    );
+                
+                if(adsBtn){
+                    adsBtn.innerHTML = adsEnabled
+                        ?
+                        `
+                        <i class="fas fa-eye-slash"></i>
+                        إيقاف الإعلانات
+                        `
+                        :
+                        `
+                        <i class="fas fa-eye"></i>
+                        تشغيل الإعلانات
+                        `;
+                }
+
                 // Full Name
 
                 const fullName =
@@ -1700,7 +1734,7 @@ onAuthStateChanged(
                     "studentName"
                 )
                 .innerText =
-                (fullName + nicknameText)
+                (fullName + nicknameText);
 
                 // Student Meta
 
@@ -2078,6 +2112,161 @@ ${data.email || ""}`
     catch(error){
 
         console.log(error);
+    }
+};
+
+        // ===============================
+// Toggle Ads
+// ===============================
+
+window.toggleAds =
+async function(){
+
+    try{
+
+        const studentCode =
+        localStorage.getItem(
+            "studentCode"
+        );
+
+        const studentRef =
+        doc(
+            db,
+            "students",
+            studentCode
+        );
+
+        const studentSnap =
+        await getDoc(
+            studentRef
+        );
+
+        if(!studentSnap.exists()){
+
+            return;
+        }
+
+        const data =
+        studentSnap.data();
+
+        const current =
+        data.adsEnabled !== false;
+
+        await updateDoc(
+            studentRef,
+            {
+                adsEnabled: !current
+            }
+        );
+
+        alert(
+            !current
+            ?
+            "تم تشغيل الإعلانات ✅"
+            :
+            "تم إيقاف الإعلانات ✅"
+        );
+
+        location.reload();
+    }
+
+    catch(error){
+
+        console.log(error);
+    }
+};
+
+
+// ===============================
+// Change Email Secure
+// ===============================
+
+window.changeEmail =
+async function(){
+
+    try{
+
+        const studentCode =
+        localStorage.getItem(
+            "studentCode"
+        );
+
+        if(!studentCode){
+
+            return;
+        }
+
+        const verifyCode =
+        prompt(
+            "أعد إدخال رمز التلميذ لتأكيد العملية"
+        );
+
+        if(
+            verifyCode !== studentCode
+        ){
+
+            alert(
+                "رمز التلميذ غير صحيح ❌"
+            );
+
+            return;
+        }
+
+        const newEmail =
+        prompt(
+            "أدخل البريد الإلكتروني الجديد"
+        );
+
+        if(
+            !newEmail ||
+            !newEmail.includes("@")
+        ){
+
+            alert(
+                "البريد الإلكتروني غير صالح ❌"
+            );
+
+            return;
+        }
+
+        await updateEmail(
+            auth.currentUser,
+            newEmail
+        );
+
+        const studentRef =
+        doc(
+            db,
+            "students",
+            studentCode
+        );
+
+        await updateDoc(
+            studentRef,
+            {
+                email: newEmail
+            }
+        );
+
+        await auth.signOut();
+
+        localStorage.clear();
+
+        alert(
+            "تم تغيير البريد الإلكتروني وتسجيل الخروج من الحساب ✅"
+        );
+
+        window.location.href =
+        "login.html";
+    }
+
+    catch(error){
+
+        console.log(error);
+
+        alert(
+            "يجب تسجيل الدخول من جديد قبل تغيير البريد."
+        );
     }
 };
 
