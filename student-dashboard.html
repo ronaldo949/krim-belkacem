@@ -1445,52 +1445,47 @@ getFirestore(app);
 const auth =
 getAuth(app);
 
-// منع الخروج المفاجئ من الصفحة
-
-let firstCheck = true;
-
 // Load Student Data
 
 onAuthStateChanged(auth,
 async(user)=>{
 
-    // أول مرة فقط
-    if(firstCheck){
-
-        firstCheck = false;
-
-        // إعطاء Firebase وقت للتأكد من الجلسة
-        if(!user){
-
-            setTimeout(()=>{
-
-                const currentUser =
-                auth.currentUser;
-
-                if(!currentUser){
-
-                    window.location.href =
-                    "login.html";
-                }
-
-            },2000);
-
-            return;
-        }
-    }
-
     // إذا لم يوجد مستخدم
     if(!user){
+
+        window.location.href =
+        "login.html";
 
         return;
     }
 
     try{
 
+        // جلب رمز التلميذ
+
+        const studentCode =
+        localStorage.getItem(
+            "studentCode"
+        );
+
+        // إذا لم يوجد الرمز
+
+        if(!studentCode){
+
+            window.location.href =
+            "login.html";
+
+            return;
+        }
+
         // جلب بيانات التلميذ
 
         const studentRef =
-        doc(db,"students",user.uid);
+        doc(
+            db,
+            "students",
+            studentCode
+        );
 
         const studentSnap =
         await getDoc(studentRef);
@@ -1521,6 +1516,7 @@ async(user)=>{
             document.querySelector(".student-meta");
 
             studentMeta.innerHTML = `
+
                 <span>
                     ${data.LEVEL || "السنة الثالثة ثانوي"}
                 </span>
@@ -1532,6 +1528,7 @@ async(user)=>{
                 <span>
                     ${data.CLASS || "3AS2"}
                 </span>
+
             `;
         }
 
@@ -1548,6 +1545,10 @@ async(user)=>{
     catch(error){
 
         console.log(error);
+
+        alert(
+            "حدث خطأ أثناء تحميل البيانات"
+        );
     }
 });
 
@@ -1558,6 +1559,10 @@ window.logout = async function(){
     try{
 
         await signOut(auth);
+
+        localStorage.removeItem(
+            "studentCode"
+        );
 
         window.location.href =
         "login.html";
