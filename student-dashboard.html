@@ -1413,7 +1413,9 @@ from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import {
     getAuth,
     onAuthStateChanged,
-    signOut
+    signOut,
+    setPersistence,
+    browserLocalPersistence
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
@@ -1421,168 +1423,152 @@ from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 const firebaseConfig = {
 
-    apiKey: "ضع apiKey هنا",
+    apiKey: "AIzaSyB19bYF7qipO4HgcA2TEvef3O-uPdnPxeM",
 
-    authDomain: "ضع authDomain هنا",
+    authDomain: "krim-belkacem.firebaseapp.com",
 
-    projectId: "ضع projectId هنا",
+    projectId: "krim-belkacem",
 
-    storageBucket: "ضع storageBucket هنا",
+    storageBucket: "krim-belkacem.firebasestorage.app",
 
-    messagingSenderId: "ضع messagingSenderId هنا",
+    messagingSenderId: "111065327008",
 
-    appId: "ضع appId هنا"
+    appId: "1:111065327008:web:9a197b75663e8111af70c5",
+
+    measurementId: "G-1DERS9315Y"
 };
 
 // Init Firebase
 
-const app =
-initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 
-const db =
-getFirestore(app);
+const db = getFirestore(app);
 
-const auth =
-getAuth(app);
+const auth = getAuth(app);
 
-// انتظار Firebase قليلاً قبل التحقق
+// حفظ الجلسة
 
-setTimeout(() => {
+await setPersistence(
+    auth,
+    browserLocalPersistence
+);
 
-    onAuthStateChanged(
-        auth,
-        async(user)=>{
+// انتظار Firebase
 
-            // التحقق من المستخدم
+onAuthStateChanged(
+    auth,
+    async(user)=>{
 
-            if(!user){
+        // إذا لا يوجد مستخدم
 
-                const currentUser =
-                auth.currentUser;
+        if(!user){
 
-                if(!currentUser){
+            console.log("لا يوجد مستخدم");
 
-                    window.location.href =
-                    "login.html";
+            window.location.href =
+            "login.html";
 
-                    return;
-                }
-
-                user = currentUser;
-            }
-
-            try{
-
-                // جلب رمز التلميذ
-
-                const studentCode =
-                localStorage.getItem(
-                    "studentCode"
-                );
-
-                // إذا لا يوجد رمز
-
-                if(!studentCode){
-
-                    window.location.href =
-                    "login.html";
-
-                    return;
-                }
-
-                // جلب بيانات التلميذ
-
-                const studentRef =
-                doc(
-                    db,
-                    "students",
-                    studentCode
-                );
-
-                const studentSnap =
-                await getDoc(
-                    studentRef
-                );
-
-                // إذا البيانات موجودة
-
-                if(studentSnap.exists()){
-
-                    const data =
-                    studentSnap.data();
-
-                    // الاسم الكامل
-
-                    const fullName =
-                    (data.NAME || "") +
-                    " " +
-                    (data.FAMILYNAME || "");
-
-                    // تحديث الاسم
-
-                    document
-                    .getElementById(
-                        "studentName"
-                    )
-                    .innerText =
-                    fullName;
-
-                    document
-                    .getElementById(
-                        "studentFullName"
-                    )
-                    .innerText =
-                    "مرحباً بك " +
-                    fullName;
-
-                    // تحديث المعلومات
-
-                    const studentMeta =
-                    document.querySelector(
-                        ".student-meta"
-                    );
-
-                    studentMeta.innerHTML = `
-
-                        <span>
-                            ${data.LEVEL || "السنة الثالثة ثانوي"}
-                        </span>
-
-                        <span>
-                            ${data.SPECIALITY || "علوم تجريبية"}
-                        </span>
-
-                        <span>
-                            ${data.CLASS || "3AS2"}
-                        </span>
-
-                    `;
-                }
-
-                else{
-
-                    document
-                    .getElementById(
-                        "studentName"
-                    )
-                    .innerText =
-                    "لم يتم العثور على بيانات";
-                }
-
-            }
-
-            catch(error){
-
-                console.log(error);
-
-                alert(
-                    "حدث خطأ أثناء تحميل البيانات"
-                );
-            }
+            return;
         }
-    );
 
-}, 1500);
+        try{
+
+            // جلب رمز التلميذ
+
+            const studentCode =
+            localStorage.getItem(
+                "studentCode"
+            );
+
+            if(!studentCode){
+
+                alert("رمز التلميذ غير موجود");
+
+                return;
+            }
+
+            // جلب البيانات
+
+            const studentRef = doc(
+                db,
+                "students",
+                studentCode
+            );
+
+            const studentSnap =
+            await getDoc(studentRef);
+
+            if(studentSnap.exists()){
+
+                const data =
+                studentSnap.data();
+
+                const fullName =
+                (data.NAME || "") +
+                " " +
+                (data.FAMILYNAME || "");
+
+                // تحديث الاسم
+
+                document
+                .getElementById(
+                    "studentName"
+                )
+                .innerText =
+                fullName;
+
+                document
+                .getElementById(
+                    "studentFullName"
+                )
+                .innerText =
+                "مرحباً بك " +
+                fullName;
+
+                // تحديث المعلومات
+
+                document
+                .querySelector(
+                    ".student-meta"
+                )
+                .innerHTML = `
+
+                    <span>
+                        ${data.LEVEL || "السنة الثالثة ثانوي"}
+                    </span>
+
+                    <span>
+                        ${data.SPECIALITY || "علوم تجريبية"}
+                    </span>
+
+                    <span>
+                        ${data.CLASS || "3AS2"}
+                    </span>
+                `;
+            }
+
+            else{
+
+                document
+                .getElementById(
+                    "studentName"
+                )
+                .innerText =
+                "لم يتم العثور على بيانات";
+            }
+
+        }
+
+        catch(error){
+
+            console.log(error);
+
+            alert(
+                "حدث خطأ أثناء تحميل البيانات"
+            );
+        }
+    }
+);
 
 // Logout
 
@@ -1599,6 +1585,7 @@ async function(){
 
         window.location.href =
         "login.html";
+
     }
 
     catch(error){
@@ -1620,7 +1607,7 @@ function(){
     .toggle("active");
 }
 
-// إغلاق القائمة عند الضغط خارجها
+// إغلاق القائمة
 
 document.addEventListener(
     "click",
