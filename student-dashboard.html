@@ -255,7 +255,7 @@
 
         .dashboard{
 
-            margin-top: -90px;
+            margin-top: -40px;
 
             position: relative;
 
@@ -428,7 +428,7 @@
 
             grid-template-columns: 1.4fr 1fr;
 
-            gap: 25px;
+            gap: 40px;
         }
 
         .dashboard-box{
@@ -696,6 +696,54 @@
             margin: 0;
         }
 
+        .extra-section{
+
+    padding: 60px 20px;
+}
+
+.extra-box{
+
+    max-width: 1000px;
+
+    margin: auto;
+
+    background: white;
+
+    border-radius: 35px;
+
+    padding: 60px 40px;
+
+    text-align: center;
+
+    box-shadow:
+    0 15px 40px rgba(0,0,0,0.06);
+}
+
+.extra-box i{
+
+    font-size: 3rem;
+
+    color: var(--primary);
+
+    margin-bottom: 20px;
+}
+
+.extra-box h2{
+
+    color: var(--secondary);
+
+    margin-bottom: 15px;
+}
+
+.extra-box p{
+
+    color: var(--gray);
+
+    line-height: 2;
+
+    font-size: 1.05rem;
+}
+
         /* ===================================
            Responsive
         =================================== */
@@ -815,22 +863,22 @@
 
     <div class="settings-dropdown"
      id="settingsDropdown">
-     
-     <div class="settings-item"
+
+    <div class="settings-item"
          onclick="changeEmail()">
 
         <i class="fas fa-envelope"></i>
 
         تغيير البريد الإلكتروني
-    
+
     </div>
-    
+
     <div class="settings-item"
          onclick="changeNickname()">
 
-        <i class="fas fa-signature"></i>
+        <i class="fas fa-user-pen"></i>
 
-        إضافة لقب
+        تغيير اللقب
 
     </div>
 
@@ -839,7 +887,7 @@
 
         <i class="fas fa-bell"></i>
 
-        تشغيل / إيقاف الإشعارات
+        إعدادات الإشعارات
 
     </div>
 
@@ -1289,6 +1337,25 @@
 
     </section>
 
+    <section class="extra-section">
+
+    <div class="extra-box">
+
+        <i class="fas fa-star"></i>
+
+        <h2>
+            منصة تعليمية عصرية
+        </h2>
+
+        <p>
+            نسعى لتوفير أفضل تجربة رقمية
+            للتلاميذ عبر خدمات ذكية وسريعة.
+        </p>
+
+    </div>
+
+</section>
+
     <!-- Footer -->
 
     <footer class="footer">
@@ -1453,6 +1520,8 @@ const auth = getAuth(app);
 
 onAuthStateChanged(auth, async(user)=>{
 
+    // منع الخروج المفاجئ
+
     if(!user){
 
         setTimeout(()=>{
@@ -1470,6 +1539,8 @@ onAuthStateChanged(auth, async(user)=>{
 
     try{
 
+        // رمز التلميذ
+
         const studentCode =
         localStorage.getItem(
             "studentCode"
@@ -1483,6 +1554,8 @@ onAuthStateChanged(auth, async(user)=>{
 
             return;
         }
+
+        // بيانات التلميذ
 
         const studentRef = doc(
             db,
@@ -1510,13 +1583,23 @@ onAuthStateChanged(auth, async(user)=>{
             const nickname =
             data.nickname || "";
 
-            // الاسم النهائي
+            // الاسم الكامل للبطاقة
 
             const fullName = nickname
             ? `${realName} (${nickname})`
             : realName;
 
-            // تحديث الاسم
+            // الاسم أعلى الصورة
+            // بدون لقب
+
+            document
+            .getElementById(
+                "studentFullName"
+            )
+            .innerText =
+            realName;
+
+            // الاسم داخل البطاقة
 
             document
             .getElementById(
@@ -1525,15 +1608,7 @@ onAuthStateChanged(auth, async(user)=>{
             .innerText =
             fullName;
 
-            document
-            .getElementById(
-                "studentFullName"
-            )
-            .innerText =
-            "مرحباً بك " +
-            fullName;
-
-            // تحديث المعلومات
+            // المعلومات
 
             const studentMeta =
             document.querySelector(
@@ -1553,7 +1628,25 @@ onAuthStateChanged(auth, async(user)=>{
                 <span>
                     ${data.CLASS || "3AS2"}
                 </span>
+
+                ${nickname ? `
+
+                <span>
+                    اللقب: ${nickname}
+                </span>
+
+                ` : ""}
             `;
+        }
+
+        else{
+
+            document
+            .getElementById(
+                "studentName"
+            )
+            .innerText =
+            "لم يتم العثور على بيانات";
         }
 
     }
@@ -1570,7 +1663,8 @@ onAuthStateChanged(auth, async(user)=>{
 
 // تسجيل الخروج
 
-window.logout = async function(){
+window.logout =
+async function(){
 
     try{
 
@@ -1590,7 +1684,7 @@ window.logout = async function(){
     }
 }
 
-// القائمة
+// فتح الإعدادات
 
 window.toggleSettingsMenu =
 function(){
@@ -1673,6 +1767,10 @@ async function(){
     catch(error){
 
         console.log(error);
+
+        alert(
+            "فشل تغيير البريد الإلكتروني"
+        );
     }
 }
 
@@ -1713,15 +1811,20 @@ async function(){
         );
 
         location.reload();
+
     }
 
     catch(error){
 
         console.log(error);
+
+        alert(
+            "فشل حفظ اللقب"
+        );
     }
 }
 
-// الإشعارات
+// تشغيل وإيقاف الإشعارات
 
 window.toggleNotifications =
 async function(){
@@ -1757,6 +1860,7 @@ async function(){
             ? "تم تشغيل الإشعارات ✅"
             : "تم إيقاف الإشعارات 🔕"
         );
+
     }
 
     catch(error){
@@ -1791,18 +1895,23 @@ async function(){
 
         alert(`
 
-الاسم: ${data.NAME || ""}
+الاسم:
+${data.NAME || ""}
 
-اللقب: ${data.FAMILYNAME || ""}
+اللقب:
+${data.FAMILYNAME || ""}
 
-القسم: ${data.CLASS || ""}
+القسم:
+${data.CLASS || ""}
 
-الشعبة: ${data.SPECIALITY || ""}
+الشعبة:
+${data.SPECIALITY || ""}
 
 البريد الإلكتروني:
 ${data.email || "غير موجود"}
 
         `);
+
     }
 
     catch(error){
