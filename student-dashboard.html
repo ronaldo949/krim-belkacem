@@ -342,6 +342,12 @@
             margin-bottom: 10px;
 
             color: var(--secondary);
+
+            word-break: break-word;
+            
+            line-height: 1.7;
+            
+            max-width: 500px;
         }
 
         .student-meta{
@@ -863,49 +869,11 @@
 
     <!-- Settings Dropdown -->
 
-    <div class="settings-dropdown"
-     id="settingsDropdown">
+    word-break: break-word;
 
-    <div class="settings-item"
-         onclick="changeEmail()">
+line-height: 1.7;
 
-        <i class="fas fa-envelope"></i>
-
-        تغيير البريد الإلكتروني
-
-    </div>
-
-    <div class="settings-item"
-     id="nicknameSetting"
-     onclick="manageNickname()">
-
-    <i class="fas fa-signature"></i>
-
-    <span id="nicknameText">
-        إضافة اسم مستعار
-    </span>
-
-</div>
-
-    <div class="settings-item"
-         onclick="toggleNotifications()">
-
-        <i class="fas fa-bell"></i>
-
-        إعدادات الإشعارات
-
-    </div>
-
-    <div class="settings-item"
-         onclick="showAccountInfo()">
-
-        <i class="fas fa-user"></i>
-
-        معلومات الحساب
-
-    </div>
-
-</div>
+max-width: 500px;
 
     <!-- Hero -->
 
@@ -1580,10 +1548,7 @@ import {
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-
-// ===============================
 // Firebase Config
-// ===============================
 
 const firebaseConfig = {
 
@@ -1597,13 +1562,12 @@ const firebaseConfig = {
 
     messagingSenderId: "111065327008",
 
-    appId: "1:111065327008:web:9a197b75663e8111af70c5"
+    appId: "1:111065327008:web:9a197b75663e8111af70c5",
+
+    measurementId: "G-1DERS9315Y"
 };
 
-
-// ===============================
 // Init Firebase
-// ===============================
 
 const app =
 initializeApp(firebaseConfig);
@@ -1614,10 +1578,7 @@ getFirestore(app);
 const auth =
 getAuth(app);
 
-
-// ===============================
-// Load Student Data
-// ===============================
+// Load Student
 
 onAuthStateChanged(
     auth,
@@ -1633,8 +1594,6 @@ onAuthStateChanged(
 
         try{
 
-            // Student Code
-
             const studentCode =
             localStorage.getItem(
                 "studentCode"
@@ -1647,8 +1606,6 @@ onAuthStateChanged(
 
                 return;
             }
-
-            // Student Ref
 
             const studentRef =
             doc(
@@ -1667,19 +1624,30 @@ onAuthStateChanged(
                 const data =
                 studentSnap.data();
 
-                // Full Name
+                // الاسم الحقيقي فقط في الصورة
 
                 const fullName =
                 (data.NAME || "") +
                 " " +
                 (data.FAMILYNAME || "");
 
-                // Nickname
+                // الاسم المستعار
 
                 const nickname =
                 data.nickname || "";
 
-                // Hero Title
+                // الاسم في البطاقة
+
+                let cardName =
+                fullName;
+
+                if(nickname){
+
+                    cardName +=
+                    ` (${nickname})`;
+                }
+
+                // تحديث الواجهة
 
                 document
                 .getElementById(
@@ -1688,46 +1656,14 @@ onAuthStateChanged(
                 .innerText =
                 fullName;
 
-                // Card Name
-
-                const nicknameText =
-                nickname
-                ?
-                ` (${nickname})`
-                :
-                "";
-
                 document
                 .getElementById(
                     "studentName"
                 )
                 .innerText =
-                fullName + nicknameText;
+                cardName;
 
-                // Student Meta
-
-                const studentMeta =
-                document.querySelector(
-                    ".student-meta"
-                );
-
-                studentMeta.innerHTML = `
-
-                    <span>
-                        ${data.LEVEL || "السنة الدراسية"}
-                    </span>
-
-                    <span>
-                        ${data.SPECIALITY || "الشعبة"}
-                    </span>
-
-                    <span>
-                        ${data.CLASS || "القسم"}
-                    </span>
-
-                `;
-
-                // Nickname Button
+                // تحديث زر الاسم المستعار
 
                 const nicknameBtn =
                 document.getElementById(
@@ -1737,17 +1673,36 @@ onAuthStateChanged(
                 if(nickname){
 
                     nicknameBtn.innerHTML = `
+
                         <i class="fas fa-user-pen"></i>
+
                         تغيير / حذف الاسم المستعار
-                    `;
 
-                }else{
-
-                    nicknameBtn.innerHTML = `
-                        <i class="fas fa-user-plus"></i>
-                        إضافة اسم مستعار
                     `;
                 }
+
+                // معلومات التلميذ
+
+                const studentMeta =
+                document.querySelector(
+                    ".student-meta"
+                );
+
+                studentMeta.innerHTML = `
+
+                    <span>
+                        ${data.LEVEL || "غير محدد"}
+                    </span>
+
+                    <span>
+                        ${data.SPECIALITY || "غير محدد"}
+                    </span>
+
+                    <span>
+                        ${data.CLASS || "غير محدد"}
+                    </span>
+
+                `;
             }
 
             else{
@@ -1757,25 +1712,22 @@ onAuthStateChanged(
                     "studentName"
                 )
                 .innerText =
-                "لم يتم العثور على البيانات";
+                "لم يتم العثور على بيانات";
             }
 
         }
 
         catch(error){
 
-    console.log(
-        "Firestore error:",
-        error
+            console.log(
+                "Firestore error:",
+                error
             );
         }
     }
 );
 
-
-// ===============================
 // Logout
-// ===============================
 
 window.logout =
 async function(){
@@ -1798,10 +1750,7 @@ async function(){
     }
 };
 
-
-// ===============================
 // Settings Menu
-// ===============================
 
 window.toggleSettingsMenu =
 function(){
@@ -1814,10 +1763,7 @@ function(){
     .toggle("active");
 };
 
-
-// ===============================
-// Close Settings Menu
-// ===============================
+// إغلاق القائمة
 
 document.addEventListener(
     "click",
@@ -1846,10 +1792,7 @@ document.addEventListener(
     }
 );
 
-
-// ===============================
-// Change Nickname
-// ===============================
+// إدارة الاسم المستعار
 
 window.manageNickname =
 async function(){
@@ -1860,11 +1803,6 @@ async function(){
         localStorage.getItem(
             "studentCode"
         );
-
-        if(!studentCode){
-
-            return;
-        }
 
         const studentRef =
         doc(
@@ -1889,102 +1827,100 @@ async function(){
         const currentNickname =
         data.nickname || "";
 
-        // If nickname exists
+        let message =
+        "أدخل الاسم المستعار";
 
         if(currentNickname){
 
-            const action =
-            prompt(
-`لديك اسم مستعار حالياً:
-
-${currentNickname}
-
-اكتب:
-
-1 لتغييره
-2 لحذفه`
-            );
-
-            // Change
-
-            if(action === "1"){
-
-                const newNickname =
-                prompt(
-                    "اكتب الاسم المستعار الجديد"
-                );
-
-                if(
-                    newNickname &&
-                    newNickname.trim() !== ""
-                ){
-
-                    await updateDoc(
-                        studentRef,
-                        {
-                            nickname:
-                            newNickname.trim()
-                        }
-                    );
-
-                    alert(
-                        "تم تغيير الاسم المستعار ✅"
-                    );
-
-                    location.reload();
-                }
-            }
-
-            // Delete
-
-            if(action === "2"){
-
-                await updateDoc(
-                    studentRef,
-                    {
-                        nickname: ""
-                    }
-                );
-
-                alert(
-                    "تم حذف الاسم المستعار ✅"
-                );
-
-                location.reload();
-            }
-
+            message +=
+            "\n\nاتركه فارغاً للحذف";
         }
 
-        // Add nickname
+        const newNickname =
+        prompt(
+            message,
+            currentNickname
+        );
 
-        else{
+        if(newNickname === null){
 
-            const nickname =
-            prompt(
-                "اكتب الاسم المستعار"
-            );
+            return;
+        }
 
-            if(
-                !nickname ||
-                nickname.trim() === ""
-            ){
-
-                return;
+        await updateDoc(
+            studentRef,
+            {
+                nickname:
+                newNickname.trim()
             }
+        );
 
-            await updateDoc(
-                studentRef,
-                {
-                    nickname:
-                    nickname.trim()
-                }
-            );
+        location.reload();
+
+    }
+
+    catch(error){
+
+        console.log(error);
+    }
+};
+
+// تغيير البريد
+
+window.changeEmail =
+function(){
+
+    alert(
+        "لتغيير البريد الإلكتروني قم بتسجيل الخروج ثم سجل الدخول بحساب Google جديد."
+    );
+};
+
+// معلومات الحساب
+
+window.showAccountInfo =
+async function(){
+
+    try{
+
+        const studentCode =
+        localStorage.getItem(
+            "studentCode"
+        );
+
+        const studentRef =
+        doc(
+            db,
+            "students",
+            studentCode
+        );
+
+        const studentSnap =
+        await getDoc(
+            studentRef
+        );
+
+        if(studentSnap.exists()){
+
+            const data =
+            studentSnap.data();
 
             alert(
-                "تم حفظ الاسم المستعار ✅"
-            );
 
-            location.reload();
+`الاسم:
+${data.NAME || ""} ${data.FAMILYNAME || ""}
+
+القسم:
+${data.CLASS || ""}
+
+الشعبة:
+${data.SPECIALITY || ""}
+
+السنة:
+${data.LEVEL || ""}
+
+البريد:
+${data.email || ""}`
+            );
         }
 
     }
@@ -1992,10 +1928,6 @@ ${currentNickname}
     catch(error){
 
         console.log(error);
-
-        alert(
-            "حدث خطأ أثناء تعديل الاسم المستعار"
-        );
     }
 };
 
