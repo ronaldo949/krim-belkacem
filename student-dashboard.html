@@ -1400,114 +1400,209 @@
 
     <script type="module">
 
-        import { initializeApp }
-        from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
-        import {
-            getFirestore,
-            doc,
-            getDoc
-        }
-        from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import {
+    getFirestore,
+    doc,
+    getDoc
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-        import {
-            getAuth,
-            onAuthStateChanged,
-            signOut
-        }
-        from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {
+    getAuth,
+    onAuthStateChanged,
+    signOut
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-        // Firebase Config
+// Firebase Config
 
-        const firebaseConfig = {
+const firebaseConfig = {
 
-            apiKey: "ضع apiKey هنا",
+    apiKey: "ضع apiKey هنا",
 
-            authDomain: "ضع authDomain هنا",
+    authDomain: "ضع authDomain هنا",
 
-            projectId: "ضع projectId هنا",
+    projectId: "ضع projectId هنا",
 
-            storageBucket: "ضع storageBucket هنا",
+    storageBucket: "ضع storageBucket هنا",
 
-            messagingSenderId: "ضع messagingSenderId هنا",
+    messagingSenderId: "ضع messagingSenderId هنا",
 
-            appId: "ضع appId هنا"
-        };
+    appId: "ضع appId هنا"
+};
 
-        // Init Firebase
+// Init Firebase
 
-        const app =
-        initializeApp(firebaseConfig);
+const app =
+initializeApp(firebaseConfig);
 
-        const db =
-        getFirestore(app);
+const db =
+getFirestore(app);
 
-        const auth =
-        getAuth(app);
+const auth =
+getAuth(app);
 
-        // Load Student Data
+// منع الخروج المفاجئ من الصفحة
 
-        onAuthStateChanged(auth,
-        async(user)=>{
+let firstCheck = true;
 
-            if(user){
+// Load Student Data
 
-                const studentRef =
-                doc(db,"students",user.uid);
+onAuthStateChanged(auth,
+async(user)=>{
 
-                const studentSnap =
-                await getDoc(studentRef);
+    // أول مرة فقط
+    if(firstCheck){
 
-                if(studentSnap.exists()){
+        firstCheck = false;
 
-                    const data =
-                    studentSnap.data();
+        // إعطاء Firebase وقت للتأكد من الجلسة
+        if(!user){
 
-                    const fullName =
-                    data.NAME + " " + data.FAMILYNAME;
+            setTimeout(()=>{
 
-                    document
-                    .getElementById("studentName")
-                    .innerText = fullName;
+                const currentUser =
+                auth.currentUser;
 
-                    document
-                    .getElementById("studentFullName")
-                    .innerText =
-                    "مرحباً بك " + fullName;
+                if(!currentUser){
+
+                    window.location.href =
+                    "login.html";
                 }
-            }
 
-            else{
+            },2000);
 
-                window.location.href =
-                "login.html";
-            }
-        });
-
-        // Logout
-
-        window.logout = function(){
-
-            signOut(auth)
-            .then(()=>{
-
-                window.location.href =
-                "login.html";
-            });
+            return;
         }
+    }
 
-        // Settings Menu
+    // إذا لم يوجد مستخدم
+    if(!user){
 
-        window.toggleSettingsMenu =
-        function(){
+        return;
+    }
+
+    try{
+
+        // جلب بيانات التلميذ
+
+        const studentRef =
+        doc(db,"students",user.uid);
+
+        const studentSnap =
+        await getDoc(studentRef);
+
+        if(studentSnap.exists()){
+
+            const data =
+            studentSnap.data();
+
+            // الاسم الكامل
+
+            const fullName =
+            (data.NAME || "") + " " +
+            (data.FAMILYNAME || "");
 
             document
-            .getElementById("settingsDropdown")
-            .classList
-            .toggle("active");
+            .getElementById("studentName")
+            .innerText = fullName;
+
+            document
+            .getElementById("studentFullName")
+            .innerText =
+            "مرحباً بك " + fullName;
+
+            // القسم
+
+            const studentMeta =
+            document.querySelector(".student-meta");
+
+            studentMeta.innerHTML = `
+                <span>
+                    ${data.LEVEL || "السنة الثالثة ثانوي"}
+                </span>
+
+                <span>
+                    ${data.SPECIALITY || "علوم تجريبية"}
+                </span>
+
+                <span>
+                    ${data.CLASS || "3AS2"}
+                </span>
+            `;
         }
 
-    </script>
+        else{
+
+            document
+            .getElementById("studentName")
+            .innerText =
+            "لم يتم العثور على بيانات";
+        }
+
+    }
+
+    catch(error){
+
+        console.log(error);
+    }
+});
+
+// Logout
+
+window.logout = async function(){
+
+    try{
+
+        await signOut(auth);
+
+        window.location.href =
+        "login.html";
+
+    }
+
+    catch(error){
+
+        console.log(error);
+    }
+}
+
+// Settings Menu
+
+window.toggleSettingsMenu =
+function(){
+
+    document
+    .getElementById("settingsDropdown")
+    .classList
+    .toggle("active");
+}
+
+// إغلاق القائمة عند الضغط خارجها
+
+document.addEventListener("click",
+function(e){
+
+    const menu =
+    document.getElementById("settingsDropdown");
+
+    const settingsBtn =
+    document.querySelector(".settings-btn");
+
+    if(
+        !menu.contains(e.target)
+        &&
+        !settingsBtn.contains(e.target)
+    ){
+
+        menu.classList.remove("active");
+    }
+});
+
+</script>
 
     <!-- Main JS -->
 
