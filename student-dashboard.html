@@ -1764,10 +1764,9 @@ onAuthStateChanged(
 
         catch(error){
 
-            console.log(error);
-
-            alert(
-                "حدث خطأ أثناء تحميل البيانات"
+    console.log(
+        "Firestore error:",
+        error
             );
         }
     }
