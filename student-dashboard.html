@@ -814,41 +814,45 @@
     <!-- Settings Dropdown -->
 
     <div class="settings-dropdown"
-         id="settingsDropdown">
+     id="settingsDropdown">
+     
+     <div class="settings-item"
+         onclick="changeEmail()">
 
-        <div class="settings-item">
+        <i class="fas fa-envelope"></i>
 
-            <i class="fas fa-envelope"></i>
+        تغيير البريد الإلكتروني
+    
+    </div>
+    
+    <div class="settings-item"
+         onclick="changeNickname()">
 
-            تغيير البريد الإلكتروني
+        <i class="fas fa-signature"></i>
 
-        </div>
-
-        <div class="settings-item">
-
-            <i class="fas fa-lock"></i>
-
-            تغيير كلمة المرور
-
-        </div>
-
-        <div class="settings-item">
-
-            <i class="fas fa-bell"></i>
-
-            إعدادات الإشعارات
-
-        </div>
-
-        <div class="settings-item">
-
-            <i class="fas fa-user"></i>
-
-            معلومات الحساب
-
-        </div>
+        إضافة لقب
 
     </div>
+
+    <div class="settings-item"
+         onclick="toggleNotifications()">
+
+        <i class="fas fa-bell"></i>
+
+        تشغيل / إيقاف الإشعارات
+
+    </div>
+
+    <div class="settings-item"
+         onclick="showAccountInfo()">
+
+        <i class="fas fa-user"></i>
+
+        معلومات الحساب
+
+    </div>
+
+</div>
 
     <!-- Hero -->
 
@@ -1406,16 +1410,15 @@ from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import {
     getFirestore,
     doc,
-    getDoc
+    getDoc,
+    updateDoc
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 import {
     getAuth,
     onAuthStateChanged,
-    signOut,
-    setPersistence,
-    browserLocalPersistence
+    signOut
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
@@ -1438,7 +1441,7 @@ const firebaseConfig = {
     measurementId: "G-1DERS9315Y"
 };
 
-// Init Firebase
+// Firebase Init
 
 const app = initializeApp(firebaseConfig);
 
@@ -1446,134 +1449,128 @@ const db = getFirestore(app);
 
 const auth = getAuth(app);
 
-// حفظ الجلسة
+// تحميل بيانات التلميذ
 
-await setPersistence(
-    auth,
-    browserLocalPersistence
-);
+onAuthStateChanged(auth, async(user)=>{
 
-// انتظار Firebase
+    if(!user){
 
-onAuthStateChanged(
-    auth,
-    async(user)=>{
+        setTimeout(()=>{
 
-        // إذا لا يوجد مستخدم
+            if(!auth.currentUser){
 
-        if(!user){
+                window.location.href =
+                "login.html";
+            }
 
-            console.log("لا يوجد مستخدم");
+        },3000);
 
-            window.location.href =
-            "login.html";
+        return;
+    }
+
+    try{
+
+        const studentCode =
+        localStorage.getItem(
+            "studentCode"
+        );
+
+        if(!studentCode){
+
+            alert(
+                "رمز التلميذ غير موجود"
+            );
 
             return;
         }
 
-        try{
+        const studentRef = doc(
+            db,
+            "students",
+            studentCode
+        );
 
-            // جلب رمز التلميذ
+        const studentSnap =
+        await getDoc(studentRef);
 
-            const studentCode =
-            localStorage.getItem(
-                "studentCode"
+        if(studentSnap.exists()){
+
+            const data =
+            studentSnap.data();
+
+            // الاسم الحقيقي
+
+            const realName =
+            (data.NAME || "") +
+            " " +
+            (data.FAMILYNAME || "");
+
+            // اللقب
+
+            const nickname =
+            data.nickname || "";
+
+            // الاسم النهائي
+
+            const fullName = nickname
+            ? `${realName} (${nickname})`
+            : realName;
+
+            // تحديث الاسم
+
+            document
+            .getElementById(
+                "studentName"
+            )
+            .innerText =
+            fullName;
+
+            document
+            .getElementById(
+                "studentFullName"
+            )
+            .innerText =
+            "مرحباً بك " +
+            fullName;
+
+            // تحديث المعلومات
+
+            const studentMeta =
+            document.querySelector(
+                ".student-meta"
             );
 
-            if(!studentCode){
+            studentMeta.innerHTML = `
 
-                alert("رمز التلميذ غير موجود");
+                <span>
+                    ${data.LEVEL || "السنة الثالثة ثانوي"}
+                </span>
 
-                return;
-            }
+                <span>
+                    ${data.SPECIALITY || "علوم تجريبية"}
+                </span>
 
-            // جلب البيانات
-
-            const studentRef = doc(
-                db,
-                "students",
-                studentCode
-            );
-
-            const studentSnap =
-            await getDoc(studentRef);
-
-            if(studentSnap.exists()){
-
-                const data =
-                studentSnap.data();
-
-                const fullName =
-                (data.NAME || "") +
-                " " +
-                (data.FAMILYNAME || "");
-
-                // تحديث الاسم
-
-                document
-                .getElementById(
-                    "studentName"
-                )
-                .innerText =
-                fullName;
-
-                document
-                .getElementById(
-                    "studentFullName"
-                )
-                .innerText =
-                "مرحباً بك " +
-                fullName;
-
-                // تحديث المعلومات
-
-                document
-                .querySelector(
-                    ".student-meta"
-                )
-                .innerHTML = `
-
-                    <span>
-                        ${data.LEVEL || "السنة الثالثة ثانوي"}
-                    </span>
-
-                    <span>
-                        ${data.SPECIALITY || "علوم تجريبية"}
-                    </span>
-
-                    <span>
-                        ${data.CLASS || "3AS2"}
-                    </span>
-                `;
-            }
-
-            else{
-
-                document
-                .getElementById(
-                    "studentName"
-                )
-                .innerText =
-                "لم يتم العثور على بيانات";
-            }
-
+                <span>
+                    ${data.CLASS || "3AS2"}
+                </span>
+            `;
         }
 
-        catch(error){
-
-            console.log(error);
-
-            alert(
-                "حدث خطأ أثناء تحميل البيانات"
-            );
-        }
     }
-);
 
-// Logout
+    catch(error){
 
-window.logout =
-async function(){
+        console.log(error);
+
+        alert(
+            "حدث خطأ أثناء تحميل البيانات"
+        );
+    }
+});
+
+// تسجيل الخروج
+
+window.logout = async function(){
 
     try{
 
@@ -1585,7 +1582,6 @@ async function(){
 
         window.location.href =
         "login.html";
-
     }
 
     catch(error){
@@ -1594,7 +1590,7 @@ async function(){
     }
 }
 
-// Settings Menu
+// القائمة
 
 window.toggleSettingsMenu =
 function(){
@@ -1635,6 +1631,185 @@ document.addEventListener(
         }
     }
 );
+
+// تغيير البريد
+
+window.changeEmail =
+async function(){
+
+    try{
+
+        const studentCode =
+        localStorage.getItem(
+            "studentCode"
+        );
+
+        const newEmail = prompt(
+            "أدخل البريد الإلكتروني الجديد"
+        );
+
+        if(!newEmail){
+
+            return;
+        }
+
+        const studentRef = doc(
+            db,
+            "students",
+            studentCode
+        );
+
+        await updateDoc(studentRef, {
+
+            email: newEmail
+        });
+
+        alert(
+            "تم تغيير البريد الإلكتروني بنجاح ✅"
+        );
+
+    }
+
+    catch(error){
+
+        console.log(error);
+    }
+}
+
+// تغيير اللقب
+
+window.changeNickname =
+async function(){
+
+    try{
+
+        const studentCode =
+        localStorage.getItem(
+            "studentCode"
+        );
+
+        const nickname = prompt(
+            "أدخل لقبك"
+        );
+
+        if(!nickname){
+
+            return;
+        }
+
+        const studentRef = doc(
+            db,
+            "students",
+            studentCode
+        );
+
+        await updateDoc(studentRef, {
+
+            nickname: nickname
+        });
+
+        alert(
+            "تم حفظ اللقب بنجاح ✅"
+        );
+
+        location.reload();
+    }
+
+    catch(error){
+
+        console.log(error);
+    }
+}
+
+// الإشعارات
+
+window.toggleNotifications =
+async function(){
+
+    try{
+
+        const studentCode =
+        localStorage.getItem(
+            "studentCode"
+        );
+
+        const studentRef = doc(
+            db,
+            "students",
+            studentCode
+        );
+
+        const studentSnap =
+        await getDoc(studentRef);
+
+        const currentState =
+        studentSnap.data().notifications;
+
+        await updateDoc(studentRef, {
+
+            notifications:
+            !currentState
+        });
+
+        alert(
+
+            !currentState
+            ? "تم تشغيل الإشعارات ✅"
+            : "تم إيقاف الإشعارات 🔕"
+        );
+    }
+
+    catch(error){
+
+        console.log(error);
+    }
+}
+
+// معلومات الحساب
+
+window.showAccountInfo =
+async function(){
+
+    try{
+
+        const studentCode =
+        localStorage.getItem(
+            "studentCode"
+        );
+
+        const studentRef = doc(
+            db,
+            "students",
+            studentCode
+        );
+
+        const studentSnap =
+        await getDoc(studentRef);
+
+        const data =
+        studentSnap.data();
+
+        alert(`
+
+الاسم: ${data.NAME || ""}
+
+اللقب: ${data.FAMILYNAME || ""}
+
+القسم: ${data.CLASS || ""}
+
+الشعبة: ${data.SPECIALITY || ""}
+
+البريد الإلكتروني:
+${data.email || "غير موجود"}
+
+        `);
+    }
+
+    catch(error){
+
+        console.log(error);
+    }
+}
 
 </script>
 
