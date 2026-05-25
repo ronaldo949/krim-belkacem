@@ -876,13 +876,16 @@
     </div>
 
     <div class="settings-item"
-         onclick="changeNickname()">
+     id="nicknameSetting"
+     onclick="manageNickname()">
 
-        <i class="fas fa-user-pen"></i>
+    <i class="fas fa-signature"></i>
 
-        تغيير اللقب
+    <span id="nicknameText">
+        إضافة اسم مستعار
+    </span>
 
-    </div>
+</div>
 
     <div class="settings-item"
          onclick="toggleNotifications()">
@@ -1577,7 +1580,10 @@ import {
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
+
+// ===============================
 // Firebase Config
+// ===============================
 
 const firebaseConfig = {
 
@@ -1591,165 +1597,186 @@ const firebaseConfig = {
 
     messagingSenderId: "111065327008",
 
-    appId: "1:111065327008:web:9a197b75663e8111af70c5",
-
-    measurementId: "G-1DERS9315Y"
+    appId: "1:111065327008:web:9a197b75663e8111af70c5"
 };
 
-// Firebase Init
 
-const app = initializeApp(firebaseConfig);
+// ===============================
+// Init Firebase
+// ===============================
 
-const db = getFirestore(app);
+const app =
+initializeApp(firebaseConfig);
 
-const auth = getAuth(app);
+const db =
+getFirestore(app);
 
-// تحميل بيانات التلميذ
+const auth =
+getAuth(app);
 
-onAuthStateChanged(auth, async(user)=>{
 
-    // منع الخروج المفاجئ
+// ===============================
+// Load Student Data
+// ===============================
 
-    if(!user){
+onAuthStateChanged(
+    auth,
+    async(user)=>{
 
-        setTimeout(()=>{
+        if(!user){
 
-            if(!auth.currentUser){
-
-                window.location.href =
-                "login.html";
-            }
-
-        },3000);
-
-        return;
-    }
-
-    try{
-
-        // رمز التلميذ
-
-        const studentCode =
-        localStorage.getItem(
-            "studentCode"
-        );
-
-        if(!studentCode){
-
-            alert(
-                "رمز التلميذ غير موجود"
-            );
+            window.location.href =
+            "login.html";
 
             return;
         }
 
-        // بيانات التلميذ
+        try{
 
-        const studentRef = doc(
-            db,
-            "students",
-            studentCode
-        );
+            // Student Code
 
-        const studentSnap =
-        await getDoc(studentRef);
-
-        if(studentSnap.exists()){
-
-            const data =
-            studentSnap.data();
-
-            // الاسم الحقيقي
-
-            const realName =
-            (data.NAME || "") +
-            " " +
-            (data.FAMILYNAME || "");
-
-            // اللقب
-
-            const nickname =
-            data.nickname || "";
-
-            // الاسم الكامل للبطاقة
-
-            const fullName = nickname
-            ? `${realName} (${nickname})`
-            : realName;
-
-            // الاسم أعلى الصورة
-            // بدون لقب
-
-            document
-            .getElementById(
-                "studentFullName"
-            )
-            .innerText =
-            realName;
-
-            // الاسم داخل البطاقة
-
-            document
-            .getElementById(
-                "studentName"
-            )
-            .innerText =
-            fullName;
-
-            // المعلومات
-
-            const studentMeta =
-            document.querySelector(
-                ".student-meta"
+            const studentCode =
+            localStorage.getItem(
+                "studentCode"
             );
 
-            studentMeta.innerHTML = `
+            if(!studentCode){
 
-                <span>
-                    ${data.LEVEL || "السنة الثالثة ثانوي"}
-                </span>
+                window.location.href =
+                "login.html";
 
-                <span>
-                    ${data.SPECIALITY || "علوم تجريبية"}
-                </span>
+                return;
+            }
 
-                <span>
-                    ${data.CLASS || "3AS2"}
-                </span>
+            // Student Ref
 
-                ${nickname ? `
+            const studentRef =
+            doc(
+                db,
+                "students",
+                studentCode
+            );
 
-                <span>
-                    اللقب: ${nickname}
-                </span>
+            const studentSnap =
+            await getDoc(
+                studentRef
+            );
 
-                ` : ""}
-            `;
+            if(studentSnap.exists()){
+
+                const data =
+                studentSnap.data();
+
+                // Full Name
+
+                const fullName =
+                (data.NAME || "") +
+                " " +
+                (data.FAMILYNAME || "");
+
+                // Nickname
+
+                const nickname =
+                data.nickname || "";
+
+                // Hero Title
+
+                document
+                .getElementById(
+                    "studentFullName"
+                )
+                .innerText =
+                fullName;
+
+                // Card Name
+
+                const nicknameText =
+                nickname
+                ?
+                ` (${nickname})`
+                :
+                "";
+
+                document
+                .getElementById(
+                    "studentName"
+                )
+                .innerText =
+                fullName + nicknameText;
+
+                // Student Meta
+
+                const studentMeta =
+                document.querySelector(
+                    ".student-meta"
+                );
+
+                studentMeta.innerHTML = `
+
+                    <span>
+                        ${data.LEVEL || "السنة الدراسية"}
+                    </span>
+
+                    <span>
+                        ${data.SPECIALITY || "الشعبة"}
+                    </span>
+
+                    <span>
+                        ${data.CLASS || "القسم"}
+                    </span>
+
+                `;
+
+                // Nickname Button
+
+                const nicknameBtn =
+                document.getElementById(
+                    "nicknameBtn"
+                );
+
+                if(nickname){
+
+                    nicknameBtn.innerHTML = `
+                        <i class="fas fa-user-pen"></i>
+                        تغيير / حذف الاسم المستعار
+                    `;
+
+                }else{
+
+                    nicknameBtn.innerHTML = `
+                        <i class="fas fa-user-plus"></i>
+                        إضافة اسم مستعار
+                    `;
+                }
+            }
+
+            else{
+
+                document
+                .getElementById(
+                    "studentName"
+                )
+                .innerText =
+                "لم يتم العثور على البيانات";
+            }
+
         }
 
-        else{
+        catch(error){
 
-            document
-            .getElementById(
-                "studentName"
-            )
-            .innerText =
-            "لم يتم العثور على بيانات";
+            console.log(error);
+
+            alert(
+                "حدث خطأ أثناء تحميل البيانات"
+            );
         }
-
     }
+);
 
-    catch(error){
 
-        console.log(error);
-
-        alert(
-            "حدث خطأ أثناء تحميل البيانات"
-        );
-    }
-});
-
-// تسجيل الخروج
+// ===============================
+// Logout
+// ===============================
 
 window.logout =
 async function(){
@@ -1770,9 +1797,12 @@ async function(){
 
         console.log(error);
     }
-}
+};
 
-// فتح الإعدادات
+
+// ===============================
+// Settings Menu
+// ===============================
 
 window.toggleSettingsMenu =
 function(){
@@ -1783,9 +1813,12 @@ function(){
     )
     .classList
     .toggle("active");
-}
+};
 
-// إغلاق القائمة
+
+// ===============================
+// Close Settings Menu
+// ===============================
 
 document.addEventListener(
     "click",
@@ -1814,9 +1847,12 @@ document.addEventListener(
     }
 );
 
-// تغيير البريد
 
-window.changeEmail =
+// ===============================
+// Change Nickname
+// ===============================
+
+window.manageNickname =
 async function(){
 
     try{
@@ -1826,187 +1862,143 @@ async function(){
             "studentCode"
         );
 
-        const newEmail = prompt(
-            "أدخل البريد الإلكتروني الجديد"
-        );
-
-        if(!newEmail){
+        if(!studentCode){
 
             return;
         }
 
-        const studentRef = doc(
-            db,
-            "students",
-            studentCode
-        );
-
-        await updateDoc(studentRef, {
-
-            email: newEmail
-        });
-
-        alert(
-            "تم تغيير البريد الإلكتروني بنجاح ✅"
-        );
-
-    }
-
-    catch(error){
-
-        console.log(error);
-
-        alert(
-            "فشل تغيير البريد الإلكتروني"
-        );
-    }
-}
-
-// تغيير اللقب
-
-window.changeNickname =
-async function(){
-
-    try{
-
-        const studentCode =
-        localStorage.getItem(
-            "studentCode"
-        );
-
-        const nickname = prompt(
-            "أدخل لقبك"
-        );
-
-        if(!nickname){
-
-            return;
-        }
-
-        const studentRef = doc(
-            db,
-            "students",
-            studentCode
-        );
-
-        await updateDoc(studentRef, {
-
-            nickname: nickname
-        });
-
-        alert(
-            "تم حفظ اللقب بنجاح ✅"
-        );
-
-        location.reload();
-
-    }
-
-    catch(error){
-
-        console.log(error);
-
-        alert(
-            "فشل حفظ اللقب"
-        );
-    }
-}
-
-// تشغيل وإيقاف الإشعارات
-
-window.toggleNotifications =
-async function(){
-
-    try{
-
-        const studentCode =
-        localStorage.getItem(
-            "studentCode"
-        );
-
-        const studentRef = doc(
+        const studentRef =
+        doc(
             db,
             "students",
             studentCode
         );
 
         const studentSnap =
-        await getDoc(studentRef);
-
-        const currentState =
-        studentSnap.data().notifications;
-
-        await updateDoc(studentRef, {
-
-            notifications:
-            !currentState
-        });
-
-        alert(
-
-            !currentState
-            ? "تم تشغيل الإشعارات ✅"
-            : "تم إيقاف الإشعارات 🔕"
+        await getDoc(
+            studentRef
         );
 
-    }
+        if(!studentSnap.exists()){
 
-    catch(error){
-
-        console.log(error);
-    }
-}
-
-// معلومات الحساب
-
-window.showAccountInfo =
-async function(){
-
-    try{
-
-        const studentCode =
-        localStorage.getItem(
-            "studentCode"
-        );
-
-        const studentRef = doc(
-            db,
-            "students",
-            studentCode
-        );
-
-        const studentSnap =
-        await getDoc(studentRef);
+            return;
+        }
 
         const data =
         studentSnap.data();
 
-        alert(`
+        const currentNickname =
+        data.nickname || "";
 
-الاسم:
-${data.NAME || ""}
+        // If nickname exists
 
-اللقب:
-${data.FAMILYNAME || ""}
+        if(currentNickname){
 
-القسم:
-${data.CLASS || ""}
+            const action =
+            prompt(
+`لديك اسم مستعار حالياً:
 
-الشعبة:
-${data.SPECIALITY || ""}
+${currentNickname}
 
-البريد الإلكتروني:
-${data.email || "غير موجود"}
+اكتب:
 
-        `);
+1 لتغييره
+2 لحذفه`
+            );
+
+            // Change
+
+            if(action === "1"){
+
+                const newNickname =
+                prompt(
+                    "اكتب الاسم المستعار الجديد"
+                );
+
+                if(
+                    newNickname &&
+                    newNickname.trim() !== ""
+                ){
+
+                    await updateDoc(
+                        studentRef,
+                        {
+                            nickname:
+                            newNickname.trim()
+                        }
+                    );
+
+                    alert(
+                        "تم تغيير الاسم المستعار ✅"
+                    );
+
+                    location.reload();
+                }
+            }
+
+            // Delete
+
+            if(action === "2"){
+
+                await updateDoc(
+                    studentRef,
+                    {
+                        nickname: ""
+                    }
+                );
+
+                alert(
+                    "تم حذف الاسم المستعار ✅"
+                );
+
+                location.reload();
+            }
+
+        }
+
+        // Add nickname
+
+        else{
+
+            const nickname =
+            prompt(
+                "اكتب الاسم المستعار"
+            );
+
+            if(
+                !nickname ||
+                nickname.trim() === ""
+            ){
+
+                return;
+            }
+
+            await updateDoc(
+                studentRef,
+                {
+                    nickname:
+                    nickname.trim()
+                }
+            );
+
+            alert(
+                "تم حفظ الاسم المستعار ✅"
+            );
+
+            location.reload();
+        }
 
     }
 
     catch(error){
 
         console.log(error);
+
+        alert(
+            "حدث خطأ أثناء تعديل الاسم المستعار"
+        );
     }
-}
+};
 
 </script>
 
