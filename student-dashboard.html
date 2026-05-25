@@ -343,9 +343,13 @@
             
             color: var(--secondary);
             
-            word-break: break-word;
+            line-height: 1.8;
             
-            line-height: 1.7;
+            max-width: 500px;
+            
+            overflow-wrap: break-word;
+            
+            word-break: break-word;
         }
 
         .student-meta{
@@ -867,11 +871,38 @@
 
     <!-- Settings Dropdown -->
 
-    word-break: break-word;
+    <div class="settings-dropdown"
+     id="settingsDropdown">
 
-line-height: 1.7;
+    <div class="settings-item"
+         id="nicknameBtn"
+         onclick="manageNickname()">
 
-max-width: 500px;
+        <i class="fas fa-user-pen"></i>
+
+        إضافة اسم مستعار
+
+    </div>
+
+    <div class="settings-item"
+         onclick="changeEmail()">
+
+        <i class="fas fa-envelope"></i>
+
+        تغيير البريد الإلكتروني
+
+    </div>
+
+    <div class="settings-item"
+         onclick="showAccountInfo()">
+
+        <i class="fas fa-id-card"></i>
+
+        معلومات الحساب
+
+    </div>
+
+</div>
 
     <!-- Hero -->
 
@@ -1670,7 +1701,6 @@ onAuthStateChanged(
                 )
                 .innerText =
                 (fullName + nicknameText)
-                .substring(0,60);
 
                 // Student Meta
 
