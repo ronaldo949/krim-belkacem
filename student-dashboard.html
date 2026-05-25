@@ -1445,116 +1445,149 @@ getFirestore(app);
 const auth =
 getAuth(app);
 
-// Load Student Data
+// انتظار Firebase قليلاً قبل التحقق
 
-onAuthStateChanged(auth,
-async(user)=>{
+setTimeout(() => {
 
-    // إذا لم يوجد مستخدم
-    if(!user){
+    onAuthStateChanged(
+        auth,
+        async(user)=>{
 
-        window.location.href =
-        "login.html";
+            // التحقق من المستخدم
 
-        return;
-    }
+            if(!user){
 
-    try{
+                const currentUser =
+                auth.currentUser;
 
-        // جلب رمز التلميذ
+                if(!currentUser){
 
-        const studentCode =
-        localStorage.getItem(
-            "studentCode"
-        );
+                    window.location.href =
+                    "login.html";
 
-        // إذا لم يوجد الرمز
+                    return;
+                }
 
-        if(!studentCode){
+                user = currentUser;
+            }
 
-            window.location.href =
-            "login.html";
+            try{
 
-            return;
+                // جلب رمز التلميذ
+
+                const studentCode =
+                localStorage.getItem(
+                    "studentCode"
+                );
+
+                // إذا لا يوجد رمز
+
+                if(!studentCode){
+
+                    window.location.href =
+                    "login.html";
+
+                    return;
+                }
+
+                // جلب بيانات التلميذ
+
+                const studentRef =
+                doc(
+                    db,
+                    "students",
+                    studentCode
+                );
+
+                const studentSnap =
+                await getDoc(
+                    studentRef
+                );
+
+                // إذا البيانات موجودة
+
+                if(studentSnap.exists()){
+
+                    const data =
+                    studentSnap.data();
+
+                    // الاسم الكامل
+
+                    const fullName =
+                    (data.NAME || "") +
+                    " " +
+                    (data.FAMILYNAME || "");
+
+                    // تحديث الاسم
+
+                    document
+                    .getElementById(
+                        "studentName"
+                    )
+                    .innerText =
+                    fullName;
+
+                    document
+                    .getElementById(
+                        "studentFullName"
+                    )
+                    .innerText =
+                    "مرحباً بك " +
+                    fullName;
+
+                    // تحديث المعلومات
+
+                    const studentMeta =
+                    document.querySelector(
+                        ".student-meta"
+                    );
+
+                    studentMeta.innerHTML = `
+
+                        <span>
+                            ${data.LEVEL || "السنة الثالثة ثانوي"}
+                        </span>
+
+                        <span>
+                            ${data.SPECIALITY || "علوم تجريبية"}
+                        </span>
+
+                        <span>
+                            ${data.CLASS || "3AS2"}
+                        </span>
+
+                    `;
+                }
+
+                else{
+
+                    document
+                    .getElementById(
+                        "studentName"
+                    )
+                    .innerText =
+                    "لم يتم العثور على بيانات";
+                }
+
+            }
+
+            catch(error){
+
+                console.log(error);
+
+                alert(
+                    "حدث خطأ أثناء تحميل البيانات"
+                );
+            }
         }
+    );
 
-        // جلب بيانات التلميذ
-
-        const studentRef =
-        doc(
-            db,
-            "students",
-            studentCode
-        );
-
-        const studentSnap =
-        await getDoc(studentRef);
-
-        if(studentSnap.exists()){
-
-            const data =
-            studentSnap.data();
-
-            // الاسم الكامل
-
-            const fullName =
-            (data.NAME || "") + " " +
-            (data.FAMILYNAME || "");
-
-            document
-            .getElementById("studentName")
-            .innerText = fullName;
-
-            document
-            .getElementById("studentFullName")
-            .innerText =
-            "مرحباً بك " + fullName;
-
-            // القسم
-
-            const studentMeta =
-            document.querySelector(".student-meta");
-
-            studentMeta.innerHTML = `
-
-                <span>
-                    ${data.LEVEL || "السنة الثالثة ثانوي"}
-                </span>
-
-                <span>
-                    ${data.SPECIALITY || "علوم تجريبية"}
-                </span>
-
-                <span>
-                    ${data.CLASS || "3AS2"}
-                </span>
-
-            `;
-        }
-
-        else{
-
-            document
-            .getElementById("studentName")
-            .innerText =
-            "لم يتم العثور على بيانات";
-        }
-
-    }
-
-    catch(error){
-
-        console.log(error);
-
-        alert(
-            "حدث خطأ أثناء تحميل البيانات"
-        );
-    }
-});
+}, 1500);
 
 // Logout
 
-window.logout = async function(){
+window.logout =
+async function(){
 
     try{
 
@@ -1566,7 +1599,6 @@ window.logout = async function(){
 
         window.location.href =
         "login.html";
-
     }
 
     catch(error){
@@ -1581,31 +1613,41 @@ window.toggleSettingsMenu =
 function(){
 
     document
-    .getElementById("settingsDropdown")
+    .getElementById(
+        "settingsDropdown"
+    )
     .classList
     .toggle("active");
 }
 
 // إغلاق القائمة عند الضغط خارجها
 
-document.addEventListener("click",
-function(e){
+document.addEventListener(
+    "click",
+    function(e){
 
-    const menu =
-    document.getElementById("settingsDropdown");
+        const menu =
+        document.getElementById(
+            "settingsDropdown"
+        );
 
-    const settingsBtn =
-    document.querySelector(".settings-btn");
+        const settingsBtn =
+        document.querySelector(
+            ".settings-btn"
+        );
 
-    if(
-        !menu.contains(e.target)
-        &&
-        !settingsBtn.contains(e.target)
-    ){
+        if(
+            !menu.contains(e.target)
+            &&
+            !settingsBtn.contains(e.target)
+        ){
 
-        menu.classList.remove("active");
+            menu.classList.remove(
+                "active"
+            );
+        }
     }
-});
+);
 
 </script>
 
