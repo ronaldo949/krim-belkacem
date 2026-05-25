@@ -3,233 +3,143 @@
 
 <head>
 
-    <!-- Meta -->
     <meta charset="UTF-8">
 
     <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
+          content="width=device-width, initial-scale=1.0">
 
-    <!-- Title -->
     <title>
-        لوحة التلميذ | ثانوية كريم بلقاسم
+        حساب التلميذ | ثانوية كريم بلقاسم
     </title>
 
     <!-- CSS -->
+
     <link rel="stylesheet"
-        href="css/style.css">
+          href="css/style.css">
 
     <!-- Google Font -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
 
     <!-- Font Awesome -->
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-    <!-- Extra Style -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
 
-        body {
+        body{
 
             background: #f8fafc;
         }
 
-        .dashboard {
+        /* ===================================
+           Navbar
+        =================================== */
 
-            padding: 140px 0 80px;
-        }
-
-        .dashboard-header {
-
-            background: linear-gradient(
-                135deg,
-                var(--primary),
-                var(--primary-dark)
-            );
-
-            border-radius: 30px;
-
-            padding: 40px;
-
-            color: white;
-
-            margin-bottom: 35px;
-
-            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
-        }
-
-        .dashboard-header h1 {
-
-            font-size: 2.2rem;
-
-            margin-bottom: 12px;
-        }
-
-        .dashboard-header p {
-
-            opacity: 0.95;
-
-            font-size: 1.05rem;
-        }
-
-        .dashboard-grid {
-
-            display: grid;
-
-            grid-template-columns: repeat(
-                auto-fit,
-                minmax(260px,1fr)
-            );
-
-            gap: 25px;
-        }
-
-        .dashboard-card {
-
-            background: white;
-
-            border-radius: 24px;
-
-            padding: 30px;
-
-            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
-
-            transition: 0.3s;
-
-            position: relative;
-
-            overflow: hidden;
-        }
-
-        .dashboard-card:hover {
-
-            transform: translateY(-8px);
-        }
-
-        .dashboard-card::before {
-
-            content: "";
-
-            position: absolute;
-
-            top: 0;
-
-            right: 0;
-
-            width: 100%;
-
-            height: 6px;
-
-            background: linear-gradient(
-                135deg,
-                var(--primary),
-                var(--secondary)
-            );
-        }
-
-        .dashboard-card i {
-
-            width: 70px;
-
-            height: 70px;
-
-            border-radius: 20px;
+        .dashboard-nav-actions{
 
             display: flex;
 
             align-items: center;
 
-            justify-content: center;
-
-            background: rgba(230,126,34,0.12);
-
-            color: var(--secondary);
-
-            font-size: 1.8rem;
-
-            margin-bottom: 20px;
+            gap: 14px;
         }
 
-        .dashboard-card h3 {
+        .top-nav-btn{
 
-            color: var(--primary);
+            border: none;
 
-            margin-bottom: 12px;
-        }
+            padding: 13px 20px;
 
-        .dashboard-card p {
+            border-radius: 16px;
 
-            color: #64748b;
+            cursor: pointer;
 
-            line-height: 1.8;
+            font-family: 'Cairo',sans-serif;
 
-            margin-bottom: 22px;
-        }
+            font-weight: 700;
 
-        .dashboard-btn {
+            text-decoration: none;
 
-            display: inline-flex;
+            transition: 0.3s;
+
+            display: flex;
 
             align-items: center;
 
             gap: 10px;
-
-            background: linear-gradient(
-                135deg,
-                var(--primary),
-                var(--primary-dark)
-            );
-
-            color: white;
-
-            text-decoration: none;
-
-            padding: 12px 22px;
-
-            border-radius: 14px;
-
-            font-weight: 700;
-
-            transition: 0.3s;
         }
 
-        .dashboard-btn:hover {
+        .top-nav-btn:hover{
 
             transform: translateY(-3px);
         }
 
-        .account-box {
+        .home-btn{
+
+            background: #eff6ff;
+
+            color: #2563eb;
+        }
+
+        .settings-btn{
+
+            background: #f1f5f9;
+
+            color: #0f172a;
+        }
+
+        .logout-btn{
+
+            background: #ef4444;
+
+            color: white;
+        }
+
+        /* ===================================
+           Settings Dropdown
+        =================================== */
+
+        .settings-dropdown{
+
+            position: fixed;
+
+            top: 90px;
+
+            left: 40px;
+
+            width: 270px;
 
             background: white;
 
             border-radius: 24px;
 
-            padding: 30px;
+            box-shadow:
+            0 20px 40px rgba(0,0,0,0.12);
 
-            margin-top: 35px;
+            padding: 15px;
 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            z-index: 999;
+
+            display: none;
         }
 
-        .account-box h2 {
+        .settings-dropdown.active{
 
-            color: var(--primary);
-
-            margin-bottom: 20px;
+            display: block;
         }
 
-        .account-info {
+        .settings-item{
 
-            display: flex;
+            padding: 16px;
 
-            flex-direction: column;
+            border-radius: 16px;
 
-            gap: 16px;
-        }
+            cursor: pointer;
 
-        .account-item {
+            transition: 0.3s;
 
             display: flex;
 
@@ -237,60 +147,596 @@
 
             gap: 12px;
 
-            background: #f8fafc;
+            color: var(--secondary);
 
-            padding: 16px;
-
-            border-radius: 14px;
+            font-weight: 700;
         }
 
-        .account-item i {
+        .settings-item:hover{
 
-            color: var(--secondary);
+            background: #eff6ff;
+
+            color: var(--primary);
+        }
+
+        /* ===================================
+           Hero
+        =================================== */
+
+        .student-hero{
+
+            position: relative;
+
+            min-height: 50vh;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            text-align: center;
+
+            overflow: hidden;
+
+            padding: 140px 20px 180px;
+
+            background:
+            linear-gradient(
+                rgba(15,23,42,0.78),
+                rgba(15,23,42,0.78)
+            ),
+            url("images/hero-bg.jpg")
+            center/cover no-repeat;
+        }
+
+        .student-content{
+
+            color: white;
+
+            position: relative;
+
+            z-index: 2;
+
+            max-width: 850px;
+        }
+
+        .student-badge{
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            padding: 12px 22px;
+
+            border-radius: 50px;
+
+            background: rgba(255,255,255,0.12);
+
+            backdrop-filter: blur(10px);
+
+            margin-bottom: 25px;
+        }
+
+        .student-content h1{
+
+            font-size: 3.3rem;
+
+            margin-bottom: 15px;
+        }
+
+        .student-content p{
+
+            color: #e2e8f0;
+
+            line-height: 2;
 
             font-size: 1.1rem;
         }
 
-        .logout-btn {
+        .hero-wave{
 
-            margin-top: 25px;
+            position: absolute;
 
-            border: none;
+            bottom: -2px;
 
-            background: #ef4444;
+            left: 0;
+
+            width: 100%;
+
+            line-height: 0;
+        }
+
+        /* ===================================
+           Dashboard
+        =================================== */
+
+        .dashboard{
+
+            margin-top: -90px;
+
+            position: relative;
+
+            z-index: 10;
+
+            padding-bottom: 100px;
+        }
+
+        .dashboard-container{
+
+            width: 92%;
+
+            max-width: 1350px;
+
+            margin: auto;
+        }
+
+        .student-card{
+
+            background: white;
+
+            border-radius: 35px;
+
+            padding: 35px;
+
+            box-shadow:
+            0 20px 50px rgba(0,0,0,0.08);
+
+            margin-bottom: 35px;
+        }
+
+        .student-top{
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 20px;
+
+            flex-wrap: wrap;
+        }
+
+        .student-info{
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 20px;
+        }
+
+        .student-avatar{
+
+            width: 95px;
+
+            height: 95px;
+
+            border-radius: 28px;
+
+            background:
+            linear-gradient(
+                135deg,
+                var(--primary),
+                var(--accent)
+            );
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
 
             color: white;
 
-            padding: 14px 22px;
+            font-size: 2.3rem;
+        }
+
+        .student-details h2{
+
+            font-size: 2rem;
+
+            margin-bottom: 10px;
+
+            color: var(--secondary);
+        }
+
+        .student-meta{
+
+            display: flex;
+
+            gap: 12px;
+
+            flex-wrap: wrap;
+        }
+
+        .student-meta span{
+
+            background: #eff6ff;
+
+            color: #2563eb;
+
+            padding: 10px 18px;
 
             border-radius: 14px;
 
-            font-family: "Cairo", sans-serif;
-
             font-weight: 700;
 
+            font-size: 0.95rem;
+        }
+
+        .dashboard-actions{
+
+            display: flex;
+
+            gap: 15px;
+
+            flex-wrap: wrap;
+        }
+
+        .dashboard-btn{
+
+            border: none;
+
+            padding: 14px 22px;
+
+            border-radius: 18px;
+
             cursor: pointer;
+
+            font-family: 'Cairo',sans-serif;
+
+            font-weight: 700;
 
             transition: 0.3s;
         }
 
-        .logout-btn:hover {
+        .primary-btn{
 
-            transform: translateY(-3px);
+            background:
+            linear-gradient(
+                135deg,
+                var(--primary),
+                var(--accent)
+            );
 
-            background: #dc2626;
+            color: white;
         }
 
-        @media (max-width:768px) {
+        .secondary-btn{
 
-            .dashboard-header {
+            background: #eef2ff;
 
-                padding: 30px 25px;
+            color: var(--secondary);
+        }
+
+        .dashboard-btn:hover{
+
+            transform: translateY(-4px);
+        }
+
+        /* ===================================
+           Grid
+        =================================== */
+
+        .dashboard-grid{
+
+            display: grid;
+
+            grid-template-columns: 1.4fr 1fr;
+
+            gap: 25px;
+        }
+
+        .dashboard-box{
+
+            background: white;
+
+            border-radius: 30px;
+
+            padding: 30px;
+
+            box-shadow:
+            0 15px 40px rgba(0,0,0,0.06);
+        }
+
+        .box-title{
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            margin-bottom: 25px;
+        }
+
+        .box-title i{
+
+            width: 52px;
+
+            height: 52px;
+
+            border-radius: 16px;
+
+            background:
+            linear-gradient(
+                135deg,
+                var(--primary),
+                var(--accent)
+            );
+
+            color: white;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 1.2rem;
+        }
+
+        .box-title h3{
+
+            color: var(--secondary);
+
+            font-size: 1.4rem;
+        }
+
+        /* ===================================
+           Schedule
+        =================================== */
+
+        .schedule-table{
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+            overflow: hidden;
+
+            border-radius: 20px;
+        }
+
+        .schedule-table th{
+
+            background: var(--secondary);
+
+            color: white;
+
+            padding: 15px;
+        }
+
+        .schedule-table td{
+
+            padding: 16px;
+
+            text-align: center;
+
+            border-bottom: 1px solid #e2e8f0;
+
+            background: #f8fafc;
+
+            font-weight: 600;
+        }
+
+        .schedule-table tr:hover td{
+
+            background: #eff6ff;
+        }
+
+        /* ===================================
+           Quick Cards
+        =================================== */
+
+        .quick-grid{
+
+            display: grid;
+
+            grid-template-columns: repeat(2,1fr);
+
+            gap: 18px;
+        }
+
+        .quick-card{
+
+            background: #f8fafc;
+
+            border-radius: 24px;
+
+            padding: 25px;
+
+            text-align: center;
+
+            transition: 0.3s;
+
+            cursor: pointer;
+        }
+
+        .quick-card:hover{
+
+            transform: translateY(-6px);
+
+            background: #eff6ff;
+        }
+
+        .quick-card i{
+
+            font-size: 2rem;
+
+            color: var(--primary);
+
+            margin-bottom: 15px;
+        }
+
+        .quick-card h4{
+
+            margin-bottom: 10px;
+
+            color: var(--secondary);
+        }
+
+        .quick-card p{
+
+            color: var(--gray);
+
+            line-height: 1.8;
+
+            font-size: 0.95rem;
+        }
+
+        /* ===================================
+           Notifications
+        =================================== */
+
+        .notification{
+
+            display: flex;
+
+            gap: 15px;
+
+            background: #f8fafc;
+
+            border-radius: 20px;
+
+            padding: 18px;
+
+            margin-bottom: 15px;
+        }
+
+        .notification i{
+
+            color: var(--primary);
+
+            font-size: 1.3rem;
+
+            margin-top: 4px;
+        }
+
+        .notification h4{
+
+            margin-bottom: 6px;
+
+            color: var(--secondary);
+        }
+
+        .notification p{
+
+            color: var(--gray);
+
+            line-height: 1.8;
+
+            font-size: 0.95rem;
+        }
+
+        /* ===================================
+           Footer
+        =================================== */
+
+        .developer-box {
+
+            margin-top: 20px;
+
+            background: rgba(255,255,255,0.08);
+
+            border: 1px solid rgba(255,255,255,0.12);
+
+            border-radius: 18px;
+
+            padding: 18px;
+
+            display: flex;
+
+            align-items: flex-start;
+
+            gap: 15px;
+
+            transition: 0.3s;
+        }
+
+        .developer-box:hover {
+
+            transform: translateY(-4px);
+
+            background: rgba(255,255,255,0.12);
+        }
+
+        .developer-box i {
+
+            font-size: 1.8rem;
+
+            color: #f59e0b;
+
+            margin-top: 5px;
+        }
+
+        .developer-box strong {
+
+            display: block;
+
+            margin-bottom: 8px;
+
+            font-size: 1rem;
+
+            color: #ffffff;
+        }
+
+        .developer-box p {
+
+            color: rgba(255,255,255,0.85);
+
+            line-height: 1.8;
+
+            font-size: 0.95rem;
+
+            margin: 0;
+        }
+
+        /* ===================================
+           Responsive
+        =================================== */
+
+        @media(max-width:1000px){
+
+            .dashboard-grid{
+
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media(max-width:768px){
+
+            .student-content h1{
+
+                font-size: 2.3rem;
             }
 
-            .dashboard-header h1 {
+            .quick-grid{
 
-                font-size: 1.8rem;
+                grid-template-columns: 1fr;
+            }
+
+            .student-top{
+
+                flex-direction: column;
+
+                align-items: flex-start;
+            }
+
+            .dashboard-nav-actions{
+
+                gap: 8px;
+            }
+
+            .top-nav-btn{
+
+                padding: 11px 15px;
+
+                font-size: 0.9rem;
             }
         }
 
@@ -305,6 +751,8 @@
     <nav class="navbar">
 
         <div class="nav-container">
+
+            <!-- Logo -->
 
             <a href="index.html" class="logo">
 
@@ -326,175 +774,30 @@
 
             </a>
 
-            <ul class="nav-menu">
+            <!-- Actions -->
 
-                <li>
-                    <a href="index.html">
-                        الرئيسية
-                    </a>
-                </li>
+            <div class="dashboard-nav-actions">
 
-                <li>
-                    <a href="files-schedules.html">
-                        الملفات والجداول
-                    </a>
-                </li>
+                <a href="index.html"
+                   class="top-nav-btn home-btn">
 
-                <li>
-                    <a href="contact.html">
-                        اتصل بنا
-                    </a>
-                </li>
+                    <i class="fas fa-house"></i>
 
-            </ul>
+                    الرئيسية
 
-        </div>
+                </a>
 
-    </nav>
+                <button class="top-nav-btn settings-btn"
+                        onclick="toggleSettingsMenu()">
 
-    <!-- Dashboard -->
+                    <i class="fas fa-gear"></i>
 
-    <section class="dashboard">
+                    الإعدادات
 
-        <div class="container">
+                </button>
 
-            <!-- Header -->
-
-            <div class="dashboard-header">
-
-                <h1>
-
-                    <i class="fas fa-user-graduate"></i>
-
-                    مرحبًا بك في فضاء التلميذ
-
-                </h1>
-
-                <p>
-                    يمكنك الوصول إلى الملفات والجداول
-                    والوثائق الدراسية الخاصة بك بسهولة.
-                </p>
-
-            </div>
-
-            <!-- Cards -->
-
-            <div class="dashboard-grid">
-
-                <div class="dashboard-card">
-
-                    <i class="fas fa-file-pdf"></i>
-
-                    <h3>
-                        الملفات الدراسية
-                    </h3>
-
-                    <p>
-                        تحميل الدروس والملخصات
-                        والتمارين التعليمية.
-                    </p>
-
-                    <a href="files-schedules.html"
-                        class="dashboard-btn">
-
-                        <i class="fas fa-download"></i>
-
-                        فتح الملفات
-
-                    </a>
-
-                </div>
-
-                <div class="dashboard-card">
-
-                    <i class="fas fa-calendar-days"></i>
-
-                    <h3>
-                        الجداول الدراسية
-                    </h3>
-
-                    <p>
-                        الاطلاع على جداول الاختبارات
-                        والفروض والعطل الرسمية.
-                    </p>
-
-                    <a href="files-schedules.html"
-                        class="dashboard-btn">
-
-                        <i class="fas fa-eye"></i>
-
-                        عرض الجداول
-
-                    </a>
-
-                </div>
-
-                <div class="dashboard-card">
-
-                    <i class="fas fa-graduation-cap"></i>
-
-                    <h3>
-                        مواضيع البكالوريا
-                    </h3>
-
-                    <p>
-                        الوصول إلى أرشيف البكالوريا
-                        مع الحلول النموذجية.
-                    </p>
-
-                    <a href="https://www.dzexams.com/ar/bac"
-                        target="_blank"
-                        class="dashboard-btn">
-
-                        <i class="fas fa-arrow-up-right-from-square"></i>
-
-                        فتح الموقع
-
-                    </a>
-
-                </div>
-
-            </div>
-
-            <!-- Account Info -->
-
-            <div class="account-box">
-
-                <h2>
-
-                    <i class="fas fa-user-circle"></i>
-
-                    معلومات الحساب
-
-                </h2>
-
-                <div class="account-info">
-
-                    <div class="account-item">
-
-                        <i class="fas fa-envelope"></i>
-
-                        <span id="studentEmail">
-                            جاري التحميل...
-                        </span>
-
-                    </div>
-
-                    <div class="account-item">
-
-                        <i class="fas fa-id-card"></i>
-
-                        <span id="studentCode">
-                            جاري التحميل...
-                        </span>
-
-                    </div>
-
-                </div>
-
-                <button
-                    class="logout-btn"
-                    id="logoutBtn">
+                <button class="top-nav-btn logout-btn"
+                        onclick="logout()">
 
                     <i class="fas fa-right-from-bracket"></i>
 
@@ -506,78 +809,709 @@
 
         </div>
 
+    </nav>
+
+    <!-- Settings Dropdown -->
+
+    <div class="settings-dropdown"
+         id="settingsDropdown">
+
+        <div class="settings-item">
+
+            <i class="fas fa-envelope"></i>
+
+            تغيير البريد الإلكتروني
+
+        </div>
+
+        <div class="settings-item">
+
+            <i class="fas fa-lock"></i>
+
+            تغيير كلمة المرور
+
+        </div>
+
+        <div class="settings-item">
+
+            <i class="fas fa-bell"></i>
+
+            إعدادات الإشعارات
+
+        </div>
+
+        <div class="settings-item">
+
+            <i class="fas fa-user"></i>
+
+            معلومات الحساب
+
+        </div>
+
+    </div>
+
+    <!-- Hero -->
+
+    <section class="student-hero">
+
+        <div class="student-content">
+
+            <span class="student-badge">
+
+                <i class="fas fa-user-shield"></i>
+
+                لوحة التلميذ الذكية
+
+            </span>
+
+            <h1 id="studentFullName">
+
+                مرحباً بك
+
+            </h1>
+
+            <p>
+
+                يمكنك الآن الوصول إلى جدول التوقيت،
+                الملفات الدراسية، الإعلانات،
+                وكل خدمات الثانوية من مكان واحد.
+
+            </p>
+
+        </div>
+
+        <div class="hero-wave">
+
+            <svg viewBox="0 0 1440 320">
+
+                <path
+                    fill="#f8fafc"
+                    fill-opacity="1"
+                    d="M0,256L80,245.3C160,235,320,213,480,197.3C640,181,800,171,960,186.7C1120,203,1280,245,1360,266.7L1440,288L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z">
+
+                </path>
+
+            </svg>
+
+        </div>
+
     </section>
 
-    <!-- JS -->
+    <!-- Dashboard -->
+
+    <section class="dashboard">
+
+        <div class="dashboard-container">
+
+            <!-- Student Card -->
+
+            <div class="student-card">
+
+                <div class="student-top">
+
+                    <div class="student-info">
+
+                        <div class="student-avatar">
+
+                            <i class="fas fa-user-graduate"></i>
+
+                        </div>
+
+                        <div class="student-details">
+
+                            <h2 id="studentName">
+
+                                جاري تحميل الاسم...
+
+                            </h2>
+
+                            <div class="student-meta">
+
+                                <span>
+                                    السنة الثالثة ثانوي
+                                </span>
+
+                                <span>
+                                    شعبة علوم تجريبية
+                                </span>
+
+                                <span>
+                                    القسم 3AS2
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="dashboard-actions">
+
+                        <button class="dashboard-btn primary-btn">
+
+                            <i class="fas fa-download"></i>
+
+                            تحميل كشف النقاط
+
+                        </button>
+
+                        <button class="dashboard-btn secondary-btn">
+
+                            <i class="fas fa-print"></i>
+
+                            طباعة الجدول
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Grid -->
+
+            <div class="dashboard-grid">
+
+                <!-- Left -->
+
+                <div>
+
+                    <!-- Schedule -->
+
+                    <div class="dashboard-box">
+
+                        <div class="box-title">
+
+                            <i class="fas fa-calendar-days"></i>
+
+                            <h3>
+                                جدول التوقيت الأسبوعي
+                            </h3>
+
+                        </div>
+
+                        <table class="schedule-table">
+
+                            <tr>
+
+                                <th>
+                                    اليوم
+                                </th>
+
+                                <th>
+                                    08:00
+                                </th>
+
+                                <th>
+                                    10:00
+                                </th>
+
+                                <th>
+                                    13:00
+                                </th>
+
+                                <th>
+                                    15:00
+                                </th>
+
+                            </tr>
+
+                            <tr>
+
+                                <td>
+                                    الأحد
+                                </td>
+
+                                <td>
+                                    رياضيات
+                                </td>
+
+                                <td>
+                                    علوم
+                                </td>
+
+                                <td>
+                                    فيزياء
+                                </td>
+
+                                <td>
+                                    عربية
+                                </td>
+
+                            </tr>
+
+                            <tr>
+
+                                <td>
+                                    الإثنين
+                                </td>
+
+                                <td>
+                                    فلسفة
+                                </td>
+
+                                <td>
+                                    إنجليزية
+                                </td>
+
+                                <td>
+                                    تاريخ
+                                </td>
+
+                                <td>
+                                    رياضة
+                                </td>
+
+                            </tr>
+
+                            <tr>
+
+                                <td>
+                                    الثلاثاء
+                                </td>
+
+                                <td>
+                                    علوم
+                                </td>
+
+                                <td>
+                                    رياضيات
+                                </td>
+
+                                <td>
+                                    فرنسية
+                                </td>
+
+                                <td>
+                                    إعلام آلي
+                                </td>
+
+                            </tr>
+
+                            <tr>
+
+                                <td>
+                                    الأربعاء
+                                </td>
+
+                                <td>
+                                    فيزياء
+                                </td>
+
+                                <td>
+                                    عربية
+                                </td>
+
+                                <td>
+                                    رياضيات
+                                </td>
+
+                                <td>
+                                    علوم
+                                </td>
+
+                            </tr>
+
+                            <tr>
+
+                                <td>
+                                    الخميس
+                                </td>
+
+                                <td>
+                                    تاريخ
+                                </td>
+
+                                <td>
+                                    إنجليزية
+                                </td>
+
+                                <td>
+                                    فلسفة
+                                </td>
+
+                                <td>
+                                    رياضة
+                                </td>
+
+                            </tr>
+
+                        </table>
+
+                    </div>
+
+                    <!-- Notifications -->
+
+                    <div class="dashboard-box">
+
+                        <div class="box-title">
+
+                            <i class="fas fa-bell"></i>
+
+                            <h3>
+                                الإشعارات المدرسية
+                            </h3>
+
+                        </div>
+
+                        <div class="notification">
+
+                            <i class="fas fa-circle-info"></i>
+
+                            <div>
+
+                                <h4>
+                                    إعلان هام
+                                </h4>
+
+                                <p>
+                                    سيتم إجراء اختبار الرياضيات
+                                    يوم الخميس القادم.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                        <div class="notification">
+
+                            <i class="fas fa-book"></i>
+
+                            <div>
+
+                                <h4>
+                                    ملفات جديدة
+                                </h4>
+
+                                <p>
+                                    تمت إضافة سلسلة تمارين
+                                    جديدة في مادة الفيزياء.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Right -->
+
+                <div>
+
+                    <!-- Quick Access -->
+
+                    <div class="dashboard-box">
+
+                        <div class="box-title">
+
+                            <i class="fas fa-bolt"></i>
+
+                            <h3>
+                                الوصول السريع
+                            </h3>
+
+                        </div>
+
+                        <div class="quick-grid">
+
+                            <div class="quick-card">
+
+                                <i class="fas fa-file-pdf"></i>
+
+                                <h4>
+                                    الملفات
+                                </h4>
+
+                                <p>
+                                    تحميل الدروس والوثائق
+                                </p>
+
+                            </div>
+
+                            <div class="quick-card">
+
+                                <i class="fas fa-chart-line"></i>
+
+                                <h4>
+                                    النتائج
+                                </h4>
+
+                                <p>
+                                    كشف النقاط والمعدلات
+                                </p>
+
+                            </div>
+
+                            <div class="quick-card">
+
+                                <i class="fas fa-video"></i>
+
+                                <h4>
+                                    الدروس المباشرة
+                                </h4>
+
+                                <p>
+                                    متابعة الحصص أونلاين
+                                </p>
+
+                            </div>
+
+                            <div class="quick-card">
+
+                                <i class="fas fa-envelope"></i>
+
+                                <h4>
+                                    المراسلات
+                                </h4>
+
+                                <p>
+                                    التواصل مع الإدارة
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Footer -->
+
+    <footer class="footer">
+
+        <div class="container">
+
+            <div class="footer-content">
+
+                <!-- School Info -->
+
+                <div class="footer-section">
+
+                    <h3>
+                        ثانوية كريم بلقاسم
+                    </h3>
+
+                    <p>
+                        تيزي وزو - ذراع بن خدة - ميرابو
+                    </p>
+
+                    <div class="developer-box">
+
+                        <i class="fas fa-code"></i>
+
+                        <div>
+
+                            <strong>
+                                تطوير وتصميم الموقع
+                            </strong>
+
+                            <p>
+                                تم تطوير هذا الموقع بكل فخر
+                                من طرف طالب من ثانوية كريم بلقاسم
+                                بهدف إنشاء منصة تعليمية عصرية.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Contact -->
+
+                <div class="footer-section">
+
+                    <h4>
+                        معلومات التواصل
+                    </h4>
+
+                    <p>
+                        <i class="fas fa-phone-volume"></i>
+                        +213 26 12 34 57
+                    </p>
+
+                    <p>
+                        <i class="fas fa-envelope"></i>
+                        lycee.karimbelkacem@edu.dz
+                    </p>
+
+                    <p>
+                        <i class="fas fa-location-dot"></i>
+                        ميرابو - تيزي وزو
+                    </p>
+
+                </div>
+
+                <!-- Social -->
+
+                <div class="footer-section">
+
+                    <h4>
+                        تابعونا
+                    </h4>
+
+                    <div class="social-icons">
+
+                        <a href="#" class="facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+
+                        <a href="#" class="instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="footer-bottom">
+
+                <p>
+
+                    &copy;
+
+                    <span class="current-year">
+                        2026
+                    </span>
+
+                    ثانوية كريم بلقاسم - جميع الحقوق محفوظة
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+    <!-- Firebase -->
 
     <script type="module">
 
-        import {
-
-            auth,
-            logoutStudent,
-            checkAuth
-
-        } from "./js/firebase.js";
+        import { initializeApp }
+        from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
         import {
+            getFirestore,
+            doc,
+            getDoc
+        }
+        from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-            onAuthStateChanged
+        import {
+            getAuth,
+            onAuthStateChanged,
+            signOut
+        }
+        from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-        } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+        // Firebase Config
 
+        const firebaseConfig = {
 
-        // Check Login
+            apiKey: "ضع apiKey هنا",
 
-        checkAuth();
+            authDomain: "ضع authDomain هنا",
 
+            projectId: "ضع projectId هنا",
 
-        // Elements
+            storageBucket: "ضع storageBucket هنا",
 
-        const emailElement =
-            document.getElementById(
-                "studentEmail"
-            );
+            messagingSenderId: "ضع messagingSenderId هنا",
 
-        const codeElement =
-            document.getElementById(
-                "studentCode"
-            );
+            appId: "ضع appId هنا"
+        };
 
-        const logoutBtn =
-            document.getElementById(
-                "logoutBtn"
-            );
+        // Init Firebase
 
+        const app =
+        initializeApp(firebaseConfig);
 
-        // User Info
+        const db =
+        getFirestore(app);
 
-        onAuthStateChanged(auth, (user) => {
+        const auth =
+        getAuth(app);
 
-            if (user) {
+        // Load Student Data
 
-                emailElement.textContent =
-                    user.email;
+        onAuthStateChanged(auth,
+        async(user)=>{
 
-                codeElement.textContent =
-                    localStorage.getItem(
-                        "studentCode"
-                    ) || "غير معروف";
+            if(user){
+
+                const studentRef =
+                doc(db,"students",user.uid);
+
+                const studentSnap =
+                await getDoc(studentRef);
+
+                if(studentSnap.exists()){
+
+                    const data =
+                    studentSnap.data();
+
+                    const fullName =
+                    data.NAME + " " + data.FAMILYNAME;
+
+                    document
+                    .getElementById("studentName")
+                    .innerText = fullName;
+
+                    document
+                    .getElementById("studentFullName")
+                    .innerText =
+                    "مرحباً بك " + fullName;
+                }
+            }
+
+            else{
+
+                window.location.href =
+                "login.html";
             }
         });
 
-
         // Logout
 
-        logoutBtn.addEventListener(
-            "click",
-            () => {
+        window.logout = function(){
 
-                logoutStudent();
-            }
-        );
+            signOut(auth)
+            .then(()=>{
+
+                window.location.href =
+                "login.html";
+            });
+        }
+
+        // Settings Menu
+
+        window.toggleSettingsMenu =
+        function(){
+
+            document
+            .getElementById("settingsDropdown")
+            .classList
+            .toggle("active");
+        }
 
     </script>
+
+    <!-- Main JS -->
+
+    <script src="js/main.js"></script>
 
 </body>
 
