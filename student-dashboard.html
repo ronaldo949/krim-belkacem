@@ -2195,6 +2195,8 @@ async function(){
             return;
         }
 
+        // Verify Student Code
+
         const verifyCode =
         prompt(
             "أعد إدخال رمز التلميذ لتأكيد العملية"
@@ -2211,24 +2213,50 @@ async function(){
             return;
         }
 
+        // Confirm Change
+
         const confirmChange =
-confirm(
-    "بعد الضغط على موافق سيتم فتح تسجيل الدخول بقوقل لاختيار البريد الجديد."
-);
+        confirm(
+            "سيتم حذف البريد الحالي وربط بريد Google جديد بالحساب، هل تريد المتابعة؟"
+        );
 
-if(!confirmChange){
+        if(!confirmChange){
 
-    return;
-}
+            return;
+        }
 
-await signOut(auth);
+        // Student Ref
 
-alert(
-    "قم الآن بتسجيل الدخول بحساب Google الجديد."
-);
+        const studentRef =
+        doc(
+            db,
+            "students",
+            studentCode
+        );
 
-window.location.href =
-"login.html?changeEmail=true";
+        // Delete Old Email
+
+        await updateDoc(
+            studentRef,
+            {
+                email: ""
+            }
+        );
+
+        // Logout
+
+        await signOut(auth);
+
+        localStorage.clear();
+
+        alert(
+            "تم حذف البريد الحالي ✅\nقم الآن بتسجيل الدخول بالبريد الجديد."
+        );
+
+        // Redirect
+
+        window.location.href =
+        "login.html";
     }
 
     catch(error){
@@ -2236,7 +2264,7 @@ window.location.href =
         console.log(error);
 
         alert(
-            "يجب تسجيل الدخول من جديد قبل تغيير البريد."
+            "حدث خطأ أثناء تغيير البريد الإلكتروني"
         );
     }
 };
