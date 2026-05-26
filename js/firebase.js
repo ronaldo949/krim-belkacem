@@ -248,16 +248,14 @@ function checkAuth(){
 
 
 // ===============================
-// Change Gmail Secure
+// Change Gmail
 // ===============================
 
 async function changeStudentEmail(
     studentCode
-){
+) {
 
-    try{
-
-        // تسجيل دخول Google جديد
+    try {
 
         const result =
         await signInWithPopup(
@@ -271,47 +269,12 @@ async function changeStudentEmail(
         const newEmail =
         user.email;
 
-        // Student Ref
-
         const studentRef =
         doc(
             db,
             "students",
             studentCode
         );
-
-        const studentSnap =
-        await getDoc(
-            studentRef
-        );
-
-        if(!studentSnap.exists()){
-
-            alert(
-                "الحساب غير موجود"
-            );
-
-            return;
-        }
-
-        const studentData =
-        studentSnap.data();
-
-        // Prevent Same Email
-
-        if(
-            studentData.email ===
-            newEmail
-        ){
-
-            alert(
-                "هذا البريد مستخدم بالفعل"
-            );
-
-            return;
-        }
-
-        // Update Email
 
         await updateDoc(
             studentRef,
@@ -332,6 +295,7 @@ async function changeStudentEmail(
 
         window.location.href =
         "login.html";
+
     }
 
     catch(error){
