@@ -1583,8 +1583,7 @@ from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import {
     getAuth,
     onAuthStateChanged,
-    signOut,
-    updateEmail
+    signOut
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
@@ -2212,52 +2211,24 @@ async function(){
             return;
         }
 
-        const newEmail =
-        prompt(
-            "أدخل البريد الإلكتروني الجديد"
-        );
+        const confirmChange =
+confirm(
+    "بعد الضغط على موافق سيتم فتح تسجيل الدخول بقوقل لاختيار البريد الجديد."
+);
 
-        if(
-            !newEmail ||
-            !newEmail.includes("@")
-        ){
+if(!confirmChange){
 
-            alert(
-                "البريد الإلكتروني غير صالح ❌"
-            );
+    return;
+}
 
-            return;
-        }
+await signOut(auth);
 
-        await updateEmail(
-            auth.currentUser,
-            newEmail
-        );
+alert(
+    "قم الآن بتسجيل الدخول بحساب Google الجديد."
+);
 
-        const studentRef =
-        doc(
-            db,
-            "students",
-            studentCode
-        );
-
-        await updateDoc(
-            studentRef,
-            {
-                email: newEmail
-            }
-        );
-
-        await auth.signOut();
-
-        localStorage.clear();
-
-        alert(
-            "تم تغيير البريد الإلكتروني وتسجيل الخروج من الحساب ✅"
-        );
-
-        window.location.href =
-        "login.html";
+window.location.href =
+"login.html?changeEmail=true";
     }
 
     catch(error){
