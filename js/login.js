@@ -8,19 +8,84 @@ import {
 
 } from "./firebase.js";
 
+import {
+
+    getFirestore,
+    doc,
+    updateDoc
+
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+import {
+
+    getAuth,
+    GoogleAuthProvider,
+    signInWithPopup
+
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+import {
+
+    initializeApp
+
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+
+// ===============================
+// Firebase Config
+// ===============================
+
+const firebaseConfig = {
+
+    apiKey: "AIzaSyB19bYF7qipO4HgcA2TEvef3O-uPdnPxeM",
+
+    authDomain: "krim-belkacem.firebaseapp.com",
+
+    projectId: "krim-belkacem",
+
+    storageBucket: "krim-belkacem.firebasestorage.app",
+
+    messagingSenderId: "111065327008",
+
+    appId: "1:111065327008:web:9a197b75663e8111af70c5"
+};
+
+
+// ===============================
+// Init Firebase
+// ===============================
+
+const app =
+initializeApp(firebaseConfig);
+
+const db =
+getFirestore(app);
+
+const auth =
+getAuth(app);
+
+const provider =
+new GoogleAuthProvider();
+
 
 // ===============================
 // Elements
 // ===============================
 
 const loginForm =
-    document.getElementById("loginForm");
+document.getElementById(
+    "loginForm"
+);
 
 const studentCodeInput =
-    document.getElementById("studentCode");
+document.getElementById(
+    "studentCode"
+);
 
 const loginBtn =
-    document.getElementById("loginBtn");
+document.getElementById(
+    "loginBtn"
+);
 
 
 // ===============================
@@ -34,9 +99,9 @@ loginForm?.addEventListener(
         e.preventDefault();
 
         const studentCode =
-            studentCodeInput.value
-                .trim()
-                .toUpperCase();
+        studentCodeInput.value
+        .trim()
+        .toUpperCase();
 
         if (!studentCode) {
 
@@ -57,6 +122,72 @@ loginForm?.addEventListener(
         `;
 
         try {
+
+            // ===============================
+            // Check Change Email Mode
+            // ===============================
+
+            const params =
+            new URLSearchParams(
+                window.location.search
+            );
+
+            const changingEmail =
+            params.get(
+                "changeEmail"
+            );
+
+            // ===============================
+            // Change Email
+            // ===============================
+
+            if(changingEmail === "true"){
+
+                localStorage.setItem(
+                    "studentCode",
+                    studentCode
+                );
+
+                const result =
+                await signInWithPopup(
+                    auth,
+                    provider
+                );
+
+                const user =
+                result.user;
+
+                const studentRef =
+                doc(
+                    db,
+                    "students",
+                    studentCode
+                );
+
+                await updateDoc(
+                    studentRef,
+                    {
+                        email: user.email
+                    }
+                );
+
+                alert(
+                    "تم تغيير البريد الإلكتروني بنجاح ✅"
+                );
+
+                await auth.signOut();
+
+                localStorage.clear();
+
+                window.location.href =
+                "login.html";
+
+                return;
+            }
+
+            // ===============================
+            // Normal Login
+            // ===============================
 
             await loginStudent(
                 studentCode
@@ -94,7 +225,7 @@ studentCodeInput?.addEventListener(
     () => {
 
         studentCodeInput.value =
-            studentCodeInput.value.toUpperCase();
+        studentCodeInput.value.toUpperCase();
     }
 );
 
@@ -112,29 +243,31 @@ window.addEventListener(
         );
     }
 );
+
+
 // ===============================
 // Secret Teacher Access
 // ===============================
 
 const secretBtn =
-    document.getElementById(
-        "secretBtn"
-    );
+document.getElementById(
+    "secretBtn"
+);
 
 const teacherPanel =
-    document.getElementById(
-        "teacherPanel"
-    );
+document.getElementById(
+    "teacherPanel"
+);
 
 const teacherLoginBtn =
-    document.getElementById(
-        "teacherLoginBtn"
-    );
+document.getElementById(
+    "teacherLoginBtn"
+);
 
 const teacherPassword =
-    document.getElementById(
-        "teacherPassword"
-    );
+document.getElementById(
+    "teacherPassword"
+);
 
 secretBtn?.addEventListener(
     "click",
@@ -151,14 +284,14 @@ teacherLoginBtn?.addEventListener(
     () => {
 
         const password =
-            teacherPassword.value.trim();
+        teacherPassword.value.trim();
 
         if (
             password === "ADMIN2026"
         ) {
 
             window.location.href =
-                "teacher-dashboard.html";
+            "teacher-dashboard.html";
 
         } else {
 
