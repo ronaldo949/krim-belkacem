@@ -2,7 +2,10 @@
 // Firebase Config & Initialization
 // ===============================
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {
+    initializeApp
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 import {
     getAuth,
@@ -10,15 +13,16 @@ import {
     signInWithPopup,
     signOut,
     onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 import {
     getFirestore,
     doc,
     getDoc,
-    setDoc,
     updateDoc
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
 // ===============================
@@ -47,13 +51,17 @@ const firebaseConfig = {
 // Initialize Firebase
 // ===============================
 
-const app = initializeApp(firebaseConfig);
+const app =
+initializeApp(firebaseConfig);
 
-const auth = getAuth(app);
+const auth =
+getAuth(app);
 
-const db = getFirestore(app);
+const db =
+getFirestore(app);
 
-const provider = new GoogleAuthProvider();
+const provider =
+new GoogleAuthProvider();
 
 provider.setCustomParameters({
     prompt: "select_account"
@@ -64,77 +72,96 @@ provider.setCustomParameters({
 // Login Function
 // ===============================
 
-async function loginStudent(studentCode) {
+async function loginStudent(
+    studentCode
+){
 
-    try {
+    try{
 
-        if (!studentCode) {
+        if(!studentCode){
 
-            alert("يرجى إدخال رمز التلميذ");
+            alert(
+                "يرجى إدخال رمز التلميذ"
+            );
 
             return;
         }
 
         // Google Login
 
-        const result = await signInWithPopup(
+        const result =
+        await signInWithPopup(
             auth,
             provider
         );
 
-        const user = result.user;
+        const user =
+        result.user;
 
-        const email = user.email;
+        const email =
+        user.email;
 
         // Student Document
 
-        const studentRef = doc(
+        const studentRef =
+        doc(
             db,
             "students",
             studentCode
         );
 
-        const studentSnap = await getDoc(
+        const studentSnap =
+        await getDoc(
             studentRef
         );
 
         // Check Student Exists
 
-        if (!studentSnap.exists()) {
+        if(!studentSnap.exists()){
 
-            alert("رمز التلميذ غير موجود");
+            alert(
+                "رمز التلميذ غير موجود"
+            );
 
             await signOut(auth);
 
             return;
         }
 
-        const studentData = studentSnap.data();
+        const studentData =
+        studentSnap.data();
 
         // First Login
 
-        if (!studentData.email) {
+        if(!studentData.email){
 
-            await updateDoc(studentRef, {
-                email: email
-            });
+            await updateDoc(
+                studentRef,
+                {
+                    email: email
+                }
+            );
 
             localStorage.setItem(
                 "studentCode",
                 studentCode
             );
 
-            alert("تم ربط البريد الإلكتروني بنجاح ✅");
+            alert(
+                "تم ربط البريد الإلكتروني بنجاح ✅"
+            );
 
             window.location.href =
-                "student-dashboard.html";
+            "student-dashboard.html";
 
             return;
         }
 
         // Existing Account
 
-        if (studentData.email !== email) {
+        if(
+            studentData.email !== email
+        ){
 
             alert(
                 "هذا البريد الإلكتروني غير مرتبط بهذا الحساب"
@@ -152,18 +179,21 @@ async function loginStudent(studentCode) {
             studentCode
         );
 
-        alert("تم تسجيل الدخول بنجاح ✅");
+        alert(
+            "تم تسجيل الدخول بنجاح ✅"
+        );
 
         window.location.href =
-            "student-dashboard.html";
-
+        "student-dashboard.html";
     }
 
-    catch (error) {
+    catch(error){
 
         console.error(error);
 
-        alert("حدث خطأ أثناء تسجيل الدخول");
+        alert(
+            "حدث خطأ أثناء تسجيل الدخول"
+        );
     }
 }
 
@@ -172,9 +202,9 @@ async function loginStudent(studentCode) {
 // Logout Function
 // ===============================
 
-async function logoutStudent() {
+async function logoutStudent(){
 
-    try {
+    try{
 
         await signOut(auth);
 
@@ -183,14 +213,16 @@ async function logoutStudent() {
         );
 
         window.location.href =
-            "login.html";
+        "login.html";
     }
 
-    catch (error) {
+    catch(error){
 
         console.error(error);
 
-        alert("حدث خطأ أثناء تسجيل الخروج");
+        alert(
+            "حدث خطأ أثناء تسجيل الخروج"
+        );
     }
 }
 
@@ -199,56 +231,110 @@ async function logoutStudent() {
 // Check Login
 // ===============================
 
-function checkAuth() {
+function checkAuth(){
 
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(
+        auth,
+        (user)=>{
 
-        if (!user) {
+            if(!user){
 
-            window.location.href =
+                window.location.href =
                 "login.html";
+            }
         }
-    });
+    );
 }
 
 
 // ===============================
-// Change Gmail
+// Change Gmail Secure
 // ===============================
 
 async function changeStudentEmail(
     studentCode
-) {
+){
 
-    try {
+    try{
 
-        const result = await signInWithPopup(
+        // تسجيل دخول Google جديد
+
+        const result =
+        await signInWithPopup(
             auth,
             provider
         );
 
-        const newEmail =
-            result.user.email;
+        const user =
+        result.user;
 
-        const studentRef = doc(
+        const newEmail =
+        user.email;
+
+        // Student Ref
+
+        const studentRef =
+        doc(
             db,
             "students",
             studentCode
         );
 
-        await updateDoc(studentRef, {
-            email: newEmail
-        });
+        const studentSnap =
+        await getDoc(
+            studentRef
+        );
+
+        if(!studentSnap.exists()){
+
+            alert(
+                "الحساب غير موجود"
+            );
+
+            return;
+        }
+
+        const studentData =
+        studentSnap.data();
+
+        // Prevent Same Email
+
+        if(
+            studentData.email ===
+            newEmail
+        ){
+
+            alert(
+                "هذا البريد مستخدم بالفعل"
+            );
+
+            return;
+        }
+
+        // Update Email
+
+        await updateDoc(
+            studentRef,
+            {
+                email: newEmail
+            }
+        );
+
+        // Logout All Devices
+
+        await signOut(auth);
+
+        localStorage.clear();
 
         alert(
             "تم تغيير البريد الإلكتروني بنجاح ✅"
         );
 
-        location.reload();
-
+        window.location.href =
+        "login.html";
     }
 
-    catch (error) {
+    catch(error){
 
         console.error(error);
 
