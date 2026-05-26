@@ -301,3 +301,34 @@ teacherLoginBtn?.addEventListener(
         }
     }
 );
+// ===============================
+// Change Email Mode
+// ===============================
+
+const params =
+new URLSearchParams(
+    window.location.search
+);
+
+const isChangingEmail =
+params.get("changeEmail");
+
+if(isChangingEmail === "true"){
+
+    const studentCode =
+    localStorage.getItem(
+        "studentCode"
+    );
+
+    if(studentCode){
+
+        import("./firebase.js")
+        .then(async(firebase)=>{
+
+            await firebase
+            .changeStudentEmail(
+                studentCode
+            );
+        });
+    }
+}
