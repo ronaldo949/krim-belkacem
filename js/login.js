@@ -1,71 +1,11 @@
 // ===============================
-// Import Firebase Functions
+// Import Firebase
 // ===============================
 
 import {
-
     loginStudent
-
-} from "./firebase.js";
-
-import {
-
-    getFirestore,
-    doc,
-    updateDoc
-
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-import {
-
-    getAuth,
-    GoogleAuthProvider,
-    signInWithPopup
-
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-import {
-
-    initializeApp
-
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
-
-// ===============================
-// Firebase Config
-// ===============================
-
-const firebaseConfig = {
-
-    apiKey: "AIzaSyB19bYF7qipO4HgcA2TEvef3O-uPdnPxeM",
-
-    authDomain: "krim-belkacem.firebaseapp.com",
-
-    projectId: "krim-belkacem",
-
-    storageBucket: "krim-belkacem.firebasestorage.app",
-
-    messagingSenderId: "111065327008",
-
-    appId: "1:111065327008:web:9a197b75663e8111af70c5"
-};
-
-
-// ===============================
-// Init Firebase
-// ===============================
-
-const app =
-initializeApp(firebaseConfig);
-
-const db =
-getFirestore(app);
-
-const auth =
-getAuth(app);
-
-const provider =
-new GoogleAuthProvider();
+}
+from "./firebase.js";
 
 
 // ===============================
@@ -92,243 +32,127 @@ document.getElementById(
 // Login Submit
 // ===============================
 
-loginForm?.addEventListener(
-    "submit",
-    async (e) => {
+if(loginForm){
 
-        e.preventDefault();
+    loginForm.addEventListener(
+        "submit",
+        async function(e){
 
-        const studentCode =
-        studentCodeInput.value
-        .trim()
-        .toUpperCase();
+            e.preventDefault();
 
-        if (!studentCode) {
+            // Student Code
 
-            alert(
-                "يرجى إدخال رمز التلميذ"
-            );
+            const studentCode =
+            studentCodeInput.value
+            .trim()
+            .toUpperCase();
 
-            return;
-        }
+            // Empty Check
 
-        // Disable Button
-
-        loginBtn.disabled = true;
-
-        loginBtn.innerHTML = `
-            <i class="fas fa-spinner fa-spin"></i>
-            جاري تسجيل الدخول...
-        `;
-
-        try {
-
-            // ===============================
-            // Check Change Email Mode
-            // ===============================
-
-            const params =
-            new URLSearchParams(
-                window.location.search
-            );
-
-            const changingEmail =
-            params.get(
-                "changeEmail"
-            );
-
-            // ===============================
-            // Change Email
-            // ===============================
-
-            if(changingEmail === "true"){
-
-                localStorage.setItem(
-                    "studentCode",
-                    studentCode
-                );
-
-                const result =
-                await signInWithPopup(
-                    auth,
-                    provider
-                );
-
-                const user =
-                result.user;
-
-                const studentRef =
-                doc(
-                    db,
-                    "students",
-                    studentCode
-                );
-
-                await updateDoc(
-                    studentRef,
-                    {
-                        email: user.email
-                    }
-                );
+            if(!studentCode){
 
                 alert(
-                    "تم تغيير البريد الإلكتروني بنجاح ✅"
+                    "يرجى إدخال رمز التلميذ"
                 );
-
-                await auth.signOut();
-
-                localStorage.clear();
-
-                window.location.href =
-                "login.html";
 
                 return;
             }
 
-            // ===============================
-            // Normal Login
-            // ===============================
+            try{
 
-            await loginStudent(
-                studentCode
-            );
+                // Disable Button
+
+                loginBtn.disabled = true;
+
+                loginBtn.innerHTML = `
+                    <i class="fas fa-spinner fa-spin"></i>
+                    جاري تسجيل الدخول...
+                `;
+
+                // Firebase Login
+
+                await loginStudent(
+                    studentCode
+                );
+
+            }
+
+            catch(error){
+
+                console.log(
+                    "Login Error:",
+                    error
+                );
+
+                alert(
+                    error.message ||
+                    "حدث خطأ أثناء تسجيل الدخول"
+                );
+            }
+
+            finally{
+
+                // Enable Button
+
+                loginBtn.disabled = false;
+
+                loginBtn.innerHTML = `
+
+                    <svg class="google-logo"
+                         xmlns="http://www.w3.org/2000/svg"
+                         viewBox="0 0 48 48">
+
+                        <path fill="#FFC107"
+                              d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3 0 5.7 1.1 7.8 3l5.7-5.7C34.1 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.3-.4-3.5z"/>
+
+                        <path fill="#FF3D00"
+                              d="M6.3 14.7l6.6 4.8C14.7 15.1 18.9 12 24 12c3 0 5.7 1.1 7.8 3l5.7-5.7C34.1 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/>
+
+                        <path fill="#4CAF50"
+                              d="M24 44c5.2 0 10-2 13.5-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.3 0-9.7-3.3-11.3-8l-6.5 5C9.5 39.5 16.2 44 24 44z"/>
+
+                        <path fill="#1976D2"
+                              d="M43.6 20.5H42V20H24v8h11.3c-1.1 3-3.4 5.3-6.5 6.8l6.2 5.2C39.5 36.1 44 30.6 44 24c0-1.3-.1-2.3-.4-3.5z"/>
+
+                    </svg>
+
+                    <span>
+                        تسجيل الدخول عبر Google
+                    </span>
+                `;
+            }
         }
-
-        catch (error) {
-
-            console.error(error);
-
-            alert(
-                "حدث خطأ أثناء تسجيل الدخول"
-            );
-        }
-
-        finally {
-
-            loginBtn.disabled = false;
-
-            loginBtn.innerHTML = `
-                <i class="fab fa-google"></i>
-                تسجيل الدخول عبر Google
-            `;
-        }
-    }
-);
+    );
+}
 
 
 // ===============================
 // Auto Uppercase
 // ===============================
 
-studentCodeInput?.addEventListener(
-    "input",
-    () => {
+if(studentCodeInput){
 
-        studentCodeInput.value =
-        studentCodeInput.value.toUpperCase();
-    }
-);
+    studentCodeInput.addEventListener(
+        "input",
+        function(){
+
+            studentCodeInput.value =
+            studentCodeInput.value.toUpperCase();
+        }
+    );
+}
 
 
 // ===============================
-// Enter Animation
+// Page Animation
 // ===============================
 
 window.addEventListener(
     "load",
-    () => {
+    function(){
 
         document.body.classList.add(
             "loaded"
         );
     }
 );
-
-
-// ===============================
-// Secret Teacher Access
-// ===============================
-
-const secretBtn =
-document.getElementById(
-    "secretBtn"
-);
-
-const teacherPanel =
-document.getElementById(
-    "teacherPanel"
-);
-
-const teacherLoginBtn =
-document.getElementById(
-    "teacherLoginBtn"
-);
-
-const teacherPassword =
-document.getElementById(
-    "teacherPassword"
-);
-
-secretBtn?.addEventListener(
-    "click",
-    () => {
-
-        teacherPanel.classList.toggle(
-            "active"
-        );
-    }
-);
-
-teacherLoginBtn?.addEventListener(
-    "click",
-    () => {
-
-        const password =
-        teacherPassword.value.trim();
-
-        if (
-            password === "ADMIN2026"
-        ) {
-
-            window.location.href =
-            "teacher-dashboard.html";
-
-        } else {
-
-            alert(
-                "الرمز السري غير صحيح"
-            );
-        }
-    }
-);
-// ===============================
-// Change Email Mode
-// ===============================
-
-const params =
-new URLSearchParams(
-    window.location.search
-);
-
-const isChangingEmail =
-params.get("changeEmail");
-
-if(isChangingEmail === "true"){
-
-    const studentCode =
-    localStorage.getItem(
-        "studentCode"
-    );
-
-    if(studentCode){
-
-        import("./firebase.js")
-        .then(async(firebase)=>{
-
-            await firebase
-            .changeStudentEmail(
-                studentCode
-            );
-        });
-    }
-}
